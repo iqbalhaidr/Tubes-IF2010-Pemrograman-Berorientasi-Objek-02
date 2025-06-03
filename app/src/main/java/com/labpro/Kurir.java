@@ -1,21 +1,31 @@
 package com.labpro;
 
-public class Kurir {
-    private Integer id;
-    private String name;
-    private String status;
+import java.time.LocalDate;
 
-    Kurir(Integer ID, String name, String status) {
+
+public class Kurir {
+    private int id;
+    private String name;
+    private JenisKelamin jenisKelamin;
+    private String pathFoto;
+    private LocalDate tanggalLahir;
+    private boolean deleteStatus; // soft delete
+
+    Kurir(int ID, String name, JenisKelamin jenisKelamin, String pathFoto, LocalDate tanggalLahir) {
         this.id = ID;
         this.name = name;
-        this.status = status;
+        this.jenisKelamin = jenisKelamin;
+        this.pathFoto = pathFoto;
+        this.tanggalLahir = tanggalLahir;
+        this.deleteStatus = false;
+
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -27,19 +37,44 @@ public class Kurir {
         this.name = name;
     }
 
-    public String getStatus() {
-        return status;
+    public JenisKelamin getJenisKelamin() {
+        return jenisKelamin;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setJenisKelamin (JenisKelamin jenisKelamin) {
+        this.jenisKelamin = jenisKelamin;
     }
+
+    public String getPathFoto() {
+        return pathFoto;
+    }
+
+    public void setPathFoto(String pathFoto) {
+        this.pathFoto = pathFoto;
+    }
+
+    public LocalDate getTanggalLahir() {
+        return tanggalLahir;
+    }
+
+    public void setTanggalLahir(LocalDate tanggalLahir) {
+        this.tanggalLahir = tanggalLahir;
+    }
+
+    public boolean getDeleteStatus() {
+        return deleteStatus;
+    }
+
+    public void setDeleteStatus(boolean deleteStatus) {
+        this.deleteStatus = deleteStatus;
+    }
+
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Kurir) {
             Kurir other = (Kurir) obj;
-            return this.id.equals(other.id);
+            return this.id == other.id;
         }
 
         return false;
@@ -47,6 +82,6 @@ public class Kurir {
 
     @Override
     public String toString() {
-        return "Kurir " + name + " dengan ID " + id + " status: " + status;
+        return "Kurir " + name + " dengan ID " + id;
     }
 }
