@@ -1,13 +1,31 @@
 package com.labpro;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RepoPengirimanController implements Listener {
     public ArrayList<Kurir>  KurirAktif;
     public ArrayList<Parsel> ParselAktif;
 
-    public RepoPengirimanController() {}
+    public RepoPengirimanController(ArrayList<Kurir> KurirAktif, ArrayList<Parsel> ParselAktif) {
+        this.KurirAktif = KurirAktif;
+        this.ParselAktif = ParselAktif;
+    }
+
+    public ArrayList<Kurir> getKurirAktif() {
+        return KurirAktif;
+    }
+
+    public ArrayList<Parsel> getParselAktif() {
+        return ParselAktif;
+    }
+
+    public void setKurirAktif(ArrayList<Kurir> kurirAktif) {
+        KurirAktif = kurirAktif;
+    }
+
+    public void setParselAktif(ArrayList<Parsel> parselAktif) {
+        ParselAktif = parselAktif;
+    }
 
     @Override
     public void update(Object data, EventType eventType) {
