@@ -46,6 +46,10 @@ public class User {
         this.isAdmin = admin;
     }
 
+    public boolean validatePassword(String password) {
+        return this.password.equals(password);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
