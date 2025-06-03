@@ -51,4 +51,13 @@ class Parsel {
     public void setTipe(String tipe) {
         this.tipe = tipe;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Parsel) {
+            Parsel p = (Parsel) o;
+            return ID == p.ID;
+        }
+        return false;
+    }
 }
