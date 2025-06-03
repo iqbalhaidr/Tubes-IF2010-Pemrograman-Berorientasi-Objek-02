@@ -1,0 +1,12 @@
+<root>
+    <Animal>
+        <type>dog</type>
+        <name>Buddy</name>
+        <barkVolume>10</barkVolume>
+    </Animal>
+    <Animal>
+        <type>cat</type>
+        <name>Whiskers</name>
+        <livesLeft>9</livesLeft>
+    </Animal>
+</root>
