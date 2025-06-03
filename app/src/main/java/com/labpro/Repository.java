@@ -1,0 +1,43 @@
+package com.labpro;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+class Repository<T> {
+    private final List<T> listOfEntity;
+
+    public Repository() {
+        this.listOfEntity = new ArrayList<>();
+    }
+
+    public List<T> findAll() {
+        return listOfEntity;
+    }
+
+    public T findById(String id) {
+        for (T entity : listOfEntity) {
+            if (entity.getID() == id) { // Gantilah dengan pengecekan ID yang sesuai
+                return entity;
+            }
+        }
+        return null;
+    }
+
+    public void delete(String id) {
+        listOfEntity.removeIf(entity -> entity.getID() == id);
+    }
+
+    public void saveData(String filePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (T entity : listOfEntity) {
+                entity.write(writer);
+            }
+            System.out.println("Data berhasil disimpan ke: " + filePath);
+        } catch (IOException e) {
+            System.err.println("Gagal menyimpan data: " + e.getMessage());
+        }
+    }
+}
