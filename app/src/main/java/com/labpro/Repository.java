@@ -19,7 +19,7 @@ class Repository<T> {
 
     public T findById(String id) {
         for (T entity : listOfEntity) {
-            if (entity.getID() == id) { // Gantilah dengan pengecekan ID yang sesuai
+            if (entity.getID() == id) {
                 return entity;
             }
         }
