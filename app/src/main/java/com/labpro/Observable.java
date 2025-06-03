@@ -1,7 +1,6 @@
 package com.labpro;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Observable {
     private ArrayList<Listener> listeners;
