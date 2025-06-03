@@ -28,7 +28,7 @@ public class RepoPengirimanController implements Listener {
     }
 
     @Override
-    public void update(Object data, EventType eventType) {
+    public void update(Object data, ObservableEventType eventType) {
         switch (eventType) {
             case CreateKurir:
                 Kurir kurir = (Kurir) data;
