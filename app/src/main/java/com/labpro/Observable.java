@@ -17,7 +17,7 @@ public class Observable {
         listeners.remove(listener);
     }
 
-    public void notifyListeners(Object data, Listener.EventType eventType) {
+    public void notifyListeners(Object data, ObservableEventType eventType) {
         for (Listener listener : listeners) {
             listener.update(data, eventType);
         }
