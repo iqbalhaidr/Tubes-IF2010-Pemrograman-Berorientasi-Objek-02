@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Repository<T> {
-    private final List<T> listOfEntity;
+    protected final List<T> listOfEntity;
 
     public Repository() {
         this.listOfEntity = new ArrayList<>();
@@ -17,7 +17,7 @@ class Repository<T> {
         return listOfEntity;
     }
 
-    public T findById(String id) {
+    public T findById(int id) {
         for (T entity : listOfEntity) {
             if (entity.getID() == id) {
                 return entity;
@@ -26,7 +26,7 @@ class Repository<T> {
         return null;
     }
 
-    public void delete(String id) {
+    public void delete(int id) {
         listOfEntity.removeIf(entity -> entity.getID() == id);
     }
 
