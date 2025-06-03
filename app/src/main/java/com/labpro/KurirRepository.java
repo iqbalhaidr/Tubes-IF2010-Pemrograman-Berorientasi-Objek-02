@@ -22,12 +22,11 @@ public class KurirRepository extends Repository<Kurir>{
         } else {
             newID = findById(listOfEntity.size() - 1).getId() + 1; // id terakhir + 1
         }
-        newKurir = new Kurir(newID, nama, jenisKelamin, pathFoto, tanggalLahir)
-        assert newKurir != null : "Objek kurir seharusnya tidak null";
+        Kurir newKurir = new Kurir(newID, nama, jenisKelamin, pathFoto, tanggalLahir);
 
         listOfEntity.add(newKurir);
     }
-    public void update(int ID, String nama, String strJenisKelamin, String pathFoto, LocalDate tanggalLahir, boolean deleteStatus) {
+    public void update(int ID, String nama, String strJenisKelamin, String pathFoto, LocalDate tanggalLahir, Boolean deleteStatus) {
         assert ID >= 0 : "ID tidak boleh bernilai negatif";
 
         Kurir kurir = findById(ID);
@@ -48,7 +47,7 @@ public class KurirRepository extends Repository<Kurir>{
             kurir.setTanggalLahir(tanggalLahir);
         }
 
-        if (deleteStatus) {
+        if (deleteStatus != null) {
             kurir.setDeleteStatus(deleteStatus);
         }
     }

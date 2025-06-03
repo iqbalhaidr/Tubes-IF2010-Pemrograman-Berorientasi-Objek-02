@@ -8,17 +8,31 @@ import java.util.List;
 
 class Parsel {
     private int ID;
+    private ParselStatus status;
     private int[] dimensi = new int[3];
     private double berat;
-    private String tipe;
+    private String jenisBarang;
 
-    public int getID() {
-        return ID;
+    public Parsel(int ID, ParselStatus status, int[] dimensi, double berat, String jenisBarang) {
+        this.ID = ID;
+        this.status = status;
+        this.dimensi = dimensi;
+        this.berat = berat;
+        this.jenisBarang = jenisBarang;
+
     }
+    public int getID() {
+            return ID;
+        }
 
     public void setID(int ID) {
         this.ID = ID;
     }
+
+
+    public ParselStatus getStatus() { return status;}
+
+    public void setStatus(ParselStatus status) { this.status = status;}
 
     public int[] getDimensi() {
         return dimensi;
@@ -44,11 +58,12 @@ class Parsel {
         }
     }
 
-    public String getTipe() {
-        return tipe;
+    public String getJenisBarang() {
+        return jenisBarang;
     }
 
-    public void setTipe(String tipe) {
-        this.tipe = tipe;
+    public void setJenisBarang(String jenisBarang) {
+
+        this.jenisBarang = jenisBarang;
     }
 }
