@@ -1,11 +1,8 @@
 package com.labpro;
 
+import com.sun.tools.javac.util.List;
 
-import java.util.List;
-import java.util.Map;
-import java.util.LinkedHashMap;
-
-import java.util.Date;
+import java.util.*;
 
 
 public abstract class Pengiriman {
@@ -85,7 +82,7 @@ public abstract class Pengiriman {
     }
 
     public Date getTanngalPembuatan() {
-        return tanggalPembuatan;
+        return  this.tanggalPembuatan;
     }
 
     public void setTanngalPembuatan(Date tanggalPembuatan) {

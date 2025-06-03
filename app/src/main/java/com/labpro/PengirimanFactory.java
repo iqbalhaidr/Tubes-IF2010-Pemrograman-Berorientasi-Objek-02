@@ -10,7 +10,7 @@ public abstract class PengirimanFactory {
             StatusPengiriman statusPengiriman, Date tanggalPembuatan,
             String namaPengirim, String noTelp, String namaPenerima,
             String noTelpPenerima, List<String> listIdParsel,
-            Integer kurirId, Sjtring pdfFilePath, String kodePajak
+            Integer kurirId, String pdfFilePath, String kodePajak
     ) {
 
         return buatPengiriman(

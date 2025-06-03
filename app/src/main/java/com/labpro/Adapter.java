@@ -109,15 +109,15 @@ public class Adapter<T> {
 
     public static void main(String[] args) throws IOException {
 //         non-polymorphic
-         Adapter<Person> personAdapter = new Adapter<>("D:\\Codes\\SEMESTER4IF\\Codes\\OOP\\if2010-tubes-2-2425-lah\\app\\src\\main\\resources\\test.json", Person.class);
-         List<Person> people = personAdapter.parseList();
-         System.out.println(people);
+//         Adapter<Person> personAdapter = new Adapter<>("D:\\Codes\\SEMESTER4IF\\Codes\\OOP\\if2010-tubes-2-2425-lah\\app\\src\\main\\resources\\test.json", Person.class);
+//         List<Person> people = personAdapter.parseList();
+//         System.out.println(people);
 
         Map<String, Class<? extends Animal>> map = new HashMap<>();
         map.put("dog", Dog.class);
         map.put("cat", Cat.class);
 
-        Adapter<Animal> adapter = new Adapter<>("D:\\Codes\\SEMESTER4IF\\Codes\\OOP\\if2010-tubes-2-2425-lah\\app\\src\\main\\resources\\tesabsxml.xml", Animal.class, "type", map);
+        Adapter<Animal> adapter = new Adapter<>("D:\\tubes-oop\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\tesabsxml.xml", Animal.class, "type", map);
         List<Animal> animals = adapter.parseList();
 
         for (Animal a : animals) {
