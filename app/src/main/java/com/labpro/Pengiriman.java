@@ -2,15 +2,15 @@ package com.labpro;
 
 import com.sun.tools.javac.util.List;
 
-import java.util.Date;
+import java.util.*;
 
 
-public class Pengiriman {
+public abstract class Pengiriman {
     protected Integer idPengiriman;
     protected String noResi;
     protected String tujuan;
     protected StatusPengiriman statusPengiriman;
-    protected Date tanngalPembuatan;
+    protected Date tanggalPembuatan;
     protected String namaPengiriman;
     protected String noTelp;
     protected String namaPenerima;
@@ -18,17 +18,20 @@ public class Pengiriman {
     protected List<String> listIdParsel;
     protected List<Parsel> listOfParsel;
     protected Integer kurirId;
+    protected String kurirName;
+    protected String pdfFilePath;
+    protected String kodePajak;
 
     public Pengiriman(Integer idPengiriman, String noResi, String tujuan, StatusPengiriman statusPengiriman,
                       Date tanggalPembuatan, String namaPengirim, String noTelp,
                       String namaPenerima, String noTelpPenerima, List<String> listIdParsel,
-                      Integer kurirId) {
+                      Integer kurirId, String pdfFilePath, String kodePajak) {
 
         this.idPengiriman = idPengiriman;
         this.noResi = noResi;
         this.tujuan = tujuan;
         this.statusPengiriman = statusPengiriman;
-        this.tanngalPembuatan = tanggalPembuatan;
+        this.tanggalPembuatan = tanggalPembuatan;
         this.namaPengiriman = namaPengirim;
         this.noTelp = noTelp;
         this.namaPenerima = namaPenerima;
@@ -79,11 +82,11 @@ public class Pengiriman {
     }
 
     public Date getTanngalPembuatan() {
-        return tanngalPembuatan;
+        return  this.tanggalPembuatan;
     }
 
-    public void setTanngalPembuatan(Date tanngalPembuatan) {
-        this.tanngalPembuatan = tanngalPembuatan;
+    public void setTanngalPembuatan(Date tanggalPembuatan) {
+        this.tanggalPembuatan = tanggalPembuatan;
     }
 
     public String getNamaPengiriman() {
@@ -155,5 +158,22 @@ public class Pengiriman {
         }
     }
 
+
+    public Map<String, String> getDetails() {
+        Map<String, String> details = new LinkedHashMap<>();
+        details.put("idPengiriman", String.valueOf(idPengiriman));
+        details.put("noResi", noResi);
+        details.put("tujuan", tujuan);
+        details.put("statusPengiriman", statusPengiriman != null ? statusPengiriman.toString() : null);
+        details.put("tanggalPembuatan", this.tanggalPembuatan != null ? this.tanggalPembuatan.toString() : null);
+        details.put("namaPengiriman", namaPengiriman);
+        details.put("noTelp", noTelp);
+        details.put("namaPenerima", namaPenerima);
+        details.put("noTelpPenerima", noTelpPenerima);
+        details.put("kurirId", String.valueOf(kurirId));
+        return details;
+    }
+
+    public abstract String getType();
 
 }
