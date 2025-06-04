@@ -68,7 +68,6 @@ public class ParselRepository extends Repository<Parsel> {
         if (deleteStatus != null) {
             parsel.setDeleteStatus(deleteStatus);
         }
-
-
+    return parsel;
     }
 }
