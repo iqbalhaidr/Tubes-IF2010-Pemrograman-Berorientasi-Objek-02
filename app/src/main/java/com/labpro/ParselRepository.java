@@ -1,11 +1,11 @@
 package com.labpro;
 
-public class ParselRepository extends Repository<Parsel>{
+public class ParselRepository extends Repository<Parsel> {
     public ParselRepository() {
         super();
     }
 
-    public void create(String strStatus, int panjang, int lebar, int tinggi, double berat, String jenisBarang) {
+    public Parsel create(String strStatus, int panjang, int lebar, int tinggi, double berat, String jenisBarang) {
         ParselStatus status;
         assert strStatus != null && !strStatus.trim().isEmpty() : "Status tidak boleh kosong";
         status = ParselStatus.valueOf(strStatus.toUpperCase());
@@ -31,7 +31,7 @@ public class ParselRepository extends Repository<Parsel>{
 
     }
 
-    public void update(int ID, String strStatus, Integer panjang, Integer lebar, Integer tinggi, Double berat, String jenisBarang) {
+    public Parsel update(int ID, String strStatus, Integer panjang, Integer lebar, Integer tinggi, Double berat, String jenisBarang, Boolean deleteStatus) {
         assert ID >= 0 : "ID tidak boleh bernilai negatif";
 
         Parsel parsel = findById(ID);
@@ -65,7 +65,9 @@ public class ParselRepository extends Repository<Parsel>{
             parsel.setJenisBarang(jenisBarang);
         }
 
-
+        if (deleteStatus != null) {
+            parsel.setDeleteStatus(deleteStatus);
+        }
 
 
     }
