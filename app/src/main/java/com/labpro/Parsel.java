@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-class Parsel {
+class Parsel implements HasID {
     private int ID;
     private ParselStatus status;
     private int[] dimensi = new int[3];
@@ -23,7 +23,7 @@ class Parsel {
         this.deleteStatus = false;
 
     }
-    public int getID() {
+    public Integer getID() {
         return ID;
     }
 
