@@ -3,7 +3,7 @@ package com.labpro;
 import java.time.LocalDate;
 
 
-public class Kurir implements HasID{
+public class Kurir implements CommonRepoMethods {
     private int id;
     private String name;
     private JenisKelamin jenisKelamin;

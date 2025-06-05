@@ -1,12 +1,6 @@
 package com.labpro;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-class Parsel implements HasID {
+class Parsel implements CommonRepoMethods  {
     private int ID;
     private ParselStatus status;
     private int[] dimensi = new int[3];

@@ -5,8 +5,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-class Repository<T> {
+class Repository<T extends CommonRepoMethods> {
     protected final List<T> listOfEntity;
 
     public Repository() {
@@ -14,20 +15,22 @@ class Repository<T> {
     }
 
     public List<T> findAll() {
-        return listOfEntity;
+        return listOfEntity.stream()
+                .filter(entity -> !entity.getDeleteStatus())
+                .collect(Collectors.toList());
     }
 
     public T findById(int id) {
-        for (T entity : listOfEntity) {
-            if (entity.getID() == id) {
-                return entity;
-            }
-        }
-        return null;
+        return listOfEntity.stream()
+                .filter(entity -> !entity.getDeleteStatus())
+                .filter(entity -> entity.getID() == id)
+                .findFirst()
+                .orElse(null);
     }
 
     public void delete(int id) {
-        listOfEntity.removeIf(entity -> entity.getID() == id);
+        T entity = findById(id);
+        entity.setDeleteStatus(false);
     }
 
     public void saveData(String filePath) {
