@@ -3,7 +3,7 @@ package com.labpro;
 import java.time.LocalDate;
 
 
-public class Kurir {
+public class Kurir implements HasID{
     private int id;
     private String name;
     private JenisKelamin jenisKelamin;
@@ -21,7 +21,7 @@ public class Kurir {
 
     }
 
-    public int getId() {
+    public Integer getID() {
         return id;
     }
 

@@ -5,7 +5,7 @@ package com.labpro;
 import java.util.*;
 
 
-public abstract class Pengiriman {
+public abstract class Pengiriman implements HasID {
     protected Integer idPengiriman;
     protected String noResi;
     protected String tujuan;
@@ -38,6 +38,10 @@ public abstract class Pengiriman {
         this.noTelpPenerima = noTelpPenerima;
         this.listIdParsel = listIdParsel;
         this.kurirId = kurirId;
+    }
+
+    public Integer getID() {
+        return getIdPengiriman();
     }
 
     public void generateParselList(ParselRepository repo) {
