@@ -162,6 +162,28 @@ public abstract class Pengiriman implements HasID {
         }
     }
 
+    public String getKurirName() {
+        return this.kurirName;
+    }
+
+    public void setKurirName(String kurirName) {
+        this.kurirName = kurirName;
+    }
+
+    public void addParsel(Parsel parsel) {
+        if (this.listOfParsel == null) {
+            this.listOfParsel = new ArrayList<>();
+        }
+        this.listOfParsel.add(parsel);
+        this.addIdParsel(parsel.getID());
+    }
+
+    public void removeParsel(Parsel parsel) {
+        if (this.listOfParsel != null) {
+            this.listOfParsel.remove(parsel);
+            this.removeIdParsel(parsel.getID());
+        }
+    }
 
     public Map<String, String> getDetails() {
         Map<String, String> details = new LinkedHashMap<>();
