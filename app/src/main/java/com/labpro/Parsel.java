@@ -6,12 +6,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-class Parsel {
+class Parsel implements HasID {
     private int ID;
     private ParselStatus status;
     private int[] dimensi = new int[3];
     private double berat;
     private String jenisBarang;
+    private boolean deleteStatus;
 
     public Parsel(int ID, ParselStatus status, int[] dimensi, double berat, String jenisBarang) {
         this.ID = ID;
@@ -19,11 +20,12 @@ class Parsel {
         this.dimensi = dimensi;
         this.berat = berat;
         this.jenisBarang = jenisBarang;
+        this.deleteStatus = false;
 
     }
-    public int getID() {
-            return ID;
-        }
+    public Integer getID() {
+        return ID;
+    }
 
     public void setID(int ID) {
         this.ID = ID;
@@ -65,6 +67,14 @@ class Parsel {
     public void setJenisBarang(String jenisBarang) {
 
         this.jenisBarang = jenisBarang;
+    }
+
+    public boolean getDeleteStatus() {
+        return deleteStatus;
+    }
+
+    public void setDeleteStatus(boolean deleteStatus) {
+        this.deleteStatus = deleteStatus;
     }
 
     @Override

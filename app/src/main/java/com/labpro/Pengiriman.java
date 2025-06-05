@@ -1,42 +1,47 @@
 package com.labpro;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Date;
+//import com.sun.tools.javac.util.List;
+
+import java.util.*;
 
 
-public class Pengiriman {
+public abstract class Pengiriman implements HasID {
     protected Integer idPengiriman;
     protected String noResi;
     protected String tujuan;
     protected StatusPengiriman statusPengiriman;
     protected Date tanggalPembuatan;
-    protected Date tanggalPembaruan;
-    protected String namaPengirim;
+    protected String namaPengiriman;
     protected String noTelp;
     protected String namaPenerima;
     protected String noTelpPenerima;
     protected List<Integer> listIdParsel;
     protected List<Parsel> listOfParsel;
     protected Integer kurirId;
+    protected String kurirName;
+    protected String pdfFilePath;
+    protected String kodePajak;
 
     public Pengiriman(Integer idPengiriman, String noResi, String tujuan, StatusPengiriman statusPengiriman,
-                      Date tanggalPembuatan, Date tanggalPembaruan, String namaPengirim, String noTelp,
+                      Date tanggalPembuatan, String namaPengirim, String noTelp,
                       String namaPenerima, String noTelpPenerima, List<Integer> listIdParsel,
-                      Integer kurirId) {
+                      Integer kurirId, String pdfFilePath, String kodePajak) {
 
         this.idPengiriman = idPengiriman;
         this.noResi = noResi;
         this.tujuan = tujuan;
         this.statusPengiriman = statusPengiriman;
         this.tanggalPembuatan = tanggalPembuatan;
-        this.tanggalPembaruan = tanggalPembaruan;
-        this.namaPengirim = namaPengirim;
+        this.namaPengiriman = namaPengirim;
         this.noTelp = noTelp;
         this.namaPenerima = namaPenerima;
         this.noTelpPenerima = noTelpPenerima;
         this.listIdParsel = listIdParsel;
         this.kurirId = kurirId;
+    }
+
+    public Integer getID() {
+        return getIdPengiriman();
     }
 
     public void generateParselList(ParselRepository repo) {
@@ -80,28 +85,20 @@ public class Pengiriman {
         this.statusPengiriman = statusPengiriman;
     }
 
-    public Date getTanggalPembuatan() {
-        return tanggalPembuatan;
+    public Date getTanngalPembuatan() {
+        return  this.tanggalPembuatan;
     }
 
     public void setTanngalPembuatan(Date tanggalPembuatan) {
         this.tanggalPembuatan = tanggalPembuatan;
     }
 
-    public Date getTanggalPembaruan() {
-        return tanggalPembaruan;
+    public String getNamaPengiriman() {
+        return namaPengiriman;
     }
 
-    public void setTanggalPembaruan(Date tanggalPembaruan) {
-        this.tanggalPembaruan = tanggalPembaruan;
-    }
-
-    public String getNamaPengirim() {
-        return namaPengirim;
-    }
-
-    public void setNamaPengirim(String namaPengirim) {
-        this.namaPengirim = namaPengirim;
+    public void setNamaPengiriman(String namaPengiriman) {
+        this.namaPengiriman = namaPengiriman;
     }
 
     public String getNoTelp() {
@@ -154,7 +151,7 @@ public class Pengiriman {
 
     public void addIdParsel(int idParsel) {
         if (this.listIdParsel == null) {
-            this.listIdParsel = new ArrayList<Integer>();
+            this.listIdParsel = new ArrayList<>();
         }
         this.listIdParsel.add(idParsel);
     }
@@ -164,5 +161,23 @@ public class Pengiriman {
             this.listIdParsel.remove(idParsel);
         }
     }
+
+
+    public Map<String, String> getDetails() {
+        Map<String, String> details = new LinkedHashMap<>();
+        details.put("idPengiriman", String.valueOf(idPengiriman));
+        details.put("noResi", noResi);
+        details.put("tujuan", tujuan);
+        details.put("statusPengiriman", statusPengiriman != null ? statusPengiriman.toString() : null);
+        details.put("tanggalPembuatan", this.tanggalPembuatan != null ? this.tanggalPembuatan.toString() : null);
+        details.put("namaPengiriman", namaPengiriman);
+        details.put("noTelp", noTelp);
+        details.put("namaPenerima", namaPenerima);
+        details.put("noTelpPenerima", noTelpPenerima);
+        details.put("kurirId", String.valueOf(kurirId));
+        return details;
+    }
+
+    public abstract String getType();
 
 }
