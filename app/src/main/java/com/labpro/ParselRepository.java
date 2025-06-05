@@ -5,10 +5,8 @@ public class ParselRepository extends Repository<Parsel> {
         super();
     }
 
-    public Parsel create(String strStatus, int panjang, int lebar, int tinggi, double berat, String jenisBarang) {
-        ParselStatus status;
-        assert strStatus != null && !strStatus.trim().isEmpty() : "Status tidak boleh kosong";
-        status = ParselStatus.valueOf(strStatus.toUpperCase());
+    public Parsel create(int panjang, int lebar, int tinggi, double berat, String jenisBarang) {
+        ParselStatus status = ParselStatus.valueOf("UNREGISTERED");
 
         assert panjang > 0 : "Panjang dimensi parsel harus positif";
         assert lebar > 0 : "Lebar dimensi parsel harus positif";
@@ -28,10 +26,10 @@ public class ParselRepository extends Repository<Parsel> {
 
         listOfEntity.add(newParsel);
 
-
+        return newParsel;
     }
 
-    public Parsel update(int ID, String strStatus, Integer panjang, Integer lebar, Integer tinggi, Double berat, String jenisBarang, Boolean deleteStatus) {
+    public Parsel update(int ID, String strStatus, Integer panjang, Integer lebar, Integer tinggi, Double berat, String jenisBarang) {
         assert ID >= 0 : "ID tidak boleh bernilai negatif";
 
         Parsel parsel = findById(ID);
@@ -44,30 +42,8 @@ public class ParselRepository extends Repository<Parsel> {
             parsel.setStatus(status);
         }
 
-        if (panjang != null || lebar != null || tinggi != null) {
-            int currentPanjang = (panjang != null) ? panjang : parsel.getDimensi()[0];
-            int currentLebar = (lebar != null) ? lebar : parsel.getDimensi()[1];
-            int currentTinggi = (tinggi != null) ? tinggi : parsel.getDimensi()[2];
 
-            assert currentPanjang > 0 : "Panjang dimensi parsel harus positif.";
-            assert currentLebar > 0 : "Lebar dimensi parsel harus positif.";
-            assert currentTinggi > 0 : "Tinggi dimensi parsel harus positif.";
 
-            parsel.setDimensi(new int[]{currentPanjang, currentLebar, currentTinggi});
-        }
-
-        if (berat != null) {
-                assert berat > 0: "Berat harus bernilai positif";
-                parsel.setBerat(berat);
-        }
-        if (jenisBarang != null && !jenisBarang.trim().isEmpty()) {
-            assert jenisBarang.trim().length() > 1 : "Jenis barang minimal 2 karakter";
-            parsel.setJenisBarang(jenisBarang);
-        }
-
-        if (deleteStatus != null) {
-            parsel.setDeleteStatus(deleteStatus);
-        }
     return parsel;
     }
 }

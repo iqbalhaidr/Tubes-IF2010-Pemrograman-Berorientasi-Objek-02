@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.CheckBox;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
@@ -16,7 +15,6 @@ public class RepoKurirController extends Observable{
     @FXML private ComboBox<String> jenisKelaminCombo;
     @FXML private TextField pathFotoField;
     @FXML private DatePicker tanggalLahirPicker;
-    @FXML private CheckBox deleteStatusCheckbox;
 
     @FXML private Button createSubmitButton;
     @FXML private Button updateSubmitButton;
@@ -64,7 +62,7 @@ public class RepoKurirController extends Observable{
 
         Kurir updatedKurir = null;
         try {
-            updatedKurir = kurirRepository.update(id, nama, strJenisKelamin, pathFoto, tanggalLahir, false);
+            updatedKurir = kurirRepository.update(id, nama, strJenisKelamin, pathFoto, tanggalLahir);
         } catch (IllegalArgumentException e) {
             System.err.println("Error: " + e.getMessage());
         }

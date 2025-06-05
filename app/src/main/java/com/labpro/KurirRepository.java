@@ -27,7 +27,7 @@ public class KurirRepository extends Repository<Kurir>{
         listOfEntity.add(newKurir);
         return newKurir;
     }
-    public Kurir update(int ID, String nama, String strJenisKelamin, String pathFoto, LocalDate tanggalLahir, Boolean deleteStatus) {
+    public Kurir update(int ID, String nama, String strJenisKelamin, String pathFoto, LocalDate tanggalLahir) {
         assert ID >= 0 : "ID tidak boleh bernilai negatif";
 
         Kurir kurir = findById(ID);
@@ -48,9 +48,6 @@ public class KurirRepository extends Repository<Kurir>{
             kurir.setTanggalLahir(tanggalLahir);
         }
 
-        if (deleteStatus != null) {
-            kurir.setDeleteStatus(deleteStatus);
-        }
         return kurir;
     }
 
