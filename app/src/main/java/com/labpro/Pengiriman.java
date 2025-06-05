@@ -1,6 +1,6 @@
 package com.labpro;
 
-import com.sun.tools.javac.util.List;
+//import com.sun.tools.javac.util.List;
 
 import java.util.*;
 
@@ -15,7 +15,7 @@ public abstract class Pengiriman {
     protected String noTelp;
     protected String namaPenerima;
     protected String noTelpPenerima;
-    protected List<String> listIdParsel;
+    protected List<Integer> listIdParsel;
     protected List<Parsel> listOfParsel;
     protected Integer kurirId;
     protected String kurirName;
@@ -24,7 +24,7 @@ public abstract class Pengiriman {
 
     public Pengiriman(Integer idPengiriman, String noResi, String tujuan, StatusPengiriman statusPengiriman,
                       Date tanggalPembuatan, String namaPengirim, String noTelp,
-                      String namaPenerima, String noTelpPenerima, List<String> listIdParsel,
+                      String namaPenerima, String noTelpPenerima, List<Integer> listIdParsel,
                       Integer kurirId, String pdfFilePath, String kodePajak) {
 
         this.idPengiriman = idPengiriman;
@@ -42,7 +42,7 @@ public abstract class Pengiriman {
 
     public void generateParselList(ParselRepository repo) {
         List<Parsel> parselList = new ArrayList<>();
-        for (String idParsel : this.listIdParsel) {
+        for (int idParsel : this.listIdParsel) {
             Parsel parsel = repo.findById(idParsel);
             parselList.add(parsel);
         }
@@ -121,11 +121,11 @@ public abstract class Pengiriman {
         this.noTelpPenerima = noTelpPenerima;
     }
 
-    public List<String> getListIdParsel() {
+    public List<Integer> getListIdParsel() {
         return listIdParsel;
     }
 
-    public void setListIdParsel(List<String> listIdParsel) {
+    public void setListIdParsel(List<Integer> listIdParsel) {
         this.listIdParsel = listIdParsel;
     }
 
@@ -145,14 +145,14 @@ public abstract class Pengiriman {
         this.kurirId = kurirId;
     }
 
-    public void addIdParsel(String idParsel) {
+    public void addIdParsel(int idParsel) {
         if (this.listIdParsel == null) {
-            this.listIdParsel = new ArrayList<Parsel>();
+            this.listIdParsel = new ArrayList<>();
         }
         this.listIdParsel.add(idParsel);
     }
 
-    public void removeIdParsel(String idParsel) {
+    public void removeIdParsel(int idParsel) {
         if (this.listIdParsel != null) {
             this.listIdParsel.remove(idParsel);
         }
