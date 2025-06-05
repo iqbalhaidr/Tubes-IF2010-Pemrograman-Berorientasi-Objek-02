@@ -6,7 +6,7 @@ public class KurirRepository extends Repository<Kurir>{
     public KurirRepository() {
         super();
     }
-    public void create(String nama, String strJenisKelamin, String pathFoto, LocalDate tanggalLahir) {
+    public Kurir create(String nama, String strJenisKelamin, String pathFoto, LocalDate tanggalLahir) {
         assert nama != null && nama.trim().length() >= 3 : "Nama kurir minimal 3 karakter";
 
         JenisKelamin jenisKelamin;
@@ -25,8 +25,9 @@ public class KurirRepository extends Repository<Kurir>{
         Kurir newKurir = new Kurir(newID, nama, jenisKelamin, pathFoto, tanggalLahir);
 
         listOfEntity.add(newKurir);
+        return newKurir;
     }
-    public void update(int ID, String nama, String strJenisKelamin, String pathFoto, LocalDate tanggalLahir, Boolean deleteStatus) {
+    public Kurir update(int ID, String nama, String strJenisKelamin, String pathFoto, LocalDate tanggalLahir) {
         assert ID >= 0 : "ID tidak boleh bernilai negatif";
 
         Kurir kurir = findById(ID);
@@ -47,8 +48,7 @@ public class KurirRepository extends Repository<Kurir>{
             kurir.setTanggalLahir(tanggalLahir);
         }
 
-        if (deleteStatus != null) {
-            kurir.setDeleteStatus(deleteStatus);
-        }
+        return kurir;
     }
+
 }
