@@ -4,60 +4,202 @@ import java.util.Date;
 import java.util.List;
 
 public class PengirimanRepository extends Repository<Pengiriman>{
-    public PengirimanRepository() { super(); }
-    public void create(String noResi, String tujuan, String namaPengirim, String noTelp, String namaPenerima, List<Integer> listIdParsel, Integer kurirId, ParselRepository repo) {
+    private final PengirimanFactory factory;
+
+    public PengirimanRepository(PengirimanFactory factory) {
+        super();
+        this.factory = factory;
+    }
+
+    // create Pengiriman Internasional
+    public Pengiriman create(Integer idPengiriman, String noResi, String tujuan, StatusPengiriman statusPengiriman,
+                             Date tanggalPembuatan, String namaPengirim, String noTelp,
+                             String namaPenerima, String noTelpPenerima, List<Integer> listIdParsel,
+                             Integer kurirId, String pdfFilePath, String kodePajak) {
+
         assert noResi != null && !noResi.trim().isEmpty();
         assert tujuan != null && !tujuan.trim().isEmpty();
         assert namaPengirim != null && !namaPengirim.trim().isEmpty();
-        assert noTelp != null && !noTelp.trim().isEmpty();
+        assert noTelpPenerima != null && !noTelpPenerima.trim().isEmpty();
         assert namaPenerima != null && !namaPenerima.trim().isEmpty();
-        assert !listIdParsel.isEmpty();
-        Date tanggalPembuatan = new Date();
-        Date tanggalPembaruan = new Date();
+        assert kodePajak != null;
+        assert pdfFilePath != null;
 
-        int newID;
-        if (listOfEntity.isEmpty()) {
-            newID = 0;
-        } else {
-            newID = findById(listOfEntity.size() - 1).getIdPengiriman() + 1; // id terakhir + 1
+        if (tanggalPembuatan == null) {
+            tanggalPembuatan = new Date();
         }
 
-        StatusPengiriman statusPengiriman = StatusPengiriman.valueOf("MENUGGU_KONFIRMASI");
-        Pengiriman newPengiriman = new Pengiriman(newID, noResi, tujuan, statusPengiriman,
-                tanggalPembuatan, tanggalPembaruan, namaPengirim, noTelp,
-                namaPenerima, noTelp, listIdParsel, kurirId);
+        if (idPengiriman == null) {
+            if (listOfEntity.isEmpty()) {
+                idPengiriman = 0;
+            } else {
+                idPengiriman = findById(listOfEntity.size() - 1).getIdPengiriman() + 1; // id terakhir + 1
+            }
+        }
 
-        newPengiriman.generateParselList(repo);
+        if (statusPengiriman == null) {
+            statusPengiriman = StatusPengiriman.valueOf("MENUGGU_KONFIRMASI");
+        }
+
+        Pengiriman newPengiriman = factory.createPengiriman(
+                idPengiriman, noResi, tujuan,
+                statusPengiriman, tanggalPembuatan,
+                namaPengirim, noTelp, namaPenerima,
+                noTelpPenerima, listIdParsel,
+                kurirId, pdfFilePath, kodePajak
+        );
+
+        return (PengirimanInternasional) newPengiriman;
     }
 
-    public void update(int ID, String tujuan, StatusPengiriman statusPengiriman, String namaPengirim, String noTelp, String namaPenerima, List<Integer> listIdParsel, Integer kurirId, ParselRepository repo) {
-        assert ID >= 0 : "ID tidak boleh bernilai negatif";
+    // create Pengiriman Domestik
+    public Pengiriman create(Integer idPengiriman, String noResi, String tujuan, StatusPengiriman statusPengiriman,
+                             Date tanggalPembuatan, String namaPengirim, String noTelp,
+                             String namaPenerima, String noTelpPenerima, List<Integer> listIdParsel,
+                             Integer kurirId) {
 
-        Pengiriman pengiriman = findById(ID);
+        assert noResi != null && !noResi.trim().isEmpty();
+        assert tujuan != null && !tujuan.trim().isEmpty();
+        assert namaPengirim != null && !namaPengirim.trim().isEmpty();
+        assert noTelpPenerima != null && !noTelpPenerima.trim().isEmpty();
+        assert namaPenerima != null && !namaPenerima.trim().isEmpty();
 
-        if (namaPengirim != null && !namaPengirim.trim().isEmpty()) {
-            pengiriman.setNamaPengirim(namaPengirim);
+        if (tanggalPembuatan == null) {
+            tanggalPembuatan = new Date();
         }
-        if (namaPenerima != null && !namaPenerima.trim().isEmpty()) {
-            pengiriman.setNamaPenerima(namaPenerima);
+
+        if (idPengiriman == null) {
+            if (listOfEntity.isEmpty()) {
+                idPengiriman = 0;
+            } else {
+                idPengiriman = findById(listOfEntity.size() - 1).getIdPengiriman() + 1; // id terakhir + 1
+            }
         }
+
+        if (statusPengiriman == null) {
+            statusPengiriman = StatusPengiriman.valueOf("MENUGGU_KONFIRMASI");
+        }
+
+        Pengiriman newPengiriman = factory.createPengiriman(
+                idPengiriman, noResi, tujuan,
+                statusPengiriman, tanggalPembuatan,
+                namaPengirim, noTelp, namaPenerima,
+                noTelpPenerima, listIdParsel,
+                kurirId, null, null
+        );
+
+        return (PengirimanDomestik) newPengiriman;
+    }
+
+    // update PengirimanInternasional
+    public Pengiriman update(Integer idPengiriman, String noResi, String tujuan,
+                             StatusPengiriman statusPengiriman, Date tanggalPembuatan,
+                             String namaPengirim, String noTelp, String namaPenerima,
+                             String noTelpPenerima, List<Integer> listIdParsel,
+                             Integer kurirId, String pdfFilePath, String kodePajak) {
+
+        assert idPengiriman >= 0 : "ID tidak boleh bernilai negatif";
+
+        Pengiriman pengiriman = findById(idPengiriman);
+
+        if (noResi != null && !noResi.trim().isEmpty()) {
+            pengiriman.setNoResi(noResi);
+        }
+
         if (tujuan != null && !tujuan.trim().isEmpty()) {
             pengiriman.setTujuan(tujuan);
         }
+
         if (statusPengiriman.ordinal() < pengiriman.getStatusPengiriman().ordinal()) {
             System.out.println("Status pengiriman tidak boleh mundur!");
         } else {
             pengiriman.setStatusPengiriman(statusPengiriman);
         }
+
+        if(tanggalPembuatan != null) {
+            pengiriman.setTanngalPembuatan(tanggalPembuatan);
+        }
+
+        if (namaPengirim != null && !namaPengirim.trim().isEmpty()) {
+            pengiriman.setNamaPengiriman(namaPengirim);
+        }
+
         if (noTelp != null && !noTelp.isEmpty()) {
             pengiriman.setNoTelp(noTelp);
         }
+
+        if (namaPenerima != null && !namaPenerima.trim().isEmpty()) {
+            pengiriman.setNamaPenerima(namaPenerima);
+        }
+
+        if (noTelpPenerima != null && !noTelpPenerima.isEmpty()) {
+            pengiriman.setNoTelpPenerima(noTelp);
+        }
+
         if (!listIdParsel.isEmpty()) {
             pengiriman.setListIdParsel(listIdParsel);
         }
-        if (repo != null) {
-            pengiriman.generateParselList(repo);
+
+        if (kurirId != null) {
+            pengiriman.setKurirId(kurirId);
         }
-        pengiriman.setTanggalPembaruan(new Date());
+
+        return (PengirimanInternasional) pengiriman;
+    }
+
+    // update PengirimanDomestik
+    public Pengiriman update(Integer idPengiriman, String noResi, String tujuan,
+                             StatusPengiriman statusPengiriman, Date tanggalPembuatan,
+                             String namaPengirim, String noTelp, String namaPenerima,
+                             String noTelpPenerima, List<Integer> listIdParsel,
+                             Integer kurirId) {
+
+        assert idPengiriman >= 0 : "ID tidak boleh bernilai negatif";
+
+        Pengiriman pengiriman = findById(idPengiriman);
+
+        if (noResi != null && !noResi.trim().isEmpty()) {
+            pengiriman.setNoResi(noResi);
+        }
+
+        if (tujuan != null && !tujuan.trim().isEmpty()) {
+            pengiriman.setTujuan(tujuan);
+        }
+
+        if (statusPengiriman.ordinal() < pengiriman.getStatusPengiriman().ordinal()) {
+            System.out.println("Status pengiriman tidak boleh mundur!");
+        } else {
+            pengiriman.setStatusPengiriman(statusPengiriman);
+        }
+
+        if(tanggalPembuatan != null) {
+            pengiriman.setTanngalPembuatan(tanggalPembuatan);
+        }
+
+        if (namaPengirim != null && !namaPengirim.trim().isEmpty()) {
+            pengiriman.setNamaPengiriman(namaPengirim);
+        }
+
+        if (noTelp != null && !noTelp.isEmpty()) {
+            pengiriman.setNoTelp(noTelp);
+        }
+
+        if (namaPenerima != null && !namaPenerima.trim().isEmpty()) {
+            pengiriman.setNamaPenerima(namaPenerima);
+        }
+
+        if (noTelpPenerima != null && !noTelpPenerima.isEmpty()) {
+            pengiriman.setNoTelpPenerima(noTelp);
+        }
+
+        if (!listIdParsel.isEmpty()) {
+            pengiriman.setListIdParsel(listIdParsel);
+        }
+
+        if (kurirId != null) {
+            pengiriman.setKurirId(kurirId);
+        }
+
+        return (PengirimanDomestik) pengiriman;
     }
 }
