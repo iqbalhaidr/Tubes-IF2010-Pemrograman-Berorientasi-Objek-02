@@ -21,11 +21,12 @@ public abstract class Pengiriman implements HasID {
     protected String kurirName;
     protected String pdfFilePath;
     protected String kodePajak;
+    protected Kurir kurir;
 
     public Pengiriman(Integer idPengiriman, String noResi, String tujuan, StatusPengiriman statusPengiriman,
                       Date tanggalPembuatan, String namaPengirim, String noTelp,
                       String namaPenerima, String noTelpPenerima, List<Integer> listIdParsel,
-                      Integer kurirId, String pdfFilePath, String kodePajak) {
+                      Integer kurirId, String pdfFilePath, String kodePajak, Kurir kurir) {
 
         this.idPengiriman = idPengiriman;
         this.noResi = noResi;
@@ -38,6 +39,7 @@ public abstract class Pengiriman implements HasID {
         this.noTelpPenerima = noTelpPenerima;
         this.listIdParsel = listIdParsel;
         this.kurirId = kurirId;
+        this.kurir = kurir;
     }
 
     public Integer getID() {
