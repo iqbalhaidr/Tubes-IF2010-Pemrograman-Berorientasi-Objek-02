@@ -10,13 +10,13 @@ public class PengirimanDomestikFactory extends PengirimanFactory {
             StatusPengiriman statusPengiriman, Date tanggalPembuatan,
             String namaPengirim, String noTelp, String namaPenerima,
             String noTelpPenerima, List<Integer> listIdParsel,
-            Integer kurirId, String pdfFilePath, String kodePajak
+            Integer kurirId, String pdfFilePath, String kodePajak, Kurir kurir
     ) {
         return new PengirimanDomestik(
                 idPengiriman, noResi, tujuan, statusPengiriman,
                 tanggalPembuatan, namaPengirim, noTelp,
                 namaPenerima, noTelpPenerima, listIdParsel,
-                kurirId, pdfFilePath, kodePajak
+                kurirId, pdfFilePath, kodePajak, kurir
         );
     }
 }

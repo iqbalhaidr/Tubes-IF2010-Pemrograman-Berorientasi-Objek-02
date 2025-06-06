@@ -1,14 +1,70 @@
 package com.labpro;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
+//TODO: IMPLEMENT PROXY
 public class RepoPengirimanController implements Listener {
+    private Map<Kurir, ArrayList<Pengiriman>> pengirimanMap;
+    private PengirimanRepository repo;
     public ArrayList<Kurir>  KurirAktif;
     public ArrayList<Parsel> ParselAktif;
 
-    public RepoPengirimanController(ArrayList<Kurir> KurirAktif, ArrayList<Parsel> ParselAktif) {
+    //ATTENTION if we pass all of ArrayList<Kurir> (included not active) we should uncomment method generatePengirimanMap
+    public RepoPengirimanController(ArrayList<Kurir> KurirAktif, ArrayList<Parsel> ParselAktif, PengirimanRepository repo) {
         this.KurirAktif = KurirAktif;
         this.ParselAktif = ParselAktif;
+        this.repo = repo;
+
+        //TODO generate MapKurir base on this.repo.findAll() it will return List Of raw pengiriman
+        // need to map those kurir into a pengiriman Map
+        generatePengirimanMap();
+    }
+
+    private void generatePengirimanMap() {
+        List<Pengiriman> allRawPengiriman = repo.findAll(); // Asumsi findAll() mengembalikan List<Pengiriman>
+        pengirimanMap.clear(); // Pastikan map kosong sebelum diisi ulang
+
+        for (Pengiriman pengiriman : allRawPengiriman) {
+            Kurir kurir = pengiriman.getKurir();
+            if (kurir != null) {
+                // Jika kurir belum ada di map, buat ArrayList baru untuknya
+                pengirimanMap.computeIfAbsent(kurir, k -> new ArrayList<>()).add(pengiriman);
+            }
+        }
+        System.out.println("Pengiriman Map berhasil digenerate.");
+        // this.KurirAktif = new ArrayList<>(pengirimanMap.keySet());
+        // this.ParselAktif = allRawPengiriman.stream()
+        //                      .flatMap(p -> p.getParselList().stream())
+        //                      .filter(parsel -> parsel.getStatus() == ParselStatus.REGISTERED) // Contoh filter
+        //                      .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    //TODO: implement logic delete kurir such as add all parsel
+    // that assign to deleted kurir to active parsel
+    public void notifiedKurirDeleted(Kurir kurir) {
+        for(Pengiriman pengiriman : pengirimanMap.get(kurir)){
+            for(Parsel parsel : pengiriman.getListOfParsel()){
+                parsel.setStatus(ParselStatus.REGISTERED);
+                ParselAktif.add(parsel);
+            }
+        }
+        KurirAktif.remove(kurir);
+    }
+
+
+    //TODO: implement logic delete pengiriman like add parsel in that pengiriman
+    // to active parsel and set those parsel to registered
+    public void handleDeletePengiriman(Pengiriman pengiriman){
+        for(Parsel parsel : pengiriman.getListOfParsel()){
+            parsel.setStatus(ParselStatus.REGISTERED);
+            ParselAktif.add(parsel);
+        }
+    }
+
+    public List<Pengiriman> getPengirimanByKurir(Kurir kurir){
+        return pengirimanMap.get(kurir);
     }
 
     public ArrayList<Kurir> getKurirAktif() {
@@ -46,7 +102,7 @@ public class RepoPengirimanController implements Listener {
                 break;
             case DeleteKurir:
                  Kurir kurirDelete = (Kurir) data;
-                 KurirAktif.remove(kurirDelete);
+                 notifiedKurirDeleted(kurirDelete);
                  break;
             case CreateParsel:
                 Parsel parsel = (Parsel) data;
