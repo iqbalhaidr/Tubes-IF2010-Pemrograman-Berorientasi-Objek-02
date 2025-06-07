@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-class Parsel implements HasID {
+public class Parsel implements HasID, Data {
     private int ID;
     private ParselStatus status;
     private int[] dimensi = new int[3];

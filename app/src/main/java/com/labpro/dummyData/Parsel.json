@@ -1,0 +1,50 @@
+[
+  {
+    "ID": 101,
+    "status": "REGISTERED",
+    "dimensi": [10, 20, 30],
+    "berat": 2.5,
+    "jenisBarang": "Pakaian",
+    "deleteStatus": false
+  },
+  {
+    "ID": 102,
+    "status": "REGISTERED",
+    "dimensi": [10, 20, 30],
+    "berat": 150,
+    "jenisBarang": "Pesawat",
+    "deleteStatus": false
+  },
+  {
+    "ID": 103,
+    "status": "REGISTERED",
+    "dimensi": [10, 20, 30],
+    "berat": 30,
+    "jenisBarang": "Mobil",
+    "deleteStatus": false
+  },
+  {
+    "ID": 104,
+    "status": "REGISTERED",
+    "dimensi": [10, 20, 30],
+    "berat": 18,
+    "jenisBarang": "Manusia",
+    "deleteStatus": false
+  },
+  {
+    "ID": 105,
+    "status": "REGISTERED",
+    "dimensi": [10, 20, 30],
+    "berat": 10,
+    "jenisBarang": "Handphone",
+    "deleteStatus": false
+  },
+  {
+    "ID": 101,
+    "status": "REGISTERED",
+    "dimensi": [10, 20, 30],
+    "berat": 40,
+    "jenisBarang": "BMW",
+    "deleteStatus": false
+  }
+]

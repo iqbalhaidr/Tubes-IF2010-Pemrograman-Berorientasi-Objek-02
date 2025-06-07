@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-class Repository<T> {
+class Repository<T extends  Data> {
     protected final List<T> listOfEntity;
 
     public Repository() {

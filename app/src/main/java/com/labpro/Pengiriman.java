@@ -5,7 +5,7 @@ package com.labpro;
 import java.util.*;
 
 
-public abstract class Pengiriman implements HasID {
+public abstract class Pengiriman implements HasID, Data {
     protected Integer idPengiriman;
     protected String noResi;
     protected String tujuan;
@@ -21,11 +21,12 @@ public abstract class Pengiriman implements HasID {
     protected String kurirName;
     protected String pdfFilePath;
     protected String kodePajak;
+    protected Kurir kurir;
 
     public Pengiriman(Integer idPengiriman, String noResi, String tujuan, StatusPengiriman statusPengiriman,
                       Date tanggalPembuatan, String namaPengirim, String noTelp,
-                      String namaPenerima, String noTelpPenerima, List<Integer> listIdParsel,
-                      Integer kurirId, String pdfFilePath, String kodePajak) {
+                      String namaPenerima, String noTelpPenerima, List<Parsel> listOfParsel,
+                      Integer kurirId, String pdfFilePath, String kodePajak, Kurir kurir) {
 
         this.idPengiriman = idPengiriman;
         this.noResi = noResi;
@@ -36,8 +37,9 @@ public abstract class Pengiriman implements HasID {
         this.noTelp = noTelp;
         this.namaPenerima = namaPenerima;
         this.noTelpPenerima = noTelpPenerima;
-        this.listIdParsel = listIdParsel;
+        this.listOfParsel = listOfParsel;
         this.kurirId = kurirId;
+        this.kurir = kurir;
     }
 
     public Integer getID() {
@@ -144,6 +146,8 @@ public abstract class Pengiriman implements HasID {
     public Integer getKurirId() {
         return kurirId;
     }
+
+    public Kurir getKurir() {return kurir;}
 
     public void setKurirId(Integer kurirId) {
         this.kurirId = kurirId;
