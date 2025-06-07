@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.labpro.PengirimanView">
+   <children>
+      <TableView fx:id="kurirTable" layoutY="22.0" prefHeight="200.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="namaKurir" prefWidth="75.0" text="Nama Kurir" />
+          <TableColumn fx:id="namaParsel" prefWidth="328.0" text="Parsel" />
+            <TableColumn fx:id="alamat" prefWidth="196.0" text="Alamat Tujuan" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

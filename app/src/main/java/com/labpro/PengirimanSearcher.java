@@ -17,7 +17,7 @@ public class PengirimanSearcher<T extends Pengiriman> {
         Collection<T> hasilpengiriman = new ArrayList<T>();
         for (T pengiriman : listpengiriman) {
             Collection<String> allDetailString;
-            Map<String, String> allDetail = pengiriman.getDetail();
+            Map<String, String> allDetail = pengiriman.getDetails();
             allDetailString = allDetail.values();
             for (String detail: allDetailString) {
                 if (detail.contains(searchCriteria.getQuery())){
