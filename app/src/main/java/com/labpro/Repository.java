@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-class Repository<T extends  Data> {
+class Repository<T extends ID> {
     protected final List<T> listOfEntity;
 
     public Repository(List<T> entity) {
@@ -25,9 +25,6 @@ class Repository<T extends  Data> {
                 .orElse(null);
     }
 
-    public void delete(int id) {
-        listOfEntity.removeIf(entity -> entity.getID() == id);
-    }
 
 //    public void saveData(String filePath) {
 //        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {

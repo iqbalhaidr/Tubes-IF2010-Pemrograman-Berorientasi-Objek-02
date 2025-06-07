@@ -110,13 +110,13 @@ public class kurirDashboardController {
     }
 
     private void loadTableData() {
-        //TODO: get pengiriman for specific kurir
-        if (pengirimanService != null) {
-            masterDataPengiriman = pengirimanService.getPengirimanByKurir(loggedInKurir); // Ambil semua data
-            int pageCount = (int) Math.ceil((double) masterDataPengiriman.size() / rowsPerPage);
-            pagination.setPageCount(pageCount == 0 ? 1 : pageCount);
-            pagination.setPageFactory(this::createPage);
-        }
+//        //TODO: get pengiriman for specific kurir
+//        if (pengirimanService != null) {
+//            masterDataPengiriman = pengirimanService.getPengirimanByKurir(loggedInKurir); // Ambil semua data
+//            int pageCount = (int) Math.ceil((double) masterDataPengiriman.size() / rowsPerPage);
+//            pagination.setPageCount(pageCount == 0 ? 1 : pageCount);
+//            pagination.setPageFactory(this::createPage);
+//        }
     }
 
     private Node createPage(int pageIndex) {

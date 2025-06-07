@@ -63,14 +63,15 @@ public class ManajemenKurirDashboardController {
     private RepoKurirController kurirService;
     private List<Kurir> kurirData;
 
-    private final int rowsPerPage = 2;
+    private final int rowsPerPage = 7;
     private int currentEditingId = -1;
 
-    public ManajemenKurirDashboardController(RepoKurirController repoKurirController) {
-        if (repoKurirController == null) {
-            throw new IllegalArgumentException("RepoKurirController tidak boleh kosong");
-        }
+    public ManajemenKurirDashboardController() {
+    }
+
+    public void setController(RepoKurirController repoKurirController) {
         this.kurirService = repoKurirController;
+        loadKurirData();
     }
 
     @FXML
@@ -146,7 +147,6 @@ public class ManajemenKurirDashboardController {
             }
         });
 
-        loadKurirData(); // Panggil ini saat inisialisasi
 
         // hide form di awal
         if (kurirFormContainer != null) {
@@ -308,10 +308,12 @@ public class ManajemenKurirDashboardController {
 
     @FXML
     private void loadKurirData() {
+        System.out.println("masug1");
         kurirData = kurirService.getAllKurir();
         if (kurirData.size() > 0 && kurirData.get(0).getDeleteStatus() == true) {
             System.out.println("soft deletee");
         }
+        System.out.println("masug3");
         System.out.println("Data kurir setelah loadKurirData(): " + kurirData); // Debugging
         if (!kurirData.isEmpty()) {
             System.out.println("Nama kurir pertama: " + kurirData.get(0).getName()); // Debugging

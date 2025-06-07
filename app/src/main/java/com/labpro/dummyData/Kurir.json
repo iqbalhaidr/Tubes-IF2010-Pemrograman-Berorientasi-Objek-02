@@ -1,0 +1,42 @@
+[
+  {
+    "id": 201,
+    "name": "Budi Santoso",
+    "jenisKelamin": "LAKI_LAKI",
+    "pathFoto": "/images/kurir/budi_santoso.jpg",
+    "tanggalLahir": "1990-05-15",
+    "deleteStatus": false
+  },
+  {
+    "id": 202,
+    "name": "Siti Aminah",
+    "jenisKelamin": "PEREMPUAN",
+    "pathFoto": "/images/kurir/siti_aminah.jpg",
+    "tanggalLahir": "1992-11-22",
+    "deleteStatus": false
+  },
+  {
+    "id": 203,
+    "name": "Joko Susilo",
+    "jenisKelamin": "LAKI_LAKI",
+    "pathFoto": "/images/kurir/joko_susilo.jpg",
+    "tanggalLahir": "1988-03-01",
+    "deleteStatus": false
+  },
+  {
+    "id": 204,
+    "name": "Dewi Anggraini",
+    "jenisKelamin": "PEREMPUAN",
+    "pathFoto": "/images/kurir/dewi_anggraini.jpg",
+    "tanggalLahir": "1995-09-08",
+    "deleteStatus": true
+  },
+  {
+    "id": 205,
+    "name": "Rudi Hartono",
+    "jenisKelamin": "LAKI_LAKI",
+    "pathFoto": "/images/kurir/rudi_hartono.jpg",
+    "tanggalLahir": "1991-07-30",
+    "deleteStatus": false
+  }
+]

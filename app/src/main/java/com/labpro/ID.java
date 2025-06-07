@@ -1,5 +1,5 @@
 package com.labpro;
 
 public interface ID {
-    Integer getID();
+    public Integer getID();
 }

@@ -9,17 +9,17 @@ public class KurirRepository extends Repository<Kurir>{
         super(kurirs);
     }
     public Kurir create(String nama, JenisKelamin jenisKelamin, String pathFoto, LocalDate tanggalLahir) {
+        System.out.println("Masuk13");//belum ada validasi
         assert nama != null && nama.trim().length() >= 3 : "Nama kurir minimal 3 karakter";
         assert jenisKelamin != null : "Jenis Kelamin tidak boleh kosong";
         assert pathFoto != null && !pathFoto.trim().isEmpty() : "Path foto tidak boleh kosong";
         assert tanggalLahir != null : "Tanggal lahir tidak boleh kosong";
 
-        int newID;
-        if (listOfEntity.isEmpty()) {
-            newID = 0;
-        } else {
-            newID = findById(listOfEntity.size() - 1).getID() + 1; // id terakhir + 1
-        }
+        int newID = listOfEntity.stream()
+                .mapToInt(Kurir::getID)
+                .max()
+                .orElse(0) + 1;
+        System.out.println("Masuk14");//belum ada validasi
         Kurir newKurir = new Kurir(newID, nama, jenisKelamin, pathFoto, tanggalLahir);
 
         listOfEntity.add(newKurir);

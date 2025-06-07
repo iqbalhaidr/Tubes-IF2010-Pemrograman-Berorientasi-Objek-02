@@ -46,6 +46,7 @@ public class RepoKurirController extends Observable {
         if (pathFoto == null || pathFoto.trim().isEmpty()) {
             throw new IllegalArgumentException("Foto tidak boleh kosong");
         }
+        System.out.println("Masuk8");//belum ada validasi
 
         Kurir newKurir = null;
         try {
@@ -53,6 +54,7 @@ public class RepoKurirController extends Observable {
         } catch (IllegalArgumentException e) {
             System.err.println("Error: " + e.getMessage());
         }
+        System.out.println("Masuk12");//belum ada validasi
         ObservableEventType createKurirEvent;
         createKurirEvent = ObservableEventType.valueOf("CreateKurir");
         notifyListeners(newKurir,createKurirEvent);
