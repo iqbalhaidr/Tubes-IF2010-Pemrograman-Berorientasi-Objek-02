@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.labpro.uiControl.kurirDashboardController">
+   <children>
+      <HBox prefHeight="68.0" prefWidth="700.0" style="-fx-background-color: white;">
+         <children>
+            <AnchorPane prefHeight="68.0" prefWidth="344.0">
+               <children>
+                  <TextFlow layoutX="24.0" layoutY="22.0" prefHeight="31.0" prefWidth="232.0" textAlignment="CENTER">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="COURIER DASHBOARD" textOrigin="CENTER" wrappingWidth="150.73797607421875">
+                           <font>
+                              <Font name="Comic Sans MS Bold" size="19.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </TextFlow>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="68.0" prefWidth="357.0">
+               <children>
+                  <ImageView fitHeight="61.0" fitWidth="55.0" layoutX="179.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../cobajavafxtubes/demo1/src/main/resources/com/example/demo1/kurir-removebg-preview.png" />
+                     </image>
+                  </ImageView>
+                  <Text id="kurirName" layoutX="242.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NAMA KURIR">
+                     <font>
+                        <Font name="Comic Sans MS" size="12.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+      <TableView id="kurirPengirimanTable" layoutX="38.0" layoutY="94.0" prefHeight="270.0" prefWidth="623.0" style="-fx-border-radius: 0; -fx-background-radius: 0;">
+        <columns>
+          <TableColumn id="noResColumn" prefWidth="69.99999618530273" text="No. Resi" />
+          <TableColumn id="penerimaColumn" prefWidth="101.3333511352539" text="Penerima" />
+            <TableColumn id="alamatColumn" prefWidth="137.3332977294922" text="Alamat" />
+            <TableColumn id="statusColumn" prefWidth="124.6666259765625" text="Status" />
+            <TableColumn id="aksiColumn" prefWidth="180.66671752929688" text="Aksi" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </children>
+</AnchorPane>

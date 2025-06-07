@@ -22,6 +22,15 @@ public enum StatusPengiriman {
     public String toString() {
         return deskripsi;
     }
+
+    public static StatusPengiriman fromDeskripsi(String text) { // Ganti nama dari fromString menjadi fromDeskripsi agar lebih spesifik
+        for (StatusPengiriman s : StatusPengiriman.values()) {
+            if (s.deskripsi.equalsIgnoreCase(text)) { // Gunakan deskripsi untuk perbandingan
+                return s;
+            }
+        }
+        throw new IllegalArgumentException("Tidak ada StatusPengiriman dengan deskripsi '" + text + "' ditemukan.");
+    }
 }
 
 

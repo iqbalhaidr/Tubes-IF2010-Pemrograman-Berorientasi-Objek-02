@@ -5,7 +5,7 @@ package com.labpro;
 import java.util.*;
 
 
-public abstract class Pengiriman implements HasID {
+public abstract class Pengiriman implements HasID, Data {
     protected Integer idPengiriman;
     protected String noResi;
     protected String tujuan;
@@ -146,6 +146,8 @@ public abstract class Pengiriman implements HasID {
     public Integer getKurirId() {
         return kurirId;
     }
+
+    public Kurir getKurir() {return kurir;}
 
     public void setKurirId(Integer kurirId) {
         this.kurirId = kurirId;

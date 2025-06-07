@@ -15,7 +15,7 @@ public class PengirimanRepository extends Repository<Pengiriman>{
     public Pengiriman create(Integer idPengiriman, String noResi, String tujuan, StatusPengiriman statusPengiriman,
                              Date tanggalPembuatan, String namaPengirim, String noTelp,
                              String namaPenerima, String noTelpPenerima, List<Integer> listIdParsel,
-                             Integer kurirId, String pdfFilePath, String kodePajak) {
+                             Integer kurirId, String pdfFilePath, String kodePajak, Kurir kurir) {
 
         assert noResi != null && !noResi.trim().isEmpty();
         assert tujuan != null && !tujuan.trim().isEmpty();
@@ -46,7 +46,7 @@ public class PengirimanRepository extends Repository<Pengiriman>{
                 statusPengiriman, tanggalPembuatan,
                 namaPengirim, noTelp, namaPenerima,
                 noTelpPenerima, listIdParsel,
-                kurirId, pdfFilePath, kodePajak
+                kurirId, pdfFilePath, kodePajak, kurir
         );
 
         return (PengirimanInternasional) newPengiriman;
@@ -56,7 +56,7 @@ public class PengirimanRepository extends Repository<Pengiriman>{
     public Pengiriman create(Integer idPengiriman, String noResi, String tujuan, StatusPengiriman statusPengiriman,
                              Date tanggalPembuatan, String namaPengirim, String noTelp,
                              String namaPenerima, String noTelpPenerima, List<Integer> listIdParsel,
-                             Integer kurirId) {
+                             Integer kurirId, Kurir kurir) {
 
         assert noResi != null && !noResi.trim().isEmpty();
         assert tujuan != null && !tujuan.trim().isEmpty();
@@ -85,7 +85,7 @@ public class PengirimanRepository extends Repository<Pengiriman>{
                 statusPengiriman, tanggalPembuatan,
                 namaPengirim, noTelp, namaPenerima,
                 noTelpPenerima, listIdParsel,
-                kurirId, null, null
+                kurirId, null, null, kurir
         );
 
         return (PengirimanDomestik) newPengiriman;
