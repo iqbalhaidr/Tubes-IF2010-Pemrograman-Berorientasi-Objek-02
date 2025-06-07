@@ -1,10 +1,12 @@
 package com.labpro;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class KurirRepository extends Repository<Kurir>{
-    public KurirRepository() {
-        super();
+
+    public KurirRepository(List<Kurir> kurirs) {
+        super(kurirs);
     }
     public Kurir create(String nama, JenisKelamin jenisKelamin, String pathFoto, LocalDate tanggalLahir) {
         assert nama != null && nama.trim().length() >= 3 : "Nama kurir minimal 3 karakter";
