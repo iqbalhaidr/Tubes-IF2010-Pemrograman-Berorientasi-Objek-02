@@ -4,17 +4,22 @@ import java.util.Date;
 import java.util.List;
 
 public class PengirimanRepository extends Repository<Pengiriman>{
-    private final PengirimanFactory factory;
+    private List<Pengiriman> allPengiriman;
+    private final PengirimanInternasionalFactory factoryInternasional;
+    private final PengirimanDomestikFactory factoryDomestik;
 
-    public PengirimanRepository(PengirimanFactory factory) {
+    public PengirimanRepository(List<Pengiriman> allPengiriman) {
         super();
-        this.factory = factory;
+        this.allPengiriman = allPengiriman;
+        this.factoryInternasional = new PengirimanInternasionalFactory();
+        this.factoryDomestik = new PengirimanDomestikFactory();
+
     }
 
     // create Pengiriman Internasional
     public Pengiriman create(Integer idPengiriman, String noResi, String tujuan, StatusPengiriman statusPengiriman,
                              Date tanggalPembuatan, String namaPengirim, String noTelp,
-                             String namaPenerima, String noTelpPenerima, List<Integer> listIdParsel,
+                             String namaPenerima, String noTelpPenerima, List<Parsel> listOfParsel,
                              Integer kurirId, String pdfFilePath, String kodePajak, Kurir kurir) {
 
         assert noResi != null && !noResi.trim().isEmpty();
@@ -41,11 +46,11 @@ public class PengirimanRepository extends Repository<Pengiriman>{
             statusPengiriman = StatusPengiriman.valueOf("MENUGGU_KONFIRMASI");
         }
 
-        Pengiriman newPengiriman = factory.createPengiriman(
+        Pengiriman newPengiriman = factoryInternasional.createPengiriman(
                 idPengiriman, noResi, tujuan,
                 statusPengiriman, tanggalPembuatan,
                 namaPengirim, noTelp, namaPenerima,
-                noTelpPenerima, listIdParsel,
+                noTelpPenerima, listOfParsel,
                 kurirId, pdfFilePath, kodePajak, kurir
         );
 
@@ -55,7 +60,7 @@ public class PengirimanRepository extends Repository<Pengiriman>{
     // create Pengiriman Domestik
     public Pengiriman create(Integer idPengiriman, String noResi, String tujuan, StatusPengiriman statusPengiriman,
                              Date tanggalPembuatan, String namaPengirim, String noTelp,
-                             String namaPenerima, String noTelpPenerima, List<Integer> listIdParsel,
+                             String namaPenerima, String noTelpPenerima, List<Parsel> listOfParsel,
                              Integer kurirId, Kurir kurir) {
 
         assert noResi != null && !noResi.trim().isEmpty();
@@ -80,11 +85,11 @@ public class PengirimanRepository extends Repository<Pengiriman>{
             statusPengiriman = StatusPengiriman.valueOf("MENUGGU_KONFIRMASI");
         }
 
-        Pengiriman newPengiriman = factory.createPengiriman(
+        Pengiriman newPengiriman = factoryDomestik.createPengiriman(
                 idPengiriman, noResi, tujuan,
                 statusPengiriman, tanggalPembuatan,
                 namaPengirim, noTelp, namaPenerima,
-                noTelpPenerima, listIdParsel,
+                noTelpPenerima, listOfParsel,
                 kurirId, null, null, kurir
         );
 
