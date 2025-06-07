@@ -1,6 +1,6 @@
 package com.labpro.uiControl;
 
-import com.labpro.RepoParselController;
+import com.labpro.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;

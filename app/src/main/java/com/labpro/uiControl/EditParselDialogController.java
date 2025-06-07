@@ -1,8 +1,6 @@
 package com.labpro.uiControl;
 
-import com.labpro.Parsel;
-import com.labpro.ParselStatus;
-import com.labpro.RepoParselController;
+import com.labpro.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
