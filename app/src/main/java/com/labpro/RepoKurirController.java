@@ -48,7 +48,6 @@ public class RepoKurirController extends Observable{
 
     @FXML
     private void handleUpdate(int kurirID) {
-        int id = kurirID;
         String nama  = nameField.getText();
         if (nama.isEmpty()) nama = null;
 
@@ -62,7 +61,7 @@ public class RepoKurirController extends Observable{
 
         Kurir updatedKurir = null;
         try {
-            updatedKurir = kurirRepository.update(id, nama, strJenisKelamin, pathFoto, tanggalLahir);
+            updatedKurir = kurirRepository.update(kurirID, nama, strJenisKelamin, pathFoto, tanggalLahir);
         } catch (IllegalArgumentException e) {
             System.err.println("Error: " + e.getMessage());
         }
@@ -75,14 +74,10 @@ public class RepoKurirController extends Observable{
     @FXML
     private void handleDelete(int kurirID) {
         Kurir kurirToDelete = kurirRepository.findById(kurirID);
-        if (!kurirToDelete.getDeleteStatus()) { //statusnya false
-            kurirRepository.delete(kurirID);
-            ObservableEventType deleteKurirEvent;
-            deleteKurirEvent = ObservableEventType.valueOf("DeleteKurir");
-            notifyListeners(kurirToDelete,deleteKurirEvent);
-        } else {
-
-        }
+        kurirRepository.delete(kurirID);
+        ObservableEventType deleteKurirEvent;
+        deleteKurirEvent = ObservableEventType.valueOf("DeleteKurir");
+        notifyListeners(kurirToDelete,deleteKurirEvent);
     }
 
     @FXML

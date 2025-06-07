@@ -20,7 +20,7 @@ public class KurirRepository extends Repository<Kurir>{
         if (listOfEntity.isEmpty()) {
             newID = 0;
         } else {
-            newID = findById(listOfEntity.size() - 1).getId() + 1; // id terakhir + 1
+            newID = findById(listOfEntity.size() - 1).getID() + 1; // id terakhir + 1
         }
         Kurir newKurir = new Kurir(newID, nama, jenisKelamin, pathFoto, tanggalLahir);
 

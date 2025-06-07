@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-class Repository<T extends CommonRepoMethods> {
+class Repository<T extends  Data> {
     protected final List<T> listOfEntity;
 
     public Repository() {
@@ -29,8 +29,7 @@ class Repository<T extends CommonRepoMethods> {
     }
 
     public void delete(int id) {
-        T entity = findById(id);
-        entity.setDeleteStatus(false);
+        listOfEntity.removeIf(entity -> entity.getID() == id);
     }
 
     public void saveData(String filePath) {

@@ -5,7 +5,7 @@ package com.labpro;
 import java.util.*;
 
 
-public abstract class Pengiriman implements HasID {
+public abstract class Pengiriman implements Data {
     protected Integer idPengiriman;
     protected String noResi;
     protected String tujuan;
@@ -21,11 +21,12 @@ public abstract class Pengiriman implements HasID {
     protected String kurirName;
     protected String pdfFilePath;
     protected String kodePajak;
+    protected Kurir kurir;
 
     public Pengiriman(Integer idPengiriman, String noResi, String tujuan, StatusPengiriman statusPengiriman,
                       Date tanggalPembuatan, String namaPengirim, String noTelp,
                       String namaPenerima, String noTelpPenerima, List<Integer> listIdParsel,
-                      Integer kurirId, String pdfFilePath, String kodePajak) {
+                      Integer kurirId, String pdfFilePath, String kodePajak, Kurir kurir) {
 
         this.idPengiriman = idPengiriman;
         this.noResi = noResi;
@@ -38,6 +39,7 @@ public abstract class Pengiriman implements HasID {
         this.noTelpPenerima = noTelpPenerima;
         this.listIdParsel = listIdParsel;
         this.kurirId = kurirId;
+        this.kurir = kurir;
     }
 
     public Integer getID() {
@@ -145,6 +147,8 @@ public abstract class Pengiriman implements HasID {
         return kurirId;
     }
 
+    public Kurir getKurir() {return kurir;}
+
     public void setKurirId(Integer kurirId) {
         this.kurirId = kurirId;
     }
@@ -162,6 +166,28 @@ public abstract class Pengiriman implements HasID {
         }
     }
 
+    public String getKurirName() {
+        return this.kurirName;
+    }
+
+    public void setKurirName(String kurirName) {
+        this.kurirName = kurirName;
+    }
+
+    public void addParsel(Parsel parsel) {
+        if (this.listOfParsel == null) {
+            this.listOfParsel = new ArrayList<>();
+        }
+        this.listOfParsel.add(parsel);
+        this.addIdParsel(parsel.getID());
+    }
+
+    public void removeParsel(Parsel parsel) {
+        if (this.listOfParsel != null) {
+            this.listOfParsel.remove(parsel);
+            this.removeIdParsel(parsel.getID());
+        }
+    }
 
     public Map<String, String> getDetails() {
         Map<String, String> details = new LinkedHashMap<>();
