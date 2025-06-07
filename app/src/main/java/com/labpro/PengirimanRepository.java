@@ -1,16 +1,14 @@
 package com.labpro;
-
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 public class PengirimanRepository extends Repository<Pengiriman>{
-    private List<Pengiriman> allPengiriman;
     private final PengirimanInternasionalFactory factoryInternasional;
     private final PengirimanDomestikFactory factoryDomestik;
 
     public PengirimanRepository(List<Pengiriman> allPengiriman) {
-        super();
-        this.allPengiriman = allPengiriman;
+        super(allPengiriman);
         this.factoryInternasional = new PengirimanInternasionalFactory();
         this.factoryDomestik = new PengirimanDomestikFactory();
 
@@ -18,7 +16,7 @@ public class PengirimanRepository extends Repository<Pengiriman>{
 
     // create Pengiriman Internasional
     public Pengiriman create(Integer idPengiriman, String noResi, String tujuan, StatusPengiriman statusPengiriman,
-                             Date tanggalPembuatan, String namaPengirim, String noTelp,
+                             LocalDate tanggalPembuatan, String namaPengirim, String noTelp,
                              String namaPenerima, String noTelpPenerima, List<Parsel> listOfParsel,
                              Integer kurirId, String pdfFilePath, String kodePajak, Kurir kurir) {
 
@@ -31,7 +29,7 @@ public class PengirimanRepository extends Repository<Pengiriman>{
         assert pdfFilePath != null;
 
         if (tanggalPembuatan == null) {
-            tanggalPembuatan = new Date();
+            tanggalPembuatan =  LocalDate.now();
         }
 
         if (idPengiriman == null) {
@@ -59,7 +57,7 @@ public class PengirimanRepository extends Repository<Pengiriman>{
 
     // create Pengiriman Domestik
     public Pengiriman create(Integer idPengiriman, String noResi, String tujuan, StatusPengiriman statusPengiriman,
-                             Date tanggalPembuatan, String namaPengirim, String noTelp,
+                             LocalDate tanggalPembuatan, String namaPengirim, String noTelp,
                              String namaPenerima, String noTelpPenerima, List<Parsel> listOfParsel,
                              Integer kurirId, Kurir kurir) {
 
@@ -70,7 +68,7 @@ public class PengirimanRepository extends Repository<Pengiriman>{
         assert namaPenerima != null && !namaPenerima.trim().isEmpty();
 
         if (tanggalPembuatan == null) {
-            tanggalPembuatan = new Date();
+            tanggalPembuatan = LocalDate.now();
         }
 
         if (idPengiriman == null) {
@@ -98,7 +96,7 @@ public class PengirimanRepository extends Repository<Pengiriman>{
 
     // update PengirimanInternasional
     public Pengiriman update(Integer idPengiriman, String noResi, String tujuan,
-                             StatusPengiriman statusPengiriman, Date tanggalPembuatan,
+                             StatusPengiriman statusPengiriman, LocalDate tanggalPembuatan,
                              String namaPengirim, String noTelp, String namaPenerima,
                              String noTelpPenerima, List<Integer> listIdParsel,
                              Integer kurirId, String pdfFilePath, String kodePajak) {
@@ -154,7 +152,7 @@ public class PengirimanRepository extends Repository<Pengiriman>{
 
     // update PengirimanDomestik
     public Pengiriman update(Integer idPengiriman, String noResi, String tujuan,
-                             StatusPengiriman statusPengiriman, Date tanggalPembuatan,
+                             StatusPengiriman statusPengiriman, LocalDate tanggalPembuatan,
                              String namaPengirim, String noTelp, String namaPenerima,
                              String noTelpPenerima, List<Integer> listIdParsel,
                              Integer kurirId) {

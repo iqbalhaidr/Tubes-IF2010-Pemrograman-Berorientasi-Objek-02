@@ -2,6 +2,7 @@ package com.labpro;
 
 //import com.sun.tools.javac.util.List;
 
+import java.time.LocalDate;
 import java.util.*;
 
 
@@ -10,7 +11,7 @@ public abstract class Pengiriman implements Data {
     protected String noResi;
     protected String tujuan;
     protected StatusPengiriman statusPengiriman;
-    protected Date tanggalPembuatan;
+    protected LocalDate tanggalPembuatan;
     protected String namaPengiriman;
     protected String noTelp;
     protected String namaPenerima;
@@ -24,7 +25,7 @@ public abstract class Pengiriman implements Data {
     protected Kurir kurir;
 
     public Pengiriman(Integer idPengiriman, String noResi, String tujuan, StatusPengiriman statusPengiriman,
-                      Date tanggalPembuatan, String namaPengirim, String noTelp,
+                      LocalDate tanggalPembuatan, String namaPengirim, String noTelp,
                       String namaPenerima, String noTelpPenerima, List<Parsel> listOfParsel,
                       Integer kurirId, String pdfFilePath, String kodePajak, Kurir kurir) {
 
@@ -53,6 +54,10 @@ public abstract class Pengiriman implements Data {
             parselList.add(parsel);
         }
         this.listOfParsel = parselList;
+    }
+
+    public void generateKurir(KurirRepository repo) {
+        this.kurir = repo.findById(this.kurirId);
     }
 
     public Integer getIdPengiriman() {
@@ -87,11 +92,11 @@ public abstract class Pengiriman implements Data {
         this.statusPengiriman = statusPengiriman;
     }
 
-    public Date getTanngalPembuatan() {
+    public LocalDate getTanngalPembuatan() {
         return  this.tanggalPembuatan;
     }
 
-    public void setTanngalPembuatan(Date tanggalPembuatan) {
+    public void setTanngalPembuatan(LocalDate tanggalPembuatan) {
         this.tanggalPembuatan = tanggalPembuatan;
     }
 
@@ -202,6 +207,16 @@ public abstract class Pengiriman implements Data {
         details.put("noTelpPenerima", noTelpPenerima);
         details.put("kurirId", String.valueOf(kurirId));
         return details;
+    }
+
+    @Override
+    public String toString() {
+        return "Pengiriman{" +"\n"+
+                "idPengiriman=" + idPengiriman + "\n"+
+                ", tujuan='" + tujuan + '\'' +"\n"+
+                ", kurirId=" + kurirId +"\n"+
+                "StatusPengiriman='" + statusPengiriman + '\'' +"\n"+
+                '}' +"\n\n";
     }
 
     public abstract String getType();
