@@ -84,7 +84,7 @@ public class RepoParselController extends Observable {
             }
         }
         try {
-            parselToUpdate = parselRepository.update(ID, updatedDimensi, berat, jenisBarang);
+            parselRepository.update(ID, updatedDimensi, berat, jenisBarang);
         } catch (IllegalArgumentException e) {
             System.err.println("Error: " + e.getMessage());
         }

@@ -51,4 +51,11 @@ public class ParselRepository extends Repository<Parsel> {
 
     return parsel;
     }
+
+    public void delete(int ID) {
+        assert ID >= 0 : "ID tidak boleh bernilai negatif";
+
+        Parsel parsel = findById(ID);
+        parsel.setDeleteStatus(false);
+    }
 }

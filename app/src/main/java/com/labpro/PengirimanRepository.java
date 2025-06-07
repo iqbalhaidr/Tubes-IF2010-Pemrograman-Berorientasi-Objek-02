@@ -207,4 +207,8 @@ public class PengirimanRepository extends Repository<Pengiriman>{
 
         return (PengirimanDomestik) pengiriman;
     }
+
+    public void delete(int id) {
+        listOfEntity.removeIf(entity -> entity.getID() == id);
+    }
 }
