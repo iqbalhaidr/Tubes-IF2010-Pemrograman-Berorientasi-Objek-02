@@ -5,7 +5,7 @@ public class AdminController {
 
     public void switchController(Object newController) {
         if (newController instanceof RepoKurirController ||
-                newController instanceof RepoParsElController ||
+                newController instanceof RepoParselController ||
                 newController instanceof RepoPengirimanController) {
 
             this.activeController = newController;
