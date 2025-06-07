@@ -71,6 +71,7 @@ public class MainApp extends Application {
             PengirimanRepository pengirimanRepository = new PengirimanRepository(allPengiriman);
             RepoPengirimanController pengirimanService = new RepoPengirimanController(
                     (ArrayList<Kurir>) activeKurirs, (ArrayList<Parsel>) filteredParsels, pengirimanRepository);
+            ProxyPengiriman pengirimanServicePorvider = new ProxyPengiriman(pengirimanService);
 
 
             // Login
@@ -94,7 +95,7 @@ public class MainApp extends Application {
 
             kurirDashboardController controller = loader.getController();
             controller.setLoggedInKurir(loggedInKurir);
-            controller.setPengirimanService(pengirimanService);
+            controller.setPengirimanService(pengirimanServicePorvider);
 
             Scene scene = new Scene(kurirDashboardRoot, 800, 500);
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/styles.css")).toExternalForm()); // Path CSS

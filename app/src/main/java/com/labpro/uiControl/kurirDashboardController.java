@@ -40,7 +40,7 @@ public class kurirDashboardController {
     private TableColumn<Pengiriman, String> statusColumn;
 
     private Kurir loggedInKurir;
-    private RepoPengirimanController pengirimanService;
+    private ProxyPengiriman pengirimanService;
     private final int rowsPerPage = 7;
     private List<Pengiriman> masterDataPengiriman;
 
@@ -51,7 +51,7 @@ public class kurirDashboardController {
         setupTable();
     }
 
-    public void setPengirimanService(RepoPengirimanController service) {
+    public void setPengirimanService(ProxyPengiriman service) {
         this.pengirimanService = service;
         if (this.loggedInKurir != null) {
             loadTableData();
@@ -128,17 +128,16 @@ public class kurirDashboardController {
                             StatusPengiriman newStatusEnum = StatusPengiriman.fromDeskripsi(selectedOption);
 
                             for (Pengiriman p : masterDataPengiriman) {
-                                if (p.getNoResi().equals(pengirimanInTable.getNoResi())) {
-                                    p.setStatusPengiriman(newStatusEnum);
-                                    // PENTING: Jika Anda menyimpan perubahan ke database, lakukan di sini
-                                    // pengirimanService.updatePengirimanStatus(p.getNoResi(), newStatusEnum);
+                                if (p.getIdPengiriman().equals(pengirimanInTable.getIdPengiriman())) {
+                                    int id = p.getIdPengiriman();
+                                    pengirimanService.updateStatus(id, newStatusEnum.toString());
                                     break;
                                 }
                             }
 
                             int currentPage = pagination.getCurrentPageIndex();
                             createPage(currentPage);
-                            kurirPengirimanTable.refresh(); // Memaksa tabel untuk me-refresh tampilannya
+                            kurirPengirimanTable.refresh();
                         }
                     }
                 });

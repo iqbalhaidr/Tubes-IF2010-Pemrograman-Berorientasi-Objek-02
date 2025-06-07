@@ -70,6 +70,10 @@ public class RepoPengirimanController implements Listener {
         return pengirimanMap.get(kurir);
     }
 
+    public void updateStatus(int idPengiriman, String status){
+        Pengiriman pengiriman = this.repo.findById(idPengiriman);
+        pengiriman.setStatusPengiriman(StatusPengiriman.valueOf(status));
+    }
     public ArrayList<Kurir> getKurirAktif() {
         return KurirAktif;
     }
