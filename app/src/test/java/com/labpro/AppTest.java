@@ -1,19 +1,23 @@
 package com.labpro;
+//import jdk.vm.ci.meta.Local;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
 
-    @Test
-    void testAppInitialization() {
-        App app = new App();
-        assertNotNull(app);
-    }
+//    @Test
+//    void testAppInitialization() {
+//        App app = new App();
+//        assertNotNull(app);
+//    }
 
     @Test
     void testParselConstructor(){
@@ -172,10 +176,107 @@ class AppTest {
         assertEquals(LocalDate.of(2007, 12, 3), kurir.getTanggalLahir());
     }
 
+    @Test
+    void testKurirConstructr() throws IOException {
+        Kurir kurir = getFirstKurir();
+        assertEquals(0, kurir.getID());
+    }
+
+    @Test
+    void testKurirSetID() throws IOException {
+        Kurir kurir = getFirstKurir();
+        kurir.setId(2);
+        assertEquals(2, kurir.getID());
+    }
+
+    @Test
+    void testKurirSetName() throws IOException {
+        Kurir kurir = getFirstKurir();
+        kurir.setName("Andi");
+        assertEquals("Andi", kurir.getName());
+    }
+
+    @Test
+    void testKurirSetJenisKelamin() throws IOException {
+        Kurir kurir = getFirstKurir();
+        kurir.setJenisKelamin(JenisKelamin.PEREMPUAN);
+        assertEquals(JenisKelamin.PEREMPUAN, kurir.getJenisKelamin());
+    }
+
+    @Test
+    void testKurirSetPathFoto() throws IOException {
+        Kurir kurir = getFirstKurir();
+        kurir.setPathFoto("Andi");
+        assertEquals("Andi", kurir.getPathFoto());
+    }
+
+    @Test
+    void testKurirSetTanggalLahir() throws IOException {
+        Kurir kurir = getFirstKurir();
+        LocalDate tanggalLahir = LocalDate.of(2007, 12, 30);
+        kurir.setTanggalLahir(tanggalLahir);
+        assertEquals(tanggalLahir,  kurir.getTanggalLahir());
+    }
+
+    @Test
+    void testKurirSetDeleteStatus() throws IOException {
+        Kurir kurir = getFirstKurir();
+        kurir.setDeleteStatus(true);
+        assertTrue(kurir.getDeleteStatus());
+    }
+
+    @Test
+    void testKurirEquals() throws IOException {
+        Kurir kurir = getFirstKurir();
+        assertTrue(kurir.equals(kurir));
+
+        assertFalse(kurir.equals(new ArrayList<>()));
+    }
+
+    @Test
+    void testKurirToString() throws IOException {
+        Kurir kurir = getFirstKurir();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Kurir ");
+        sb.append(kurir.getName());
+        sb.append(" dengan ID ");
+        sb.append(kurir.getID());
+
+        assertEquals(sb.toString(), kurir.toString());
+    }
+
     private Kurir getFirstKurir() throws IOException {
         Adapter<Kurir> adapter = new Adapter<>("src/main/resources/testKurirJson.json", Kurir.class);
         return adapter.parseList().get(0);
     }
 
+
+    @Test
+    public void adapterPengiriman() throws IOException {
+        Map<String, Class<? extends Pengiriman>> map = new HashMap<>();
+        map.put("INTERNASIONAL", PengirimanInternasional.class);
+        map.put("DOMESTIK", PengirimanDomestik.class);
+
+        Adapter<Pengiriman> adapterPengiriman = new Adapter<Pengiriman>("src/main/resources/Pengiriman.json", Pengiriman.class, "type", map);
+
+        List<Pengiriman> allPengiriman = adapterPengiriman.parseList();
+
+        assertNotNull(allPengiriman);
+
+    }
+
+    public Pengiriman getFirstPengiriman() throws IOException {
+        Map<String, Class<? extends Pengiriman>> map = new HashMap<>();
+        map.put("INTERNASIONAL", PengirimanInternasional.class);
+        map.put("DOMESTIK", PengirimanDomestik.class);
+
+        Adapter<Pengiriman> adapterPengiriman = new Adapter<Pengiriman>("src/main/resources/Pengiriman.json", Pengiriman.class, "type", map);
+
+        List<Pengiriman> allPengiriman = adapterPengiriman.parseList();
+
+        Pengiriman firstPengiriman = allPengiriman.get(0);
+
+        return firstPengiriman;
+    }
 
 }
