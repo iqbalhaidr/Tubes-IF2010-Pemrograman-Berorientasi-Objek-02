@@ -3,7 +3,7 @@ package com.labpro;
 import java.time.LocalDate;
 
 
-public class Kurir implements Data{
+public class Kurir implements ID {
     private int id;
     private String name;
     private JenisKelamin jenisKelamin;

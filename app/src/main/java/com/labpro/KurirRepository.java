@@ -45,7 +45,7 @@ public class KurirRepository extends Repository<Kurir>{
         assert ID >= 0 : "ID tidak boleh bernilai negatif";
 
         Kurir kurir = findById(ID);
-        kurir.setDeleteStatus(false);
+        kurir.setDeleteStatus(true);
     }
 
 }
