@@ -16,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -93,7 +94,7 @@ public class ManajemenParselDashboardController{
                 ImageView editIcon = new ImageView();
                 editIcon.setFitWidth(16);
                 editIcon.setFitHeight(16);
-                // editIcon.setImage(new Image("path/to/edit-icon.png"));
+                editIcon.setImage(new Image("../images/edit.png"));
                 editButton.setGraphic(editIcon);
 
 
@@ -103,7 +104,7 @@ public class ManajemenParselDashboardController{
                 ImageView deleteIcon = new ImageView();
                 deleteIcon.setFitWidth(16);
                 deleteIcon.setFitHeight(16);
-                // deleteIcon.setImage(new Image("path/to/delete-icon.png"));
+                deleteIcon.setImage(new Image("../images/delete.png"));
                 deleteButton.setGraphic(deleteIcon);
 
                 actionBox.getChildren().addAll(editButton, deleteButton);
@@ -200,7 +201,7 @@ public class ManajemenParselDashboardController{
         }
     }
 
-    private Node createPage(int pageIndex) {
+    public Node createPage(int pageIndex) {
         int fromIndex = pageIndex * rowsPerPage;
         int toIndex = Math.min(fromIndex + rowsPerPage, parselData.size());
         ObservableList<Parsel> pageData = FXCollections.observableArrayList(
