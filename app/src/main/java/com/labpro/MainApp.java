@@ -1,5 +1,6 @@
 package com.labpro;
 
+import com.labpro.uiControl.ManajemenParselDashboardController;
 import com.labpro.uiControl.kurirDashboardController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -74,34 +75,37 @@ public class MainApp extends Application {
 
 
             // Login
-            Kurir loggedInKurir = null;
-            if (!allKurirs.isEmpty()) {
-                loggedInKurir = allKurirs.get(0);
-                try {
-                    System.out.println("KURIR INI LOGIN "+loggedInKurir);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-
-            } else {
-                System.out.println("Tidak ada data Kurir yang ditemukan di " + absoluteKurirPath);
-                return;
-            }
+//            Kurir loggedInKurir = null;
+//            if (!allKurirs.isEmpty()) {
+//                loggedInKurir = allKurirs.get(0);
+//                try {
+//                    System.out.println("KURIR INI LOGIN "+loggedInKurir);
+//                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+//                }
+//
+//            } else {
+//                System.out.println("Tidak ada data Kurir yang ditemukan di " + absoluteKurirPath);
+//                return;
+//            }
 
             // Load FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/kurirDashboard.fxml")); // Pastikan path FXML benar
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ParselView.fxml")); // Pastikan path FXML benar
             Parent kurirDashboardRoot = loader.load(); // Memuat FXML
 
-            kurirDashboardController controller = loader.getController();
-            controller.setLoggedInKurir(loggedInKurir);
-            controller.setPengirimanService(pengirimanService);
+            RepoParselController repoParselController = new RepoParselController(parselRepository);
 
-            Scene scene = new Scene(kurirDashboardRoot, 800, 500);
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/styles.css")).toExternalForm()); // Path CSS
+            ManajemenParselDashboardController controller = loader.getController();
+            controller.setRepoParselController(repoParselController);
+            controller.initialize();
+            controller.createPage(0);
 
-            primaryStage.setTitle("Aplikasi Pengiriman - Kurir Dashboard"); // Judul jendela
-            primaryStage.setScene(scene); // Menetapkan scene ke stage
-            primaryStage.show(); // Menampilkan stage
+//            Scene scene = new Scene(kurirDashboardRoot, 800, 500);
+//            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/styles.css")).toExternalForm()); // Path CSS
+//
+//            primaryStage.setTitle("Aplikasi Pengiriman - Kurir Dashboard"); // Judul jendela
+//            primaryStage.setScene(scene); // Menetapkan scene ke stage
+//            primaryStage.show(); // Menampilkan stage
 
         } catch (IOException e) {
             e.printStackTrace();
