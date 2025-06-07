@@ -25,7 +25,7 @@ public abstract class Pengiriman implements HasID, Data {
 
     public Pengiriman(Integer idPengiriman, String noResi, String tujuan, StatusPengiriman statusPengiriman,
                       Date tanggalPembuatan, String namaPengirim, String noTelp,
-                      String namaPenerima, String noTelpPenerima, List<Integer> listIdParsel,
+                      String namaPenerima, String noTelpPenerima, List<Parsel> listOfParsel,
                       Integer kurirId, String pdfFilePath, String kodePajak, Kurir kurir) {
 
         this.idPengiriman = idPengiriman;
@@ -37,7 +37,7 @@ public abstract class Pengiriman implements HasID, Data {
         this.noTelp = noTelp;
         this.namaPenerima = namaPenerima;
         this.noTelpPenerima = noTelpPenerima;
-        this.listIdParsel = listIdParsel;
+        this.listOfParsel = listOfParsel;
         this.kurirId = kurirId;
         this.kurir = kurir;
     }
