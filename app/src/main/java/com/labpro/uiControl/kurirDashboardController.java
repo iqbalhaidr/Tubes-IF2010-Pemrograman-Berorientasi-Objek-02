@@ -129,8 +129,12 @@ public class kurirDashboardController {
 
                             for (Pengiriman p : masterDataPengiriman) {
                                 if (p.getIdPengiriman().equals(pengirimanInTable.getIdPengiriman())) {
+                                    System.out.println("Seblum "+p.getStatusPengiriman().getDeskripsi());
                                     int id = p.getIdPengiriman();
-                                    pengirimanService.updateStatus(id, newStatusEnum.toString());
+                                    pengirimanService.updateStatus(id, newStatusEnum);
+//                                    p.setStatusPengiriman(newStatusEnum);
+                                    System.out.println("Sesudah "+p.getStatusPengiriman().getDeskripsi());
+
                                     break;
                                 }
                             }

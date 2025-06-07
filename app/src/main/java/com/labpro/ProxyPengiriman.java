@@ -12,7 +12,7 @@ public class ProxyPengiriman implements IProxyPengiriman {
         this.repo = repo;
     }
 
-    public void updateStatus(int idPengiriman, String status) {
+    public void updateStatus(int idPengiriman, StatusPengiriman status) {
         repo.updateStatus(idPengiriman, status);
     }
 
