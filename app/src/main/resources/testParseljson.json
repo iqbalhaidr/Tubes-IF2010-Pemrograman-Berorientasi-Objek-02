@@ -1,0 +1,23 @@
+[
+  {
+    "ID": 1,
+    "status": "REGISTERED",
+    "dimensi": [10, 20, 15],
+    "berat": 2.5,
+    "jenisBarang": "Elektronik"
+  },
+  {
+    "ID": 2,
+    "status": "UNREGISTERED",
+    "dimensi": [5, 10, 8],
+    "berat": 1.2,
+    "jenisBarang": "Makanan"
+  },
+  {
+    "ID": 3,
+    "status": "REGISTERED",
+    "dimensi": [25, 30, 20],
+    "berat": 4.75,
+    "jenisBarang": "Pakaian"
+  }
+]

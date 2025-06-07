@@ -8,13 +8,9 @@ public class KurirRepository extends Repository<Kurir>{
     public KurirRepository(List<Kurir> kurirs) {
         super(kurirs);
     }
-    public Kurir create(String nama, String strJenisKelamin, String pathFoto, LocalDate tanggalLahir) {
+    public Kurir create(String nama, JenisKelamin jenisKelamin, String pathFoto, LocalDate tanggalLahir) {
         assert nama != null && nama.trim().length() >= 3 : "Nama kurir minimal 3 karakter";
-
-        JenisKelamin jenisKelamin;
-        assert strJenisKelamin != null && !strJenisKelamin.trim().isEmpty() : "Jenis Kelamin tidak boleh kosong";
-        jenisKelamin = JenisKelamin.valueOf(strJenisKelamin.toUpperCase());
-
+        assert jenisKelamin != null : "Jenis Kelamin tidak boleh kosong";
         assert pathFoto != null && !pathFoto.trim().isEmpty() : "Path foto tidak boleh kosong";
         assert tanggalLahir != null : "Tanggal lahir tidak boleh kosong";
 
@@ -29,18 +25,14 @@ public class KurirRepository extends Repository<Kurir>{
         listOfEntity.add(newKurir);
         return newKurir;
     }
-    public Kurir update(int ID, String nama, String strJenisKelamin, String pathFoto, LocalDate tanggalLahir) {
+    public Kurir update(int ID, String nama, JenisKelamin jenisKelamin, String pathFoto, LocalDate tanggalLahir) {
         assert ID >= 0 : "ID tidak boleh bernilai negatif";
 
         Kurir kurir = findById(ID);
         if (!nama.isEmpty()) {
             kurir.setName(nama);
         }
-        if (!strJenisKelamin.isEmpty()) {
-            JenisKelamin jenisKelamin;
-            assert strJenisKelamin.equals("LAKI_LAKI") || strJenisKelamin.equals("PEREMPUAN") :
-                    "Jenis kelamin tidak valid. Harus 'LAKI_LAKI' atau 'PEREMPUAN'.";
-            jenisKelamin = JenisKelamin.valueOf(strJenisKelamin.toUpperCase());
+        if (jenisKelamin != null) {
             kurir.setJenisKelamin(jenisKelamin);
         }
         if (!pathFoto.isEmpty()) {
