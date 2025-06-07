@@ -1,43 +1,54 @@
 package com.labpro;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
-import javafx.stage.FileChooser;
-import java.io.File;
 import java.time.LocalDate;
-
-public class RepoKurirController extends Observable{
-    @FXML private TextField nameField;
-    @FXML private ComboBox<String> jenisKelaminCombo;
-    @FXML private TextField pathFotoField;
-    @FXML private DatePicker tanggalLahirPicker;
-
-    @FXML private Button createSubmitButton;
-    @FXML private Button updateSubmitButton;
+import java.util.List;
+import java.util.stream.Collectors; // Import untuk operasi stream
 
 
+public class RepoKurirController extends Observable {
     private final KurirRepository kurirRepository;
-    private ObservableList<Kurir> kurirData;
 
     public RepoKurirController(KurirRepository kurirRepository) {
-        assert kurirRepository != null : "KurirRepository tidak boleh null";
+        if (kurirRepository == null) {
+            throw new IllegalArgumentException("KurirRepository tidak boleh null.");
+        }
         this.kurirRepository = kurirRepository;
     }
 
 
-    @FXML
-    private void handleCreate() { //belum ada validasi
-        String nama = nameField.getText();
-        String strJenisKelamin = jenisKelaminCombo.getValue();
-        String pathFoto ="a";
-        LocalDate tanggalLahir = tanggalLahirPicker.getValue();
+    public void createKurir(String nama, String strJenisKelamin, String pathFoto, LocalDate tanggalLahir) { //belum ada validasi
+        if (nama == null || nama.trim().isEmpty()) {
+            throw new IllegalArgumentException("Nama kurir tidak boleh kosong");
+        }
+
+        if (nama.trim().length() < 2) {
+            throw new IllegalArgumentException("Nama kurir minimal 2 karakter");
+        }
+
+        JenisKelamin jenisKelaminEnum;
+        if (strJenisKelamin == null || strJenisKelamin.trim().isEmpty()) {
+            throw new IllegalArgumentException("Jenis Kelamin tidak boleh kosong");
+        }
+        try {
+            jenisKelaminEnum = JenisKelamin.valueOf(strJenisKelamin.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Jenis Kelamin tidak valid");
+        }
+
+        if (tanggalLahir == null) {
+            throw new IllegalArgumentException("Tanggal lahir tidak boleh kosong");
+        }
+        if (tanggalLahir.isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("Tanggal lahir tidak valid.");
+        }
+
+        if (pathFoto == null || pathFoto.trim().isEmpty()) {
+            throw new IllegalArgumentException("Foto tidak boleh kosong");
+        }
+
         Kurir newKurir = null;
         try {
-            newKurir = kurirRepository.create(nama, strJenisKelamin, pathFoto, tanggalLahir);
+            newKurir = kurirRepository.create(nama, jenisKelaminEnum, pathFoto, tanggalLahir);
         } catch (IllegalArgumentException e) {
             System.err.println("Error: " + e.getMessage());
         }
@@ -46,68 +57,54 @@ public class RepoKurirController extends Observable{
         notifyListeners(newKurir,createKurirEvent);
     }
 
-    @FXML
-    private void handleUpdate(int kurirID) {
-        String nama  = nameField.getText();
-        if (nama.isEmpty()) nama = null;
-
-        String strJenisKelamin = jenisKelaminCombo.getValue();
-        if (strJenisKelamin.isEmpty()) strJenisKelamin = null;
-
-        String pathFoto = pathFotoField.getText();
-        if (pathFoto.isEmpty()) pathFoto = null;
-
-        LocalDate tanggalLahir  = tanggalLahirPicker.getValue();
-
-        Kurir updatedKurir = null;
+    public void handleUpdate(int ID, String nama, String strJenisKelamin, String pathFoto, LocalDate tanggalLahir) {
+        if (ID < 0) {
+            throw new IllegalArgumentException("ID Kurir tidak boleh negatif");
+        }
+        Kurir kurirToUpdate = kurirRepository.findById(ID);
+        if (kurirToUpdate == null) {
+            throw new IllegalArgumentException("Kurir dengan ID " + ID + " tidak ditemukan.");
+        }
+        if (nama != null && !nama.trim().isEmpty()) {
+            if (nama.trim().length() < 2) {
+                throw new IllegalArgumentException("Nama kurir minimal 2 karakter");
+            }
+        }
+        JenisKelamin jenisKelaminEnum = null;
+        if (strJenisKelamin != null && !strJenisKelamin.isEmpty()) {
+            try {
+                jenisKelaminEnum = JenisKelamin.valueOf(strJenisKelamin.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("Jenis Kelamin tidak valid");
+            }
+        }
         try {
-            updatedKurir = kurirRepository.update(kurirID, nama, strJenisKelamin, pathFoto, tanggalLahir);
+            kurirToUpdate = kurirRepository.update(ID, nama, jenisKelaminEnum, pathFoto, tanggalLahir);
         } catch (IllegalArgumentException e) {
             System.err.println("Error: " + e.getMessage());
         }
 
         ObservableEventType updateKurirEvent;
         updateKurirEvent = ObservableEventType.valueOf("UpdateKurir");
-        notifyListeners(updatedKurir,updateKurirEvent);
+        notifyListeners(kurirToUpdate,updateKurirEvent);
     }
 
-    @FXML
-    private void handleDelete(int kurirID) {
-        Kurir kurirToDelete = kurirRepository.findById(kurirID);
-        kurirRepository.delete(kurirID);
+    public void handleDelete(int ID) {
+        if (ID < 0) {
+            throw new IllegalArgumentException("ID Kurir tidak boleh negatif");
+        }
+        Kurir kurirToDelete = kurirRepository.findById(ID);
+        if (kurirToDelete == null) {
+            throw new IllegalArgumentException("Kurir dengan ID " + ID + " tidak ditemukan.");
+        }
+        kurirRepository.delete(ID);
         ObservableEventType deleteKurirEvent;
         deleteKurirEvent = ObservableEventType.valueOf("DeleteKurir");
         notifyListeners(kurirToDelete,deleteKurirEvent);
     }
 
-    @FXML
-    private void handlePilihFileFoto() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Pilih file foto kurir");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"),
-                new FileChooser.ExtensionFilter("All Files", "*.*")
-        );
 
-        File selectedFile = fileChooser.showOpenDialog(pathFotoField.getScene().getWindow());
-
-        if (selectedFile != null) {
-            String filePath = selectedFile.getAbsolutePath();
-            pathFotoField.setText(filePath);
-        }
-//        validasi else nanti
-    }
-
-    private void clearFormFields() {
-        nameField.clear();
-        jenisKelaminCombo.getSelectionModel().clearSelection();
-        tanggalLahirPicker.setValue(null);
-        pathFotoField.clear();
-    }
-
-    private void loadAllKurir() {
-        kurirData.clear();
-        clearFormFields();
-        kurirData.addAll(kurirRepository.findAll());
+    public List<Kurir> getAllKurir() {
+        return kurirRepository.findAll();
     }
 }
