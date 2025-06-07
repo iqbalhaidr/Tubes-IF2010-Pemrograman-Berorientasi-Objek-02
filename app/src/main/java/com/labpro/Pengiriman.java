@@ -5,7 +5,7 @@ package com.labpro;
 import java.util.*;
 
 
-public abstract class Pengiriman implements HasID, Data {
+public abstract class Pengiriman implements Data {
     protected Integer idPengiriman;
     protected String noResi;
     protected String tujuan;

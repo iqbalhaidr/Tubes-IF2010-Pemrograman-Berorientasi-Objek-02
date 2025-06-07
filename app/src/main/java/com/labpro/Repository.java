@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 class Repository<T extends  Data> {
     protected final List<T> listOfEntity;
@@ -14,16 +15,17 @@ class Repository<T extends  Data> {
     }
 
     public List<T> findAll() {
-        return listOfEntity;
+        return listOfEntity.stream()
+                .filter(entity -> !entity.getDeleteStatus())
+                .collect(Collectors.toList());
     }
 
     public T findById(int id) {
-        for (T entity : listOfEntity) {
-            if (entity.getID() == id) {
-                return entity;
-            }
-        }
-        return null;
+        return listOfEntity.stream()
+                .filter(entity -> !entity.getDeleteStatus())
+                .filter(entity -> entity.getID() == id)
+                .findFirst()
+                .orElse(null);
     }
 
     public void delete(int id) {
