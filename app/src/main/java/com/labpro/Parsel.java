@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-class Parsel implements Data {
+public class Parsel implements Data {
     private int ID;
     private ParselStatus status;
     private int[] dimensi = new int[3];
