@@ -129,4 +129,8 @@ public class kurirDashboardController {
 
         return kurirPengirimanTable;
     }
+
+    public void setLoggedInKurir(Kurir loggedInKurir) {
+        this.loggedInKurir = loggedInKurir;
+    }
 }

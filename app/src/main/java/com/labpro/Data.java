@@ -1,5 +1,5 @@
 package com.labpro;
 
 public interface Data {
-    Integer getID();       // method abstrak
+    public Integer getID();       // method abstrak
 }

@@ -1,8 +1,10 @@
 package com.labpro;
 
+import java.util.List;
+
 public class ParselRepository extends Repository<Parsel> {
-    public ParselRepository() {
-        super();
+    public ParselRepository(List<Parsel> parsels) {
+        super(parsels);
     }
 
     public Parsel create(int panjang, int lebar, int tinggi, double berat, String jenisBarang) {
