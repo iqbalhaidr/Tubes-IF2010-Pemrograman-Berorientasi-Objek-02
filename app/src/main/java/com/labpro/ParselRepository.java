@@ -29,20 +29,25 @@ public class ParselRepository extends Repository<Parsel> {
         return newParsel;
     }
 
-    public Parsel update(int ID, String strStatus, Integer panjang, Integer lebar, Integer tinggi, Double berat, String jenisBarang) {
+    public Parsel update(int ID, Integer panjang, Integer lebar, Integer tinggi, Double berat, String jenisBarang) {
         assert ID >= 0 : "ID tidak boleh bernilai negatif";
 
         Parsel parsel = findById(ID);
+        
+        int[] currentDimensi = parsel.getDimensi();
+        int[] updatedDimensi = new int[3];
 
-        if (!strStatus.isEmpty()) {
-            ParselStatus status;
-            assert strStatus.equals("LAKI_LAKI") || strStatus.equals("PEREMPUAN") :
-                    "Jenis kelamin tidak valid. Harus 'LAKI_LAKI' atau 'PEREMPUAN'.";
-            status = ParselStatus.valueOf(strStatus.toUpperCase());
-            parsel.setStatus(status);
+        updatedDimensi[0] = (panjang != currentDimensi[0]) ? panjang : currentDimensi[0];
+        updatedDimensi[1] = (panjang != currentDimensi[1]) ? lebar : currentDimensi[1];
+        updatedDimensi[2] = (panjang != currentDimensi[2]) ? tinggi : currentDimensi[2];
+
+        if (berat != parsel.getBerat()) {
+            parsel.setBerat(berat);
         }
 
-
+        if (!jenisBarang.isEmpty()) {
+            parsel.setJenisBarang(jenisBarang);
+        }
 
     return parsel;
     }
