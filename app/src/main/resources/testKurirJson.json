@@ -1,0 +1,9 @@
+[
+  {
+    "ID" : 0,
+    "name" : "Budi",
+    "jenisKelamin" : "LAKI_LAKI",
+    "pathFoto" : "data/ke/path/foto",
+    "tanggalLahir" : "2007-12-03"
+  }
+]

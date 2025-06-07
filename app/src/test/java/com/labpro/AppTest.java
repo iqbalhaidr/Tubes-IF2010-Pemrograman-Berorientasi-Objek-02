@@ -257,7 +257,7 @@ class AppTest {
         map.put("INTERNASIONAL", PengirimanInternasional.class);
         map.put("DOMESTIK", PengirimanDomestik.class);
 
-        Adapter<Pengiriman> adapterPengiriman = new Adapter<Pengiriman>("src/main/resources/Pengiriman.json", Pengiriman.class, "type", map);
+        Adapter<Pengiriman> adapterPengiriman = new Adapter<Pengiriman>("src/main/java/com/labpro/dummyData/Pengiriman.json", Pengiriman.class, "type", map);
 
         List<Pengiriman> allPengiriman = adapterPengiriman.parseList();
 
@@ -270,7 +270,7 @@ class AppTest {
         map.put("INTERNASIONAL", PengirimanInternasional.class);
         map.put("DOMESTIK", PengirimanDomestik.class);
 
-        Adapter<Pengiriman> adapterPengiriman = new Adapter<Pengiriman>("src/main/resources/Pengiriman.json", Pengiriman.class, "type", map);
+        Adapter<Pengiriman> adapterPengiriman = new Adapter<Pengiriman>("src/main/java/com/labpro/dummyData/Pengiriman.json", Pengiriman.class, "type", map);
 
         List<Pengiriman> allPengiriman = adapterPengiriman.parseList();
 

@@ -4,74 +4,121 @@ import com.labpro.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.control.Label;
 
 public class kurirDashboardController {
-    @FXML private TableView<Pengiriman> kurirPengirimanTable;
-    @FXML private TableColumn<Pengiriman, String> noResiColumn;
-    @FXML private TableColumn<Pengiriman, String> penerimaColumn;
-    @FXML private TableColumn<Pengiriman, String> alamatColumn;
-    @FXML private TableColumn<Pengiriman, String> statusColumn;
-    @FXML private TableColumn<Pengiriman, Void> aksiColumn;
+
     @FXML private Pagination pagination;
     @FXML private Text kurirName;
 
-    //TODO: how the user log in how to know if its kurir by its name or what?
+    @FXML
+    private TableColumn<Pengiriman, Void> aksiColumn;
+
+    @FXML
+    private TableColumn<Pengiriman, String> alamatColumn;
+
+    @FXML
+    private TableView<Pengiriman> kurirPengirimanTable;
+
+    @FXML
+    private TableColumn<Pengiriman, String> noResColumn;
+
+    @FXML
+    private TableColumn<Pengiriman, String> penerimaColumn;
+
+    @FXML
+    private TableColumn<Pengiriman, String> statusColumn;
+
     private Kurir loggedInKurir;
     private RepoPengirimanController pengirimanService;
-    private final int rowsPerPage = 5; // Jumlah baris per halaman
-    private List<Pengiriman> masterDataPengiriman; // Daftar lengkap semua data pengiriman
+    private final int rowsPerPage = 7;
+    private List<Pengiriman> masterDataPengiriman;
 
-    // Metode ini akan dipanggil otomatis oleh JavaFX setelah FXML dimuat
+    public kurirDashboardController(){}
+
     @FXML
     public void initialize() {
         setupTable();
-        kurirName.setText("Selamat Datang, Kurir!");
     }
 
-    // Setter untuk RepoPengirimanController
     public void setPengirimanService(RepoPengirimanController service) {
         this.pengirimanService = service;
-        loadTableData();
+        if (this.loggedInKurir != null) {
+            loadTableData();
+        }
+    }
+
+    public void setLoggedInKurir(Kurir loggedInKurir) {
+        this.loggedInKurir = loggedInKurir;
+        if (loggedInKurir != null) {
+            kurirName.setText("Selamat Datang, " + loggedInKurir.getName() + "!");
+        } else {
+            kurirName.setText("Selamat Datang, Kurir!");
+        }
+        if (this.pengirimanService != null) {
+            loadTableData();
+        }
     }
 
     private void setupTable() {
-        noResiColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNoResi()));
+        noResColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNoResi()));
         penerimaColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNamaPenerima()));
         alamatColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTujuan()));
 
+        // --- START MODIFIKASI UNTUK BADGE STATUS ---
         statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatusPengiriman().toString()));
         statusColumn.setCellFactory(column -> new TableCell<Pengiriman, String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty ? null : item);
-                getStyleClass().removeAll("status-menunggu_kurir", "status-dikirim", "status-tiba_di_tujuan", "status-gagal");
+                if (empty || item == null) {
+                    setGraphic(null);
+                    setText(null);
+                    getStyleClass().removeAll("status-menunggu_kurir", "status-dikirim", "status-tiba_di_tujuan", "status-gagal");
+                } else {
+                    Label statusLabel = new Label(item);
+                    statusLabel.setAlignment(Pos.CENTER);
 
-                if (item != null && !empty) {
+                    getStyleClass().removeAll("status-menunggu_kurir", "status-dikirim", "status-tiba_di_tujuan", "status-gagal");
                     String cssClass = item.toLowerCase().replace(" ", "_");
-                    getStyleClass().add("status-" + cssClass);
+                    statusLabel.getStyleClass().add("status-" + cssClass);
+
+                    setGraphic(statusLabel);
+                    setText(null);
                 }
             }
         });
 
         aksiColumn.setCellFactory(param -> new TableCell<Pengiriman, Void>() {
-            private final ComboBox<String> statusComboBox = new ComboBox<>(FXCollections.observableArrayList(
-                    "Menunggu Kurir", "Dikirim", "Tiba Di Tujuan", "Gagal"
-            ));
+            private final ComboBox<String> statusComboBox = new ComboBox<>(); // Inisialisasi kosong
             private final Button saveButton = new Button("Simpan");
-            private final HBox pane = new HBox(5, statusComboBox, saveButton);
+            private final HBox pane = new HBox(5, statusComboBox, saveButton); // Jarak 5px antar komponen
 
             {
+                // Pengaturan Lebar dan Tinggi
+                statusComboBox.setPrefWidth(120.0);
+                statusComboBox.setPrefHeight(30.0);
                 statusComboBox.setMaxWidth(Double.MAX_VALUE);
+
+                saveButton.setPrefWidth(60.0);
+                saveButton.setPrefHeight(30.0);
+                saveButton.setMaxWidth(Double.MAX_VALUE);
+
                 HBox.setHgrow(statusComboBox, Priority.ALWAYS);
-                saveButton.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white;");
+                HBox.setHgrow(saveButton, Priority.ALWAYS);
+
+                pane.setAlignment(Pos.CENTER_LEFT);
+                saveButton.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-background-radius: 5;");
 
                 saveButton.setOnAction(event -> {
                     Pengiriman pengirimanInTable = getTableView().getItems().get(getIndex());
@@ -82,14 +129,16 @@ public class kurirDashboardController {
 
                             for (Pengiriman p : masterDataPengiriman) {
                                 if (p.getNoResi().equals(pengirimanInTable.getNoResi())) {
-                                    p.setStatusPengiriman(newStatusEnum); // Update status di master list
+                                    p.setStatusPengiriman(newStatusEnum);
+                                    // PENTING: Jika Anda menyimpan perubahan ke database, lakukan di sini
+                                    // pengirimanService.updatePengirimanStatus(p.getNoResi(), newStatusEnum);
                                     break;
                                 }
                             }
 
-                            pagination.setPageFactory(pageIndex -> {
-                                return createPage(pageIndex);
-                            });
+                            int currentPage = pagination.getCurrentPageIndex();
+                            createPage(currentPage);
+                            kurirPengirimanTable.refresh(); // Memaksa tabel untuk me-refresh tampilannya
                         }
                     }
                 });
@@ -102,7 +151,34 @@ public class kurirDashboardController {
                     setGraphic(null);
                 } else {
                     Pengiriman pengiriman = getTableView().getItems().get(getIndex());
-                    statusComboBox.setValue(pengiriman.getStatusPengiriman().getDeskripsi());
+                    statusComboBox.setValue(pengiriman.getStatusPengiriman().getDeskripsi()); // Set nilai awal ComboBox
+
+                    StatusPengiriman currentStatus = pengiriman.getStatusPengiriman();
+                    List<String> availableOptions = new ArrayList<>();
+                    availableOptions.add(currentStatus.getDeskripsi());
+
+                    switch (currentStatus) {
+                        case MENUNGGU_KURIR:
+                            availableOptions.add(StatusPengiriman.DIKIRIM.getDeskripsi());
+                            break;
+                        case DIKIRIM:
+
+                            availableOptions.add(StatusPengiriman.TIBA_DI_TUJUAN.getDeskripsi());
+                            availableOptions.add(StatusPengiriman.GAGAL.getDeskripsi());
+                            break;
+                        case TIBA_DI_TUJUAN:
+                        case GAGAL:
+                            break;
+                    }
+
+                    statusComboBox.setItems(FXCollections.observableArrayList(availableOptions));
+                    statusComboBox.setValue(currentStatus.getDeskripsi());
+
+                    boolean isFinalStatus = (currentStatus == StatusPengiriman.TIBA_DI_TUJUAN ||
+                            currentStatus == StatusPengiriman.GAGAL);
+                    statusComboBox.setDisable(isFinalStatus);
+                    saveButton.setDisable(isFinalStatus);
+
                     setGraphic(pane);
                 }
             }
@@ -110,12 +186,16 @@ public class kurirDashboardController {
     }
 
     private void loadTableData() {
-        //TODO: get pengiriman for specific kurir
-        if (pengirimanService != null) {
-            masterDataPengiriman = pengirimanService.getPengirimanByKurir(loggedInKurir); // Ambil semua data
+        if (pengirimanService != null && loggedInKurir != null) {
+            this.masterDataPengiriman = pengirimanService.getPengirimanByKurir(loggedInKurir);
             int pageCount = (int) Math.ceil((double) masterDataPengiriman.size() / rowsPerPage);
             pagination.setPageCount(pageCount == 0 ? 1 : pageCount);
             pagination.setPageFactory(this::createPage);
+            createPage(pagination.getCurrentPageIndex());
+        } else {
+            System.err.println("Error: pengirimanService or loggedInKurir is null. Cannot load table data.");
+            kurirPengirimanTable.setItems(FXCollections.observableArrayList());
+            pagination.setPageCount(1);
         }
     }
 
@@ -123,14 +203,9 @@ public class kurirDashboardController {
         int fromIndex = pageIndex * rowsPerPage;
         int toIndex = Math.min(fromIndex + rowsPerPage, masterDataPengiriman.size());
 
-        // Ambil sub-list data untuk halaman saat ini
         List<Pengiriman> pageData = masterDataPengiriman.subList(fromIndex, toIndex);
         kurirPengirimanTable.setItems(FXCollections.observableArrayList(pageData));
 
-        return kurirPengirimanTable;
-    }
-
-    public void setLoggedInKurir(Kurir loggedInKurir) {
-        this.loggedInKurir = loggedInKurir;
+        return new VBox();
     }
 }

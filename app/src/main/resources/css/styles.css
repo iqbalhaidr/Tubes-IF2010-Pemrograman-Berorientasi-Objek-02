@@ -1,21 +1,36 @@
-body {
-    -fx-background-color: #f0f0f0;
+
+.status-menunggu_kurir,
+.status-dikirim,
+.status-tiba_di_tujuan,
+.status-gagal {
+    -fx-background-color: #ffeb3b; /* Kuning */
+    -fx-text-fill: #333333;
+    -fx-padding: 4px 8px; /* Padding DI DALAM BADGE */
+    -fx-background-radius: 15px; /* Rounded badge */
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
 }
 
-.button {
-    -fx-background-color: #007bff;
-    -fx-text-fill: white;
-    -fx-padding: 10px 20px;
-    -fx-font-size: 14px;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
+/* Spesifik warna (ini sudah benar) */
+.status-dikirim {
+    -fx-background-color: #bbdefb;
+}
+.status-tiba_di_tujuan {
+    -fx-background-color: #c8e6c9;
+}
+.status-gagal {
+    -fx-background-color: #ffcdd2;
+}
+.table-view .table-cell {
+    -fx-padding: 0;
+    -fx-alignment: CENTER_LEFT;
 }
 
-.button:hover {
-    -fx-background-color: #0056b3;
+#statusColumn .table-cell {
+    -fx-padding: 5px;
+    -fx-alignment: CENTER;
 }
 
-.label {
-    -fx-font-size: 16px;
-    -fx-text-fill: #333;
+.table-row-cell {
+    -fx-pref-height: 40px;
 }
