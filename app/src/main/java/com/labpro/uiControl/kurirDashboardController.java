@@ -160,6 +160,7 @@ public class kurirDashboardController {
                     switch (currentStatus) {
                         case MENUNGGU_KURIR:
                             availableOptions.add(StatusPengiriman.DIKIRIM.getDeskripsi());
+                            availableOptions.add(StatusPengiriman.GAGAL.getDeskripsi());
                             break;
                         case DIKIRIM:
 
