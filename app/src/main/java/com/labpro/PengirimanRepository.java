@@ -4,13 +4,11 @@ import java.util.Date;
 import java.util.List;
 
 public class PengirimanRepository extends Repository<Pengiriman>{
-    private List<Pengiriman> allPengiriman;
     private final PengirimanInternasionalFactory factoryInternasional;
     private final PengirimanDomestikFactory factoryDomestik;
 
     public PengirimanRepository(List<Pengiriman> allPengiriman) {
-        super();
-        this.allPengiriman = allPengiriman;
+        super(allPengiriman);
         this.factoryInternasional = new PengirimanInternasionalFactory();
         this.factoryDomestik = new PengirimanDomestikFactory();
 

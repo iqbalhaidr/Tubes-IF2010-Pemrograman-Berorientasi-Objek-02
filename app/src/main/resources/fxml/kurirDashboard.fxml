@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.labpro.uiControl.kurirDashboardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.labpro.uiControl.kurirDashboardController">
    <children>
       <HBox prefHeight="68.0" prefWidth="700.0" style="-fx-background-color: white;">
          <children>
@@ -43,17 +44,18 @@
             </AnchorPane>
          </children>
       </HBox>
-      <TableView id="kurirPengirimanTable" layoutX="38.0" layoutY="94.0" prefHeight="270.0" prefWidth="623.0" style="-fx-border-radius: 0; -fx-background-radius: 0;">
+      <TableView id="kurirPengirimanTable" fx:id="kurirPengirimanTable" layoutX="38.0" layoutY="90.0" prefHeight="270.0" prefWidth="623.0" style="-fx-border-radius: 0; -fx-background-radius: 0;">
         <columns>
-          <TableColumn id="noResColumn" prefWidth="69.99999618530273" text="No. Resi" />
-          <TableColumn id="penerimaColumn" prefWidth="101.3333511352539" text="Penerima" />
-            <TableColumn id="alamatColumn" prefWidth="137.3332977294922" text="Alamat" />
-            <TableColumn id="statusColumn" prefWidth="124.6666259765625" text="Status" />
-            <TableColumn id="aksiColumn" prefWidth="180.66671752929688" text="Aksi" />
+          <TableColumn id="col1" fx:id="noResColumn" prefWidth="69.99999618530273" text="No. Resi" />
+          <TableColumn id="penerimaColumn" fx:id="penerimaColumn" prefWidth="101.3333511352539" text="Penerima" />
+            <TableColumn id="alamatColumn" fx:id="alamatColumn" prefWidth="137.3332977294922" text="Alamat" />
+            <TableColumn id="statusColumn" fx:id="statusColumn" prefWidth="124.6666259765625" text="Status" />
+            <TableColumn id="aksiColumn" fx:id="aksiColumn" prefWidth="180.66671752929688" text="Aksi" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
+      <Pagination layoutX="268.0" layoutY="208.0" prefHeight="202.0" prefWidth="163.0" />
    </children>
 </AnchorPane>
