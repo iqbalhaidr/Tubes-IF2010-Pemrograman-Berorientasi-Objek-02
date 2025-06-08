@@ -38,6 +38,8 @@ public class ManajemenParselDashboardController{
     @FXML private TableColumn<Parsel, Void> actionsColumn;
     @FXML private Button createParsel;
     @FXML private Pagination pagination;
+    @FXML private Label timeLabel;
+
 
     private RepoParselController repoParselController;
     private List<Parsel> parselData;
@@ -49,6 +51,8 @@ public class ManajemenParselDashboardController{
 
     @FXML
     public void initialize() {
+        TimeThread timeThread = new TimeThread(timeLabel);
+        timeThread.start();
         parselData = new ArrayList<>();
         loadParselData();
         //setUp Table Columns

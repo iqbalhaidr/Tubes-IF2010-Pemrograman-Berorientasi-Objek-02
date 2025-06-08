@@ -41,7 +41,7 @@ public class PengirimanView {
 
     @FXML private Label timeLabel;
 
-    private final int rowsPerPage = 2;
+    private final int rowsPerPage = 10;
     private ArrayList<Pengiriman> allData;
     private ArrayList<Pengiriman> currentData;
     private PengirimanSearcher<Pengiriman> searcher;
