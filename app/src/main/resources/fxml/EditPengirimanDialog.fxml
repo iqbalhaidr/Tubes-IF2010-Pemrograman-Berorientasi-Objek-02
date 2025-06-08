@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.labpro.uiControl.EditPengirimanDialogController" prefWidth="400.0">
+    <children>
+        <VBox spacing="10" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="50.0">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Label text="Edit Pengiriman"/>
+
+            <HBox spacing="10">
+                <Label text="Kurir:"/>
+                <ComboBox fx:id="kurirComboBox" prefWidth="200"/>
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Parsel:"/>
+                <ListView fx:id="parselListView" prefHeight="100" prefWidth="200"/>
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Tujuan:"/>
+                <TextField fx:id="tujuanField" prefWidth="250"/>
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Status:"/>
+                <ComboBox fx:id="statusComboBox" prefWidth="200"/>
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Nama Pengirim:"/>
+                <TextField fx:id="namaPengirimField" prefWidth="200"/>
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="No Telp Pengirim:"/>
+                <TextField fx:id="noTelpField" prefWidth="200"/>
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Nama Penerima:"/>
+                <TextField fx:id="namaPenerimaField" prefWidth="200"/>
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="No Telp Penerima:"/>
+                <TextField fx:id="noTelpPenerimaField" prefWidth="200"/>
+            </HBox>
+        </VBox>
+
+        <HBox spacing="10" alignment="CENTER_RIGHT"  AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="10.0">
+            <Button text="Simpan" onAction="#handleSimpan"/>
+            <Button text="Batal" onAction="#handleBatal"/>
+        </HBox>
+    </children>
+</AnchorPane>

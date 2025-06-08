@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.labpro.uiControl.CreateInternasionalPengirimanDialogController">
+    <VBox spacing="10">
+        <Label text="Buat Pengiriman Internasional" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+
+        <GridPane hgap="10" vgap="10">
+            <Label text="Nama Pengirim:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+            <TextField fx:id="namaPengirimField" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+            <Label text="Nama Penerima:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+            <TextField fx:id="namaPenerimaField" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+            <Label text="No Telp Pengirim:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+            <TextField fx:id="noTelpField" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+            <Label text="No Telp Penerima:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+            <TextField fx:id="noTelpPenerimaField" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+
+            <Label text="Alamat Tujuan:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+            <TextField fx:id="tujuanField" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+
+            <Label text="Kurir:" GridPane.rowIndex="5" GridPane.columnIndex="0" />
+            <ComboBox fx:id="kurirComboBox" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+
+            <Label text="Status:" GridPane.rowIndex="6" GridPane.columnIndex="0" />
+            <ComboBox fx:id="statusComboBox" GridPane.rowIndex="6" GridPane.columnIndex="1" />
+
+            <Label text="PDF File Path:" GridPane.rowIndex="7" GridPane.columnIndex="0" />
+            <TextField fx:id="pdfFilePathField" GridPane.rowIndex="7" GridPane.columnIndex="1" />
+
+            <Label text="Kode Pajak:" GridPane.rowIndex="8" GridPane.columnIndex="0" />
+            <TextField fx:id="kodePajakField" GridPane.rowIndex="8" GridPane.columnIndex="1" />
+
+            <Label text="No Resi:" GridPane.rowIndex="9" GridPane.columnIndex="0" />
+            <TextField fx:id="noResiField" GridPane.rowIndex="9" GridPane.columnIndex="1" />
+
+            <Label text="Tanggal Pembuatan:" GridPane.rowIndex="10" GridPane.columnIndex="0" />
+            <DatePicker fx:id="tanggalPembuatanPicker" GridPane.rowIndex="10" GridPane.columnIndex="1" />
+
+        </GridPane>
+
+        <HBox spacing="10">
+            <Button text="Batal" onAction="#handleCancel" />
+            <Button text="Simpan" onAction="#handleSimpan" />
+        </HBox>
+    </VBox>
+</AnchorPane>

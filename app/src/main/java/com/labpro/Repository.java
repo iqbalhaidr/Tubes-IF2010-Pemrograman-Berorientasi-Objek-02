@@ -17,6 +17,9 @@ class Repository<T extends Data> {
         return listOfEntity;
     }
 
+    public void add(T entity){
+        listOfEntity.add(entity);
+    }
     public T findById(int id) {
 
         for (T entity : listOfEntity) {

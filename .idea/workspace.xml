@@ -5,19 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8c5091a-5446-4435-8390-b8891eb30457" name="Changes" comment="feat: current manajemen kurir dashboard">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/if2010-tubes-2-2425-lah.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/MainApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/MainApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/PengirimanView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/PengirimanView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/CreateDomestikPengirimanDialogController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/CreateInternasionalPengirimanDialogController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/EditPengirimanDialogController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/SelectPengirimanTypeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/TrackingView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/resources/fxml/CreateInternasionalPengirimanDialog.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/resources/fxml/EditPengirimanDialog.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/resources/fxml/createPengirimanDialogDomestik.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/resources/fxml/selectPengiriman.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/resources/fxml/trackingPengiriman.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/Pengiriman.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/Pengiriman.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/PengirimanRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/PengirimanRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/RepoPengirimanController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/RepoPengirimanController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/TestMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/TestMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/Repository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/PengirimanView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/PengirimanView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/resources/fxml/PengirimanView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/fxml/PengirimanView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,9 +32,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -82,10 +87,14 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "git-widget-placeholder": "parseldankurir-aufa",
+    "git-widget-placeholder": "main",
     "go.import.settings.migrated": "true",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "D:/Codes/SEMESTER4IF/Codes/OOP/if2010-tubes-2-2425-lah",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
