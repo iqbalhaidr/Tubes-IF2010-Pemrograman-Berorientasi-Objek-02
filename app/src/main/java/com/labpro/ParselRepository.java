@@ -7,6 +7,7 @@ public class ParselRepository extends Repository<Parsel> {
         super(parsels);
     }
 
+    public List<Parsel> findAll() { return super.findAll();}
     public Parsel create(int[] dimensi, double berat, String jenisBarang) {
         ParselStatus status = ParselStatus.valueOf("UNREGISTERED");
 
@@ -17,12 +18,10 @@ public class ParselRepository extends Repository<Parsel> {
 
         assert jenisBarang != null && !jenisBarang.trim().isEmpty() : "Jenis Barang tidak boleh kosong";
 
-        int newID;
-        if (listOfEntity.isEmpty()) {
-            newID = 0;
-        } else {
-            newID = findById(listOfEntity.size() - 1).getID() + 1; // id terakhir + 1
-        }
+        int newID = listOfEntity.stream()
+                .mapToInt(Parsel::getID)
+                .max()
+                .orElse(0) + 1;
         Parsel newParsel = new Parsel(newID, status, dimensi, berat, jenisBarang);
 
         listOfEntity.add(newParsel);
@@ -58,6 +57,6 @@ public class ParselRepository extends Repository<Parsel> {
         assert ID >= 0 : "ID tidak boleh bernilai negatif";
 
         Parsel parsel = findById(ID);
-        parsel.setDeleteStatus(false);
+        parsel.setDeleteStatus(true);
     }
 }

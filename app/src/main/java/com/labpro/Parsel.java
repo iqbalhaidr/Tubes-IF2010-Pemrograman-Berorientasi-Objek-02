@@ -4,9 +4,10 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-class Parsel implements ID {
+public class Parsel implements Data {
     private int ID;
     private ParselStatus status;
     private int[] dimensi = new int[3];
@@ -84,5 +85,16 @@ class Parsel implements ID {
             return ID == p.ID;
         }
         return false;
+    }
+
+    public String toString() {
+        return "Parsel{" +
+                "ID=" + ID +
+                ", status=" + status +
+                ", dimensi=" + Arrays.toString(dimensi) + // Gunakan Arrays.toString() untuk array
+                ", berat=" + berat +
+                ", jenisBarang='" + jenisBarang + '\'' +
+                ", deleteStatus=" + deleteStatus +
+                '}';
     }
 }

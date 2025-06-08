@@ -1,6 +1,7 @@
 package com.labpro;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RepoParselController extends Observable {
     private final ParselRepository parselRepository;
@@ -52,6 +53,9 @@ public class RepoParselController extends Observable {
         }
 
         Parsel parselToUpdate = parselRepository.findById(ID);
+        System.out.println(parselToUpdate.toString());
+        System.out.println("upd: " + parselToUpdate.getID());
+        System.out.println("upd: " + parselToUpdate.getStatus());
         if (parselToUpdate == null) {
             throw new IllegalArgumentException("Parsel dengan ID " + ID + " tidak ditemukan.");
         }
@@ -71,8 +75,8 @@ public class RepoParselController extends Observable {
             throw new IllegalArgumentException("Tinggi parsel harus positif.");
         }
         updatedDimensi[0] = (panjang != currentDimensi[0]) ? panjang : currentDimensi[0];
-        updatedDimensi[1] = (panjang != currentDimensi[1]) ? lebar : currentDimensi[1];
-        updatedDimensi[2] = (panjang != currentDimensi[2]) ? tinggi : currentDimensi[2];
+        updatedDimensi[1] = (lebar != currentDimensi[1]) ? lebar : currentDimensi[1];
+        updatedDimensi[2] = (tinggi != currentDimensi[2]) ? tinggi : currentDimensi[2];
 
         if (berat != null && berat <= 0) {
             throw new IllegalArgumentException("Berat parsel harus positif.");
@@ -110,7 +114,11 @@ public class RepoParselController extends Observable {
     }
 
     public List<Parsel> getAllParsel() {
-        return parselRepository.findAll();
+
+        return parselRepository.findAll().stream()
+                .filter(item -> !item.getDeleteStatus())
+                .collect(Collectors.toList());
+
     }
 
 

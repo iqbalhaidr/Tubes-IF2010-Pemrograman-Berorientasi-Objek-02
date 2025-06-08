@@ -70,7 +70,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.labpro.Adapter</mainClass>
+                            <mainClass>com.labpro.MainApp</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -80,7 +80,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>com.labpro.MainApp</mainClass>
+                    <mainClass>com.labpro.Main</mainClass>
                 </configuration>
             </plugin>
             <plugin>

@@ -41,7 +41,7 @@ public class kurirDashboardController {
 
     private Kurir loggedInKurir;
     private ProxyPengiriman pengirimanService;
-    private final int rowsPerPage = 7;
+    private final int rowsPerPage = 1;
     private List<Pengiriman> masterDataPengiriman;
 
     public kurirDashboardController(){}
@@ -154,7 +154,6 @@ public class kurirDashboardController {
                     setGraphic(null);
                 } else {
                     Pengiriman pengiriman = getTableView().getItems().get(getIndex());
-                    statusComboBox.setValue(pengiriman.getStatusPengiriman().getDeskripsi()); // Set nilai awal ComboBox
 
                     StatusPengiriman currentStatus = pengiriman.getStatusPengiriman();
                     List<String> availableOptions = new ArrayList<>();

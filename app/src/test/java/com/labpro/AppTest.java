@@ -4,14 +4,13 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
+    AppTest() throws IOException {
+    }
 
 //    @Test
 //    void testAppInitialization() {
@@ -257,7 +256,7 @@ class AppTest {
         map.put("INTERNASIONAL", PengirimanInternasional.class);
         map.put("DOMESTIK", PengirimanDomestik.class);
 
-        Adapter<Pengiriman> adapterPengiriman = new Adapter<Pengiriman>("src/main/java/com/labpro/dummyData/Pengiriman.json", Pengiriman.class, "type", map);
+        Adapter<Pengiriman> adapterPengiriman = new Adapter<Pengiriman>("src/main/java/com/labpro/dummyData/Pengiriman.json", Pengiriman.class, "tipe", map);
 
         List<Pengiriman> allPengiriman = adapterPengiriman.parseList();
 
@@ -270,13 +269,142 @@ class AppTest {
         map.put("INTERNASIONAL", PengirimanInternasional.class);
         map.put("DOMESTIK", PengirimanDomestik.class);
 
-        Adapter<Pengiriman> adapterPengiriman = new Adapter<Pengiriman>("src/main/java/com/labpro/dummyData/Pengiriman.json", Pengiriman.class, "type", map);
+        Adapter<Pengiriman> adapterPengiriman = new Adapter<Pengiriman>("src/main/java/com/labpro/dummyData/Pengiriman.json", Pengiriman.class, "tipe", map);
 
         List<Pengiriman> allPengiriman = adapterPengiriman.parseList();
 
-        Pengiriman firstPengiriman = allPengiriman.get(0);
-
-        return firstPengiriman;
+        return allPengiriman.get(0);
     }
+
+    @Test
+    public void testGetterPengirimanDomestik() throws IOException {
+        PengirimanDomestik  pengiriman = (PengirimanDomestik) getFirstPengiriman();
+        assertEquals(1001, pengiriman.getIdPengiriman());
+        assertEquals("SPX10001", pengiriman.getNoResi());
+        assertEquals("Jl. Mawar No. 10, Jakarta Selatan", pengiriman.getTujuan());
+        assertEquals(StatusPengiriman.DIKIRIM, pengiriman.getStatusPengiriman());
+        assertEquals(LocalDate.of(2025, 6, 1), pengiriman.getTanngalPembuatan());
+        assertEquals("Andi Wijaya", pengiriman.getNamaPengiriman());
+        assertEquals("081234567890", pengiriman.getNoTelp());
+        assertEquals("Budi Cahyadi", pengiriman.getNamaPenerima());
+        assertEquals("087654321098", pengiriman.getNoTelpPenerima());
+        assertEquals("Domestik", pengiriman.getType());
+    }
+
+    @Test
+    public void testAddAndRemoveParsel() throws IOException {
+        PengirimanDomestik  pengiriman = (PengirimanDomestik) getFirstPengiriman();
+        Parsel newParsel = getFirstParsel();
+        pengiriman.addParsel(newParsel);
+        assertTrue(pengiriman.getListOfParsel().contains(newParsel));
+        assertTrue(pengiriman.getListIdParsel().contains(newParsel.getID()));
+
+        pengiriman.removeParsel(newParsel);
+        assertFalse(pengiriman.getListOfParsel().contains(newParsel));
+        assertFalse(pengiriman.getListIdParsel().contains(103));
+    }
+
+    @Test
+    public void testGetDetailsMap() throws IOException {
+        PengirimanDomestik  pengiriman = (PengirimanDomestik) getFirstPengiriman();
+        Map<String, String> details = pengiriman.getDetails();
+        assertEquals("1001", details.get("idPengiriman"));
+        assertEquals("SPX10001", details.get("noResi"));
+        assertEquals("Jl. Mawar No. 10, Jakarta Selatan", details.get("tujuan"));
+        assertEquals("Dikirim", details.get("statusPengiriman"));
+        assertEquals("2025-06-01", details.get("tanggalPembuatan"));
+        assertEquals("Andi Wijaya", details.get("namaPengiriman"));
+        assertEquals("081234567890", details.get("noTelp"));
+        assertEquals("Budi Cahyadi", details.get("namaPenerima"));
+        assertEquals("087654321098", details.get("noTelpPenerima"));
+        assertEquals("201", details.get("kurirId"));
+    }
+
+
+
+    PengirimanDomestik pengiriman = (PengirimanDomestik)getFirstPengiriman();
+
+    @Test
+    public void testSetIdPengiriman() {
+        pengiriman.setIdPengiriman(42);
+        assertEquals(42, pengiriman.getIdPengiriman());
+    }
+
+    @Test
+    public void testSetNoResi() {
+        pengiriman.setNoResi("NEWRESI001");
+        assertEquals("NEWRESI001", pengiriman.getNoResi());
+    }
+
+    @Test
+    public void testSetTujuan() {
+        pengiriman.setTujuan("Bandung");
+        assertEquals("Bandung", pengiriman.getTujuan());
+    }
+
+    @Test
+    public void testSetStatusPengiriman() {
+        pengiriman.setStatusPengiriman(StatusPengiriman.DIKIRIM);
+        assertEquals(StatusPengiriman.DIKIRIM, pengiriman.getStatusPengiriman());
+    }
+
+    @Test
+    public void testSetTanggalPembuatan() {
+        LocalDate newDate = LocalDate.of(2025, 2, 2);
+        pengiriman.setTanngalPembuatan(newDate);
+        assertEquals(newDate, pengiriman.getTanngalPembuatan());
+    }
+
+    @Test
+    public void testSetNamaPengiriman() {
+        pengiriman.setNamaPengiriman("Budi");
+        assertEquals("Budi", pengiriman.getNamaPengiriman());
+    }
+
+    @Test
+    public void testSetNoTelp() {
+        pengiriman.setNoTelp("08111222333");
+        assertEquals("08111222333", pengiriman.getNoTelp());
+    }
+
+    @Test
+    public void testSetNamaPenerima() {
+        pengiriman.setNamaPenerima("Siti");
+        assertEquals("Siti", pengiriman.getNamaPenerima());
+    }
+
+    @Test
+    public void testSetNoTelpPenerima() {
+        pengiriman.setNoTelpPenerima("0899000111");
+        assertEquals("0899000111", pengiriman.getNoTelpPenerima());
+    }
+
+    @Test
+    public void testSetListIdParsel() {
+        List<Integer> idList = Arrays.asList(5, 6, 7);
+        pengiriman.setListIdParsel(idList);
+        assertEquals(idList, pengiriman.getListIdParsel());
+    }
+
+    @Test
+    public void testSetListOfParsel() throws IOException {
+        List<Parsel> parsels = Arrays.asList(getFirstParsel(), getFirstParsel());
+        pengiriman.setListOfParsel(parsels);
+        assertEquals(parsels, pengiriman.getListOfParsel());
+    }
+
+    @Test
+    public void testSetKurirId() {
+        pengiriman.setKurirId(555);
+        assertEquals(555, pengiriman.getKurirId());
+    }
+
+    @Test
+    public void testSetKurirName() {
+        pengiriman.setKurirName("Kurir Baru");
+        assertEquals("Kurir Baru", pengiriman.getKurirName());
+    }
+
+
 
 }

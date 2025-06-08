@@ -73,6 +73,7 @@ public class RepoPengirimanController implements Listener {
     public void updateStatus(int idPengiriman, StatusPengiriman status){
         Pengiriman pengiriman = this.repo.findById(idPengiriman);
         pengiriman.setStatusPengiriman(status);
+        pengiriman.addStatus(status);
     }
     public ArrayList<Kurir> getKurirAktif() {
         return KurirAktif;
@@ -90,6 +91,19 @@ public class RepoPengirimanController implements Listener {
         ParselAktif = parselAktif;
     }
 
+    public ArrayList<Pengiriman> getPengiriman() {
+        ArrayList<Pengiriman> pengiriman = new ArrayList<>();
+
+        for (Kurir kurir : KurirAktif) {
+            if (getPengirimanByKurir(kurir) !=null){
+                for(Pengiriman pengiriman1 : getPengirimanByKurir(kurir)){
+                    pengiriman.add(pengiriman1);
+                }
+            }
+        }
+
+        return pengiriman;
+    }
     @Override
     public void update(Object data, ObservableEventType eventType) {
         switch (eventType) {
