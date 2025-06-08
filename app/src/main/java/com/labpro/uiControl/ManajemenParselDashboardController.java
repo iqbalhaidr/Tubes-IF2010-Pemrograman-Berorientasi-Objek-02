@@ -43,15 +43,14 @@ public class ManajemenParselDashboardController{
     private List<Parsel> parselData;
     private final int rowsPerPage = 10;
 
-    public void setRepoParselController(RepoParselController controller) {
+    public void setController(RepoParselController controller) {
         this.repoParselController = controller;
-        loadParselData();
     }
 
     @FXML
     public void initialize() {
         parselData = new ArrayList<>();
-
+        loadParselData();
         //setUp Table Columns
         IDColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getID()).asObject());
         statusColumn.setCellValueFactory(cellData -> {
