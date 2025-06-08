@@ -224,24 +224,5 @@ public class kurirDashboardController {
         return new VBox();
     }
 
-    public void handleOpenPengirimanView(){
-        try {
-            PengirimanView pengirimanViewController = new PengirimanView();
-            pengirimanViewController.setRepoPengirimanController(pengirimanService.getRepoPengirimanController());
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PengirimanView.fxml"));
-            loader.setController(pengirimanViewController);
-            Parent root = loader.load();
-
-            pengirimanViewController.initializeData();
-
-            Stage stage = new Stage();
-            stage.setTitle("Daftar Pengiriman");
-            stage.setScene(new Scene(root));
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
