@@ -6,6 +6,7 @@ import com.labpro.RepoKurirController;
 // Import ObservableEventType jika diperlukan oleh RepoKurirController, tapi bukan untuk UI langsung
 // import com.labpro.ObservableEventType;
 
+import com.labpro.TimeThread;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
@@ -51,6 +52,7 @@ public class ManajemenKurirDashboardController {
     @FXML private Button updateSubmitButton;
     @FXML private Button cancelButton;
     @FXML private Pagination pagination;
+    @FXML private Label timeLabel;
 
 
     @FXML private TableColumn<Kurir, ImageView> photoColumn;
@@ -75,6 +77,8 @@ public class ManajemenKurirDashboardController {
 
     @FXML
     public void initialize() {
+        TimeThread timeThread = new TimeThread(timeLabel);
+        timeThread.start();
         loadKurirData();
         //setup table
         idColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getID()));
