@@ -2,7 +2,7 @@ package com.labpro;
 
 //import com.sun.tools.javac.util.List;
 
-import jdk.jpackage.internal.Log;
+//import jdk.jpackage.internal.Log;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -226,7 +226,7 @@ public abstract class Pengiriman implements Data {
                 ", tujuan='" + tujuan + '\'' +"\n"+
                 ", kurirId=" + kurirId +"\n"+
                 "StatusPengiriman='" + statusPengiriman + '\'' +"\n"+
-                "logStatus" + this.logStatus +"\n" + "\n"+;
+                "logStatus" + this.logStatus +"\n" + "\n";
     }
 
     public abstract String getType();

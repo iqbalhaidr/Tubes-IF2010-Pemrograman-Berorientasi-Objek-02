@@ -57,7 +57,7 @@ public class RepoKurirController extends Observable {
         notifyListeners(newKurir,createKurirEvent);
     }
 
-    public void handleUpdate(int ID, String nama, String strJenisKelamin, String pathFoto, LocalDate tanggalLahir) {
+    public void updateKurir(int ID, String nama, String strJenisKelamin, String pathFoto, LocalDate tanggalLahir) {
         if (ID < 0) {
             throw new IllegalArgumentException("ID Kurir tidak boleh negatif");
         }
@@ -79,7 +79,7 @@ public class RepoKurirController extends Observable {
             }
         }
         try {
-            kurirToUpdate = kurirRepository.update(ID, nama, jenisKelaminEnum, pathFoto, tanggalLahir);
+            kurirRepository.update(ID, nama, jenisKelaminEnum, pathFoto, tanggalLahir);
         } catch (IllegalArgumentException e) {
             System.err.println("Error: " + e.getMessage());
         }
@@ -89,7 +89,7 @@ public class RepoKurirController extends Observable {
         notifyListeners(kurirToUpdate,updateKurirEvent);
     }
 
-    public void handleDelete(int ID) {
+    public void deleteKurir(int ID) {
         if (ID < 0) {
             throw new IllegalArgumentException("ID Kurir tidak boleh negatif");
         }

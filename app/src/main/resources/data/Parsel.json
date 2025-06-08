@@ -40,8 +40,8 @@
     "deleteStatus": false
   },
   {
-    "ID": 101,
-    "status": "REGISTERED",
+    "ID": 106,
+    "status": "UNREGISTERED",
     "dimensi": [10, 20, 30],
     "berat": 40,
     "jenisBarang": "BMW",

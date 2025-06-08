@@ -1,5 +1,6 @@
 package com.labpro;
 
+import com.labpro.uiControl.ManajemenParselDashboardController;
 import com.labpro.uiControl.kurirDashboardController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +9,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.nio.file.Paths; // Import Paths
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +29,17 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        primaryStage.setTitle("Aplikasi Pengiriman - Tes Kurir Dashboard");
+        primaryStage.setTitle("Aplikasi Parsel - Tes Parsel Dashboard");
 
         try {
             String kurirJsonPath = "E:\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\dummyData\\Kurir.json";
             String pengirimanPath = "E:\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\dummyData\\Pengiriman.json";
-            String parselPath = "E:\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\dummyData\\Parsel.json";
-
+//            String parselPath = "E:\\if2010-tubes-2-2425-lah - CopyIniRill\\app\\src\\main\\java\\com\\labpro\\dummyData\\Parsel.json";
+            URL resourceUrl = getClass().getResource("/data/Parsel.json");
+            if (resourceUrl == null) {
+                throw new IllegalArgumentException("File Parsel.json not found in resources");
+            }
+            String parselPath = new File(resourceUrl.toURI()).getAbsolutePath();
             String absoluteKurirPath = Paths.get(kurirJsonPath).toAbsolutePath().toString();
             System.out.println("Mencoba membaca Kurir dari: " + absoluteKurirPath);
 
@@ -89,20 +97,27 @@ public class MainApp extends Application {
                 return;
             }
 
-            // Load FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/kurirDashboard.fxml")); // Pastikan path FXML benar
-            Parent kurirDashboardRoot = loader.load(); // Memuat FXML
+//            setup kurir dashboard
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/kurirDashboard.fxml")); // Pastikan path FXML benar
+//            Parent kurirDashboardRoot = loader.load(); // Memuat FXML
+//
+//            kurirDashboardController controller = loader.getController();
+//            controller.setLoggedInKurir(loggedInKurir);
+//            controller.setPengirimanService(pengirimanServicePorvider);
 
-            kurirDashboardController controller = loader.getController();
-            controller.setLoggedInKurir(loggedInKurir);
-            controller.setPengirimanService(pengirimanServicePorvider);
+//            Scene scene = new Scene(kurirDashboardRoot, 800, 550);
+//            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/styles.css")).toExternalForm());
 
-            Scene scene = new Scene(kurirDashboardRoot, 800, 550);
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/styles.css")).toExternalForm()); // Path CSS
+            RepoParselController repoParselController = new RepoParselController(parselRepository);
 
-            primaryStage.setTitle("Aplikasi Pengiriman - Kurir Dashboard"); // Judul jendela
-            primaryStage.setScene(scene); // Menetapkan scene ke stage
-            primaryStage.show(); // Menampilkan stage
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ParselView.fxml"));
+            Parent parselDashboardRoot = loader.load();
+            ManajemenParselDashboardController controller = loader.getController();
+            controller.setRepoParselController(repoParselController);
+
+            Scene scene = new Scene(parselDashboardRoot);
+            primaryStage.setScene(scene);
+            primaryStage.show();
 
         } catch (IOException e) {
             e.printStackTrace();

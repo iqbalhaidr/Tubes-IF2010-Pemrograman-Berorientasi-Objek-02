@@ -7,23 +7,21 @@ public class ParselRepository extends Repository<Parsel> {
         super(parsels);
     }
 
-    public Parsel create(int panjang, int lebar, int tinggi, double berat, String jenisBarang) {
+    public List<Parsel> findAll() { return super.findAll();}
+    public Parsel create(int[] dimensi, double berat, String jenisBarang) {
         ParselStatus status = ParselStatus.valueOf("UNREGISTERED");
 
-        assert panjang > 0 : "Panjang dimensi parsel harus positif";
-        assert lebar > 0 : "Lebar dimensi parsel harus positif";
-        assert tinggi > 0 : "Tinggi dimensi parsel harus positif";
+        assert dimensi[0] > 0 : "Panjang dimensi parsel harus positif";
+        assert dimensi[1] > 0 : "Lebar dimensi parsel harus positif";
+        assert dimensi[2] > 0 : "Tinggi dimensi parsel harus positif";
         assert berat > 0 : "Berat parsel harus positif";
-        int[]dimensi = {panjang, lebar, tinggi};
 
         assert jenisBarang != null && !jenisBarang.trim().isEmpty() : "Jenis Barang tidak boleh kosong";
 
-        int newID;
-        if (listOfEntity.isEmpty()) {
-            newID = 0;
-        } else {
-            newID = findById(listOfEntity.size() - 1).getID() + 1; // id terakhir + 1
-        }
+        int newID = listOfEntity.stream()
+                .mapToInt(Parsel::getID)
+                .max()
+                .orElse(0) + 1;
         Parsel newParsel = new Parsel(newID, status, dimensi, berat, jenisBarang);
 
         listOfEntity.add(newParsel);
@@ -31,18 +29,19 @@ public class ParselRepository extends Repository<Parsel> {
         return newParsel;
     }
 
-    public Parsel update(int ID, Integer panjang, Integer lebar, Integer tinggi, Double berat, String jenisBarang) {
+    public Parsel update(int ID, int[] dimensi, Double berat, String jenisBarang) {
         assert ID >= 0 : "ID tidak boleh bernilai negatif";
 
         Parsel parsel = findById(ID);
         
         int[] currentDimensi = parsel.getDimensi();
-        int[] updatedDimensi = new int[3];
+        int[] updatedDimensi = dimensi;
 
-        updatedDimensi[0] = (panjang != currentDimensi[0]) ? panjang : currentDimensi[0];
-        updatedDimensi[1] = (panjang != currentDimensi[1]) ? lebar : currentDimensi[1];
-        updatedDimensi[2] = (panjang != currentDimensi[2]) ? tinggi : currentDimensi[2];
+        updatedDimensi[0] = (updatedDimensi[0] != currentDimensi[0]) ? updatedDimensi[0] : currentDimensi[0];
+        updatedDimensi[1] = (updatedDimensi[1] != currentDimensi[1]) ? updatedDimensi[1] : currentDimensi[1];
+        updatedDimensi[2] = (updatedDimensi[2] != currentDimensi[2]) ? updatedDimensi[2] : currentDimensi[2];
 
+        parsel.setDimensi(updatedDimensi);
         if (berat != parsel.getBerat()) {
             parsel.setBerat(berat);
         }
@@ -52,5 +51,12 @@ public class ParselRepository extends Repository<Parsel> {
         }
 
     return parsel;
+    }
+
+    public void delete(int ID) {
+        assert ID >= 0 : "ID tidak boleh bernilai negatif";
+
+        Parsel parsel = findById(ID);
+        parsel.setDeleteStatus(true);
     }
 }

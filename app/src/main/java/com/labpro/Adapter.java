@@ -17,7 +17,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
-abstract class Animal  {
+abstract class Animal {
     String name;
 }
 
