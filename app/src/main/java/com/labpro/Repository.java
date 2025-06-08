@@ -5,7 +5,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 class Repository<T extends ID> {
     protected final List<T> listOfEntity;
@@ -19,10 +18,14 @@ class Repository<T extends ID> {
     }
 
     public T findById(int id) {
-        return listOfEntity.stream()
-                .filter(entity -> entity.getID() == id)
-                .findFirst()
-                .orElse(null);
+
+        for (T entity : listOfEntity) {
+            if (entity.getID() == id) {
+                return entity;
+            }
+        }
+        return null;
+
     }
 
 

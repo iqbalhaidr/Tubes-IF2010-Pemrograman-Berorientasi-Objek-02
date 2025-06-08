@@ -1,6 +1,7 @@
 package com.labpro;
 
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +10,7 @@ import java.util.Date;
 public class PengirimanInternasional extends Pengiriman{
 
     public PengirimanInternasional(Integer idPengiriman, String noResi, String tujuan, StatusPengiriman statusPengiriman,
-                                   Date tanggalPembuatan, String namaPengirim, String noTelp,
+                                   LocalDate tanggalPembuatan, String namaPengirim, String noTelp,
                                    String namaPenerima, String noTelpPenerima, List<Parsel> listOfParsel,
                                    Integer kurirId, String pdfFilePath, String kodePajak, Kurir kurir) {
 
