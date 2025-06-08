@@ -120,42 +120,51 @@ public class EditParselDialogController implements Initializable {
                 return;
             }
 
-            // Parse values - allow null for unchanged values
-            Integer panjang = null;
-            Integer lebar = null;
-            Integer tinggi = null;
-            Double berat = null;
-            String jenisBarang = null;
+            // Parse all values first to check for format errors
+            int newPanjang = Integer.parseInt(panjangField.getText().trim());
+            int newLebar = Integer.parseInt(lebarField.getText().trim());
+            int newTinggi = Integer.parseInt(tinggiField.getText().trim());
+            double newBerat = Double.parseDouble(beratField.getText().trim());
+            String newJenisBarang = jenisBarangField.getText().trim();
 
-            // Check if values have changed
+            // Get original values
             int[] originalDimensi = originalParsel.getDimensi();
-
-            if (!panjangField.getText().trim().equals(String.valueOf(originalDimensi[0]))) {
-                panjang = Integer.parseInt(panjangField.getText().trim());
-            }
-
-            if (!lebarField.getText().trim().equals(String.valueOf(originalDimensi[1]))) {
-                lebar = Integer.parseInt(lebarField.getText().trim());
-            }
-
-            if (!tinggiField.getText().trim().equals(String.valueOf(originalDimensi[2]))) {
-                tinggi = Integer.parseInt(tinggiField.getText().trim());
-            }
-
-            if (!beratField.getText().trim().equals(String.valueOf(originalParsel.getBerat()))) {
-                berat = Double.parseDouble(beratField.getText().trim());
-            }
-
-            if (!jenisBarangField.getText().trim().equals(originalParsel.getJenisBarang())) {
-                jenisBarang = jenisBarangField.getText().trim();
-            }
+            int originalPanjang = originalDimensi[0];
+            int originalLebar = originalDimensi[1];
+            int originalTinggi = originalDimensi[2];
+            double originalBerat = originalParsel.getBerat();
+            String originalJenisBarang = originalParsel.getJenisBarang();
 
             // Check if any changes were made
-            if (panjang == null && lebar == null && tinggi == null && berat == null && jenisBarang == null) {
+            boolean hasChanges = (newPanjang != originalPanjang) ||
+                    (newLebar != originalLebar) ||
+                    (newTinggi != originalTinggi) ||
+                    (Math.abs(newBerat - originalBerat) > 0.001) || // Use epsilon for double comparison
+                    (!newJenisBarang.equals(originalJenisBarang));
+
+            if (!hasChanges) {
                 showInfo("Tidak Ada Perubahan", "Tidak ada data yang diubah.");
                 return;
             }
 
+            // Prepare parameters for update (send null for unchanged values)
+            Integer panjang = (newPanjang != originalPanjang) ? newPanjang : originalPanjang;
+            Integer lebar = (newLebar != originalLebar) ? newLebar : originalLebar;
+            Integer tinggi = (newTinggi != originalTinggi) ? newTinggi : originalTinggi;
+            Double berat = (Math.abs(newBerat - originalBerat) > 0.001) ? newBerat : originalBerat;
+            String jenisBarang = (!newJenisBarang.equals(originalJenisBarang)) ? newJenisBarang : originalJenisBarang;
+
+            // Debug: Print what we're trying to update
+            System.out.println("Updating Parsel ID: " + originalParsel.getID());
+            System.out.println("Panjang: " + panjang + " (original: " + originalPanjang + ")");
+            System.out.println("Lebar: " + lebar + " (original: " + originalLebar + ")");
+            System.out.println("Tinggi: " + tinggi + " (original: " + originalTinggi + ")");
+            System.out.println("Berat: " + berat + " (original: " + originalBerat + ")");
+            System.out.println("Jenis: " + jenisBarang + " (original: " + originalJenisBarang + ")");
+
+            System.out.println(originalParsel.toString());
+            System.out.println(originalParsel.getStatus());
+            System.out.println(originalParsel.getID());
             // Update parsel
             repoParselController.updateParsel(
                     originalParsel.getID(),
@@ -166,15 +175,18 @@ public class EditParselDialogController implements Initializable {
                     jenisBarang
             );
 
+            showSuccess("Berhasil", "Parsel berhasil diupdate.");
+
             // Close dialog
             closeDialog();
 
         } catch (NumberFormatException e) {
-            showError("Input Error", "Pastikan semua nilai numerik diisi dengan benar.");
+            showError("Input Error", "Pastikan semua nilai numerik diisi dengan benar.\nDetail: " + e.getMessage());
         } catch (IllegalArgumentException e) {
             showError("Validation Error", e.getMessage());
         } catch (Exception e) {
             showError("Error", "Terjadi kesalahan: " + e.getMessage());
+            e.printStackTrace(); // For debugging
         }
     }
 
@@ -272,4 +284,14 @@ public class EditParselDialogController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    // Helper method to show success message
+    private void showSuccess(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 }
