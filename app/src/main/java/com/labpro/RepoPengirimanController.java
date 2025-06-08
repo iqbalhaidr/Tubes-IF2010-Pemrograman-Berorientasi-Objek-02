@@ -73,6 +73,7 @@ public class RepoPengirimanController implements Listener {
     public void updateStatus(int idPengiriman, StatusPengiriman status){
         Pengiriman pengiriman = this.repo.findById(idPengiriman);
         pengiriman.setStatusPengiriman(status);
+        pengiriman.addStatus(status);
     }
     public ArrayList<Kurir> getKurirAktif() {
         return KurirAktif;
