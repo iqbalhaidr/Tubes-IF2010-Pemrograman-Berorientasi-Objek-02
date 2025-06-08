@@ -4,6 +4,7 @@ import com.labpro.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -89,7 +90,7 @@ public class CreateParselDialogController implements Initializable {
 
             // Create parsel
             repoParselController.createParsel(panjang, lebar, tinggi, berat, jenisBarang);
-
+            System.out.println(repoParselController.getAllParsel());
             // Close dialog
             closeDialog();
 
@@ -143,11 +144,37 @@ public class CreateParselDialogController implements Initializable {
         stage.close();
     }
 
+//    private void showError(String title, String message) {
+//        Alert alert = new Alert(Alert.AlertType.ERROR);
+//        alert.setTitle(title);
+//        alert.setHeaderText(null);
+//        alert.setContentText(message);
+//        alert.showAndWait();
+//    }
+
     private void showError(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);
-        alert.setContentText(message);
+
+        // Buat TextArea untuk menampilkan pesan panjang
+        TextArea textArea = new TextArea(message);
+        textArea.setEditable(false);
+        textArea.setWrapText(true);
+
+        // Ukuran lebih besar
+        textArea.setMaxWidth(Double.MAX_VALUE);
+        textArea.setMaxHeight(Double.MAX_VALUE);
+
+        // Letakkan di dalam dialog
+        GridPane expContent = new GridPane();
+        expContent.setMaxWidth(Double.MAX_VALUE);
+        expContent.add(textArea, 0, 0);
+
+        // Masukkan ke dialog sebagai expandable content
+        alert.getDialogPane().setExpandableContent(expContent);
+        alert.getDialogPane().setExpanded(true); // Langsung tampilkan isi panjang
+
         alert.showAndWait();
     }
 }
