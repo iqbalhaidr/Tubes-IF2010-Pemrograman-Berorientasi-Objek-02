@@ -70,7 +70,7 @@ public class PengirimanView {
         ;
 
         namaKurir.setCellValueFactory(cellData ->
-                new javafx.beans.property.SimpleStringProperty(cellData.getValue().getKurirName()));
+                new javafx.beans.property.SimpleStringProperty(cellData.getValue().getKurir().getName()));
 //        namaParsel.setCellValueFactory(cellData ->
 //                new javafx.beans.property.SimpleStringProperty(cellData.getValue().getStringParsel()));
         alamat.setCellValueFactory(cellData ->

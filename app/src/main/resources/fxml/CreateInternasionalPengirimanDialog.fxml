@@ -42,6 +42,10 @@
             <Label text="Tanggal Pembuatan:" GridPane.rowIndex="10" GridPane.columnIndex="0" />
             <DatePicker fx:id="tanggalPembuatanPicker" GridPane.rowIndex="10" GridPane.columnIndex="1" />
 
+            <Label text="Parsel:" GridPane.rowIndex="11" GridPane.columnIndex="0" />
+            <ListView fx:id="parselListView" GridPane.rowIndex="11" GridPane.columnIndex="1" />
+
+
         </GridPane>
 
         <HBox spacing="10">

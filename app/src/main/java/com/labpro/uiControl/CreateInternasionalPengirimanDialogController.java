@@ -35,6 +35,19 @@ public class CreateInternasionalPengirimanDialogController {
 
         statusComboBox.setItems(FXCollections.observableArrayList(StatusPengiriman.values()));
 
+        parselListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        parselListView.setCellFactory(lv -> new ListCell<Parsel>() {
+            @Override
+            protected void updateItem(Parsel item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? "" : item.getID().toString()); // or getID(), or both
+            }
+        });
+
+
+        parselListView.setItems(FXCollections.observableArrayList(controller.getParselAktif()));
+
     }
 
     @FXML private TextField namaPengirimField;
@@ -49,6 +62,8 @@ public class CreateInternasionalPengirimanDialogController {
     @FXML private DatePicker tanggalPembuatanPicker;
     @FXML private TextField pdfFilePathField;
     @FXML private TextField kodePajakField;
+    @FXML private ListView<Parsel> parselListView;
+
 
 
 
@@ -80,6 +95,8 @@ public class CreateInternasionalPengirimanDialogController {
             String pdfFilePath = pdfFilePathField.getText();
             String kodePajak = kodePajakField.getText();
 
+            List<Parsel> chosenParsels = parselListView.getSelectionModel().getSelectedItems();
+
             // Create PengirimanDomestik object
             Pengiriman newPengiriman = repoPengirimanController.getRepo().create(
                     null,               // idPengiriman, null for new
@@ -91,7 +108,7 @@ public class CreateInternasionalPengirimanDialogController {
                     noTelp,
                     namaPenerima,
                     noTelpPenerima,
-                    listOfParsel,
+                    chosenParsels,
                     kurirId,
                     pdfFilePath,
                     kodePajak,

@@ -13,6 +13,18 @@ import java.util.Collections;  // Assuming empty list for Parsel now
 import java.util.List;
 
 public class CreateDomestikPengirimanDialogController {
+    @FXML private TextField namaPengirimField;
+    @FXML private TextField namaPenerimaField;
+    @FXML private TextField noTelpField;
+    @FXML private TextField noTelpPenerimaField;
+    @FXML private TextField tujuanField;
+    @FXML private ComboBox<StatusPengiriman> statusComboBox;
+    @FXML private ComboBox<Kurir> kurirComboBox;
+    @FXML private ListView<Parsel> parselListView;
+
+
+    @FXML private TextField noResiField;
+    @FXML private DatePicker tanggalPembuatanPicker;
 
     private RepoPengirimanController repoPengirimanController;
 
@@ -35,18 +47,20 @@ public class CreateDomestikPengirimanDialogController {
 
         statusComboBox.setItems(FXCollections.observableArrayList(StatusPengiriman.values()));
 
+        parselListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        parselListView.setCellFactory(lv -> new ListCell<Parsel>() {
+            @Override
+            protected void updateItem(Parsel item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? "" : item.getID().toString()); // or getID(), or both
+            }
+        });
+
+
+        parselListView.setItems(FXCollections.observableArrayList(controller.getParselAktif()));
+
     }
-
-    @FXML private TextField namaPengirimField;
-    @FXML private TextField namaPenerimaField;
-    @FXML private TextField noTelpField;
-    @FXML private TextField noTelpPenerimaField;
-    @FXML private TextField tujuanField;
-    @FXML private ComboBox<StatusPengiriman> statusComboBox;
-    @FXML private ComboBox<Kurir> kurirComboBox;
-
-    @FXML private TextField noResiField;
-    @FXML private DatePicker tanggalPembuatanPicker;
 
 
 
@@ -75,6 +89,8 @@ public class CreateDomestikPengirimanDialogController {
             Kurir selectedKurir = kurirComboBox.getValue();
             Integer kurirId = (selectedKurir != null) ? selectedKurir.getID() : null;
 
+            List<Parsel> chosenParsels = parselListView.getSelectionModel().getSelectedItems();
+
             // Create PengirimanDomestik object
             Pengiriman newPengiriman = repoPengirimanController.getRepo().create(
                     null,               // idPengiriman, null for new
@@ -86,10 +102,14 @@ public class CreateDomestikPengirimanDialogController {
                     noTelp,
                     namaPenerima,
                     noTelpPenerima,
-                    listOfParsel,
+                    new ArrayList<>(chosenParsels),
                     kurirId,
                     selectedKurir
             );
+
+
+
+
 
             // Save to repository
             repoPengirimanController.addPengiriman(newPengiriman);

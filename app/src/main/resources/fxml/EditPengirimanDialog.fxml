@@ -19,7 +19,7 @@
 
             <HBox spacing="10">
                 <Label text="Parsel:"/>
-                <ListView fx:id="parselListView" prefHeight="100" prefWidth="200"/>
+                <ListView fx:id="parselListView" prefHeight="200.0" prefWidth="300.0"/>
             </HBox>
 
             <HBox spacing="10">

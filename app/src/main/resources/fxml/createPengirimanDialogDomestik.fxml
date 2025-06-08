@@ -35,6 +35,10 @@
 
             <Label text="Status:" GridPane.rowIndex="6" GridPane.columnIndex="0" />
             <ComboBox fx:id="statusComboBox" GridPane.rowIndex="6" GridPane.columnIndex="1" />
+
+            <Label text="Parsel:" GridPane.rowIndex="9" GridPane.columnIndex="0" />
+            <ListView fx:id="parselListView" GridPane.rowIndex="9" GridPane.columnIndex="1" />
+
         </GridPane>
 
         <HBox spacing="10">

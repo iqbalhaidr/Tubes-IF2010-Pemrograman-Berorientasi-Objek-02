@@ -5,24 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8c5091a-5446-4435-8390-b8891eb30457" name="Changes" comment="feat: current manajemen kurir dashboard">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/CreateDomestikPengirimanDialogController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/CreateInternasionalPengirimanDialogController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/EditPengirimanDialogController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/SelectPengirimanTypeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/TrackingView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/resources/fxml/CreateInternasionalPengirimanDialog.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/resources/fxml/EditPengirimanDialog.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/resources/fxml/createPengirimanDialogDomestik.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/resources/fxml/selectPengiriman.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/resources/fxml/trackingPengiriman.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/Pengiriman.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/Pengiriman.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/PengirimanRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/PengirimanRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/RepoPengirimanController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/RepoPengirimanController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/Repository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/CreateDomestikPengirimanDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/CreateDomestikPengirimanDialogController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/CreateInternasionalPengirimanDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/CreateInternasionalPengirimanDialogController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/EditPengirimanDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/EditPengirimanDialogController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/PengirimanView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/PengirimanView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/resources/fxml/PengirimanView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/fxml/PengirimanView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/resources/fxml/CreateInternasionalPengirimanDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/fxml/CreateInternasionalPengirimanDialog.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/resources/fxml/EditPengirimanDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/fxml/EditPengirimanDialog.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/resources/fxml/createPengirimanDialogDomestik.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/fxml/createPengirimanDialogDomestik.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,13 +22,18 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -87,13 +82,10 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "main2plis",
     "go.import.settings.migrated": "true",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "D:/Codes/SEMESTER4IF/Codes/OOP/if2010-tubes-2-2425-lah",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Project",
@@ -294,7 +286,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749316453897</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="feat testing">
+      <option name="closed" value="true" />
+      <created>1749412390792</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1749412390792</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -318,7 +318,8 @@
     <MESSAGE value="feat: current manajemen kurir ui" />
     <MESSAGE value="chore: encodings" />
     <MESSAGE value="feat: current manajemen kurir dashboard" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: current manajemen kurir dashboard" />
+    <MESSAGE value="feat testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat testing" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
