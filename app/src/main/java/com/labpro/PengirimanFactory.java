@@ -1,5 +1,6 @@
 package com.labpro;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
 public abstract class PengirimanFactory {
     public Pengiriman createPengiriman(
             Integer idPengiriman, String noResi, String tujuan,
-            StatusPengiriman statusPengiriman, Date tanggalPembuatan,
+            StatusPengiriman statusPengiriman, LocalDate tanggalPembuatan,
             String namaPengirim, String noTelp, String namaPenerima,
             String noTelpPenerima, List<Parsel> listOfParsel,
             Integer kurirId, String pdfFilePath, String kodePajak, Kurir kurir
@@ -23,7 +24,7 @@ public abstract class PengirimanFactory {
 
     public abstract Pengiriman buatPengiriman(
             Integer idPengiriman, String noResi, String tujuan,
-            StatusPengiriman statusPengiriman, Date tanggalPembuatan,
+            StatusPengiriman statusPengiriman, LocalDate tanggalPembuatan,
             String namaPengirim, String noTelp, String namaPenerima,
             String noTelpPenerima, List<Parsel> listOfParsel,
             Integer kurirId, String pdfFilePath, String kodePajak, Kurir kurir
