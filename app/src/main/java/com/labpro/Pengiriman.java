@@ -2,7 +2,10 @@ package com.labpro;
 
 //import com.sun.tools.javac.util.List;
 
+import jdk.jpackage.internal.Log;
+
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -23,6 +26,7 @@ public abstract class Pengiriman implements Data {
     protected String pdfFilePath;
     protected String kodePajak;
     protected Kurir kurir;
+    protected List<LogStatus> logStatus;
 
     public Pengiriman(Integer idPengiriman, String noResi, String tujuan, StatusPengiriman statusPengiriman,
                       LocalDate tanggalPembuatan, String namaPengirim, String noTelp,
@@ -41,6 +45,8 @@ public abstract class Pengiriman implements Data {
         this.listOfParsel = listOfParsel;
         this.kurirId = kurirId;
         this.kurir = kurir;
+        this.logStatus = new ArrayList<LogStatus>();
+        this.logStatus.add(new LogStatus(LocalDateTime.now(), StatusPengiriman.MENUNGGU_KURIR));
     }
 
     public Integer getID() {
@@ -209,6 +215,10 @@ public abstract class Pengiriman implements Data {
         return details;
     }
 
+    public List<LogStatus> getLogStatus() {return logStatus;}
+
+    public void addStatus(StatusPengiriman status) {this.logStatus.add(new LogStatus(LocalDateTime.now(), status));}
+
     @Override
     public String toString() {
         return "Pengiriman{" +"\n"+
@@ -216,7 +226,7 @@ public abstract class Pengiriman implements Data {
                 ", tujuan='" + tujuan + '\'' +"\n"+
                 ", kurirId=" + kurirId +"\n"+
                 "StatusPengiriman='" + statusPengiriman + '\'' +"\n"+
-                '}' +"\n\n";
+                "logStatus" + this.logStatus +"\n" + "\n";
     }
 
     public abstract String getType();

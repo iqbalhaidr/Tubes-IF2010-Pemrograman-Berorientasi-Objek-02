@@ -12,7 +12,19 @@
     "noTelpPenerima": "087654321098",
     "listIdParsel": [101, 102],
     "kurirId": 201,
-    "kurirName": "Budi"
+    "kurirName": "Budi",
+    "logStatus": [
+      {
+        "datetime": "2025-06-01T10:00:00",
+        "status": "MENUNGGU_KONFIRMASI",
+        "pesan": "Menunggu konfirmasi pengirim"
+      },
+      {
+        "datetime": "2025-06-01T12:00:00",
+        "status": "DIKIRIM",
+        "pesan": "Paket dalam pengiriman"
+      }
+    ]
   },
   {
     "idPengiriman": 1002,
@@ -29,7 +41,14 @@
     "kurirId": 202,
     "kurirName": "Siti",
     "pdfFilePath": "/docs/customs/shp1002_customs.pdf",
-    "kodePajak": "HS02102030"
+    "kodePajak": "HS02102030",
+    "logStatus": [
+      {
+        "datetime": "2025-05-28T09:00:00",
+        "status": "DIPROSES",
+        "pesan": "Dokumen bea cukai sedang disiapkan"
+      }
+    ]
   },
   {
     "idPengiriman": 1003,
@@ -44,7 +63,14 @@
     "noTelpPenerima": "089988776655",
     "listIdParsel": [104, 105],
     "kurirId": 201,
-    "kurirName": "Budi Kurir"
+    "kurirName": "Budi Kurir",
+    "logStatus": [
+      {
+        "datetime": "2025-06-05T08:30:00",
+        "status": "MENUNGGU_KURIR",
+        "pesan": "Paket menunggu penjemputan oleh kurir"
+      }
+    ]
   },
   {
     "idPengiriman": 1004,
@@ -61,7 +87,14 @@
     "kurirId": 203,
     "kurirName": "Joko",
     "pdfFilePath": "/docs/customs/shp1004_vat.pdf",
-    "kodePajak": "GBR-VAT-001"
+    "kodePajak": "GBR-VAT-001",
+    "logStatus": [
+      {
+        "datetime": "2025-06-06T09:00:00",
+        "status": "MENUNGGU_KONFIRMASI",
+        "pesan": "Menunggu persetujuan dokumen bea masuk"
+      }
+    ]
   },
   {
     "idPengiriman": 1005,
@@ -76,7 +109,19 @@
     "noTelpPenerima": "085876543210",
     "listIdParsel": [107],
     "kurirId": 202,
-    "kurirName": "Siti"
+    "kurirName": "Siti",
+    "logStatus": [
+      {
+        "datetime": "2025-05-30T08:00:00",
+        "status": "DIKIRIM",
+        "pesan": "Paket dalam perjalanan ke tujuan"
+      },
+      {
+        "datetime": "2025-05-31T14:00:00",
+        "status": "TIBA_DI_TUJUAN",
+        "pesan": "Paket telah tiba di lokasi tujuan"
+      }
+    ]
   },
   {
     "idPengiriman": 1006,
@@ -91,6 +136,18 @@
     "noTelpPenerima": "083812345678",
     "listIdParsel": [108],
     "kurirId": 204,
-    "kurirName": "Dewi"
+    "kurirName": "Dewi",
+    "logStatus": [
+      {
+        "datetime": "2025-06-03T09:30:00",
+        "status": "DIKIRIM",
+        "pesan": "Paket sedang dikirim"
+      },
+      {
+        "datetime": "2025-06-04T15:45:00",
+        "status": "GAGAL",
+        "pesan": "Gagal dikirim, penerima tidak di tempat"
+      }
+    ]
   }
 ]

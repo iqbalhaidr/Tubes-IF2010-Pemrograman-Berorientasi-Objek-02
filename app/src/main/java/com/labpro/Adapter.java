@@ -6,10 +6,15 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONObject;
 import org.json.XML;
 import org.json.JSONArray;
+import com.fatboyindustrial.gsonjavatime.LocalDateConverter;
+import com.fatboyindustrial.gsonjavatime.LocalDateTimeConverter;
+import com.fatboyindustrial.gsonjavatime.LocalTimeConverter;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 abstract class Animal {
@@ -40,14 +45,17 @@ class Person {
     }
 }
 
-public class Adapter<T> {
+public class Adapter<T extends Data> {
     private Gson gson;
     private String jsonContent;
     private Class<T> targetClass;
 
     // Constructor for non-polymorphic class
     public Adapter(String pathToFile, Class<T> targetClass) throws IOException {
-        this.gson = new Gson();
+        this.gson =  new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new LocalDateConverter())
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeConverter())
+                .create();
         this.targetClass = targetClass;
         this.jsonContent = generateJsonString(pathToFile);
     }
@@ -65,6 +73,8 @@ public class Adapter<T> {
 
         this.gson = new GsonBuilder()
                 .registerTypeAdapterFactory(adapterFactory)
+                .registerTypeAdapter(LocalDate.class, new LocalDateConverter())
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeConverter())
                 .create();
 
         this.targetClass = targetClass;
@@ -107,23 +117,23 @@ public class Adapter<T> {
         return gson.fromJson(jsonContent, TypeToken.getParameterized(List.class, targetClass).getType());
     }
 
-    public static void main(String[] args) throws IOException {
-//         non-polymorphic
-//         Adapter<Person> personAdapter = new Adapter<>("D:\\Codes\\SEMESTER4IF\\Codes\\OOP\\if2010-tubes-2-2425-lah\\app\\src\\main\\resources\\test.json", Person.class);
-//         List<Person> people = personAdapter.parseList();
-//         System.out.println(people);
-
-        Map<String, Class<? extends Animal>> map = new HashMap<>();
-        map.put("dog", Dog.class);
-        map.put("cat", Cat.class);
-
-        Adapter<Animal> adapter = new Adapter<>("D:\\tubes-oop\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\tesabsxml.xml", Animal.class, "type", map);
-        List<Animal> animals = adapter.parseList();
-
-        for (Animal a : animals) {
-            System.out.println(a.getClass().getSimpleName() + ": " + a.name);
-        }
-    }
+//    public static void main(String[] args) throws IOException {
+////         non-polymorphic
+////         Adapter<Person> personAdapter = new Adapter<>("D:\\Codes\\SEMESTER4IF\\Codes\\OOP\\if2010-tubes-2-2425-lah\\app\\src\\main\\resources\\test.json", Person.class);
+////         List<Person> people = personAdapter.parseList();
+////         System.out.println(people);
+//
+//        Map<String, Class<? extends Animal>> map = new HashMap<>();
+//        map.put("dog", Dog.class);
+//        map.put("cat", Cat.class);
+//
+//        Adapter<Animal> adapter = new Adapter<>("D:\\tubes-oop\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\tesabsxml.xml", Animal.class, "type", map);
+//        List<Animal> animals = adapter.parseList();
+//
+//        for (Animal a : animals) {
+//            System.out.println(a.getClass().getSimpleName() + ": " + a.name);
+//        }
+//    }
 }
 
 
