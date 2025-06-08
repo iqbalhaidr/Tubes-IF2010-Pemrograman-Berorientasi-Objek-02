@@ -67,7 +67,7 @@ public class MainApp extends Application {
             map.put("INTERNASIONAL", PengirimanInternasional.class);
             map.put("DOMESTIK", PengirimanDomestik.class);
 
-            Adapter<Pengiriman> adapterPengiriman = new Adapter<Pengiriman>(pengirimanPath, Pengiriman.class, "tipe", map);
+            Adapter<Pengiriman> adapterPengiriman = new Adapter<Pengiriman>(pengirimanPath, Pengiriman.class, "type", map);
             List<Pengiriman> allPengiriman = adapterPengiriman.parseList();
             System.out.println("INI HASIL FILTERED PENGIRIMAN"+allPengiriman);
             for(Pengiriman pengiriman : allPengiriman){
