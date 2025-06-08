@@ -1,27 +1,27 @@
 package com.labpro;
 
-import com.labpro.uiControl.LoginViewController;
-import com.labpro.uiControl.ManajemenParselDashboardController;
-import com.labpro.uiControl.kurirDashboardController;
+import com.labpro.AdminController; // Menggunakan AdminController
+// Import semua kelas model, repository, service, dan utility yang diperlukan
+import com.labpro.RepoKurirController;
+import com.labpro.RepoPengirimanController;
+import com.labpro.RepoParselController;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.Paths; // Import Paths
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
-
 
 public class MainApp extends Application {
 
@@ -30,124 +30,131 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        primaryStage.setTitle("Aplikasi Parsel - Tes Parsel Dashboard");
+        primaryStage.setTitle("Aplikasi Pengiriman - Admin Dashboard");
 
         try {
-//            String kurirJsonPath = "E:\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\dummyData\\Kurir.json";
-//            String pengirimanPath = "E:\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\dummyData\\Pengiriman.json";
-//            String parselPath = "E:\\if2010-tubes-2-2425-lah - CopyIniRill\\app\\src\\main\\java\\com\\labpro\\dummyData\\Parsel.json";
-//            URL resourceUrl = getClass().getResource("/data/Parsel.json");
-//            if (resourceUrl == null) {
-//                throw new IllegalArgumentException("File Parsel.json not found in resources");
-//            }
-//            String parselPath = new File(resourceUrl.toURI()).getAbsolutePath();
-            String absoluteKurirPath = "C:\\Joel\\ITB\\Semester4\\OOP\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\dummyData\\Kurir.json";
-//            System.out.println("Mencoba membaca Kurir dari: " + absoluteKurirPath);
+            // --- 1. Definisi Path File JSON ---
+            String kurirJsonPath = "src/main/resources/Data/Kurir.json";
+            String parselPath = "src/main/resources/Data/Parsel.json";
+            String pengirimanPath = "src/main/resources/Data/Pengiriman.json";
 
-            //load kurir
-            Adapter<Kurir> kurirAdapter = new Adapter<>(absoluteKurirPath, Kurir.class);
+            System.out.println("Memulai inisialisasi data...");
+            System.out.println(kurirJsonPath);
+            // --- 2. Inisialisasi Repository Layer ---
+            // Kurir Repository
+            Adapter<Kurir> kurirAdapter = new Adapter<>(kurirJsonPath, Kurir.class);
             List<Kurir> allKurirs = kurirAdapter.parseList();
             KurirRepository kurirRepository = new KurirRepository(allKurirs);
             List<Kurir> activeKurirs = allKurirs.stream()
                     .filter(kurir -> !kurir.getDeleteStatus())
                     .collect(Collectors.toList());
-//            System.out.println("INI HASIL FILTERED KURIR"+activeKurirs);
+            System.out.println("KurirRepository diinisialisasi. Kurir Aktif: " + activeKurirs.size());
 
-            //load parsel
-//            Adapter<Parsel> parselAdapter = new Adapter<>(parselPath, Parsel.class);
-//            List<Parsel> allParsel = parselAdapter.parseList();
-//            ParselRepository parselRepository = new ParselRepository(allParsel);
-//
-//            List<Parsel> filteredParsels = allParsel.stream()
-//                    .filter(parsel -> parsel.getStatus() == ParselStatus.REGISTERED && !parsel.getDeleteStatus())
-//                    .collect(Collectors.toList());
-//            System.out.println("INI HASIL FILTERED PARSEL"+filteredParsels);
-
-            //load pengiriman
-//            Map<String, Class<? extends Pengiriman>> map = new HashMap<>();
-//            map.put("INTERNASIONAL", PengirimanInternasional.class);
-//            map.put("DOMESTIK", PengirimanDomestik.class);
-//
-//            Adapter<Pengiriman> adapterPengiriman = new Adapter<Pengiriman>(pengirimanPath, Pengiriman.class, "tipe", map);
-//            List<Pengiriman> allPengiriman = adapterPengiriman.parseList();
-//            System.out.println("INI HASIL FILTERED PENGIRIMAN"+allPengiriman);
-//            for(Pengiriman pengiriman : allPengiriman){
-//                pengiriman.generateParselList(parselRepository);
-//                pengiriman.generateKurir(kurirRepository);
-//            }
+            // Parsel Repository
+            Adapter<Parsel> parselAdapter = new Adapter<>(parselPath, Parsel.class);
+            List<Parsel> allParsel = parselAdapter.parseList();
+            ParselRepository parselRepository = new ParselRepository(allParsel);
+            List<Parsel> filteredParsels = allParsel.stream()
+                    .filter(parsel -> parsel.getStatus() == ParselStatus.REGISTERED && !parsel.getDeleteStatus())
+                    .collect(Collectors.toList());
+            System.out.println("ParselRepository diinisialisasi. Parsel Terfilter: " + filteredParsels.size());
 
 
-//            PengirimanRepository pengirimanRepository = new PengirimanRepository(allPengiriman);
-//            RepoPengirimanController pengirimanService = new RepoPengirimanController(
-//                    (ArrayList<Kurir>) activeKurirs, (ArrayList<Parsel>) filteredParsels, pengirimanRepository);
-//            ProxyPengiriman pengirimanServicePorvider = new ProxyPengiriman(pengirimanService);
+            // Pengiriman Repository
+            Map<String, Class<? extends Pengiriman>> pengirimanSubtypeMap = new HashMap<>();
+            pengirimanSubtypeMap.put("INTERNASIONAL", PengirimanInternasional.class);
+            pengirimanSubtypeMap.put("DOMESTIK", PengirimanDomestik.class);
+            Adapter<Pengiriman> adapterPengiriman = new Adapter<>(pengirimanPath, Pengiriman.class, "type", pengirimanSubtypeMap);
+
+            List<Pengiriman> allPengiriman = adapterPengiriman.parseList();
+
+            // Generate ParselList dan Kurir untuk setiap Pengiriman setelah deserialisasi
+            // Ini penting karena relasi Kurir dan Parsel di Pengiriman tidak langsung di-deserialize oleh GSON
+            for(Pengiriman pengiriman : allPengiriman){
+                pengiriman.generateParselList(parselRepository);
+                // Pastikan Pengiriman memiliki metode generateKurir(KurirRepository)
+                pengiriman.generateKurir(kurirRepository);
+            }
+            PengirimanRepository pengirimanRepository = new PengirimanRepository(allPengiriman);
+            System.out.println("PengirimanRepository diinisialisasi. Total Pengiriman: " + allPengiriman.size());
+
+            // --- 3. Inisialisasi Service Layer (Repo...Controller) ---
+            // Pastikan konstruktor RepoKurirController hanya butuh KurirRepository
+            RepoKurirController repoKurirService = new RepoKurirController(kurirRepository);
+            // Pastikan konstruktor RepoParselController hanya butuh ParselRepository
+            RepoParselController repoParselService = new RepoParselController(parselRepository);
+            // Pastikan konstruktor RepoPengirimanController sesuai dengan yang Anda inginkan
+            // Contoh: menerima List<Kurir>, List<Parsel>, PengirimanRepository
+            RepoPengirimanController repoPengirimanService = new RepoPengirimanController(
+                    new ArrayList<>(activeKurirs), // Menggunakan data aktif kurir
+                    new ArrayList<>(filteredParsels), // Menggunakan data terfilter parsel
+                    pengirimanRepository
+            );
+            System.out.println("Semua Service Layer (Repo...Controller) diinisialisasi.");
 
 
-            // Login
-//            Kurir loggedInKurir = null;
-//            if (!allKurirs.isEmpty()) {
-//                loggedInKurir = allKurirs.get(0);
-//                try {
-//                    System.out.println("KURIR INI LOGIN "+loggedInKurir);
-//                } catch (Exception e) {
-//                    throw new RuntimeException(e);
-//                }
-//
-//            } else {
-//                System.out.println("Tidak ada data Kurir yang ditemukan di " + absoluteKurirPath);
-//                return;
-//            }
+            // --- 4. Muat AdminDashboard.fxml dan Injeksi Dependensi ---
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AdminDashboard.fxml"));
 
-//            setup kurir dashboard
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/kurirDashboard.fxml")); // Pastikan path FXML benar
-//            Parent kurirDashboardRoot = loader.load(); // Memuat FXML
-//
-//            kurirDashboardController controller = loader.getController();
-//            controller.setLoggedInKurir(loggedInKurir);
-//            controller.setPengirimanService(pengirimanServicePorvider);
-//
-//            Scene scene = new Scene(kurirDashboardRoot, 800, 550);
-//            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/styles.css")).toExternalForm());
-//            primaryStage.setScene(scene);
+            // Membuat instance AdminController secara manual
+            AdminController adminController = new AdminController();
 
-            //setup manajemen parsel
-//            RepoParselController repoParselController = new RepoParselController(parselRepository);
-//
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ParselView.fxml"));
-//            Parent parselDashboardRoot = loader.load();
-//            ManajemenParselDashboardController controller = loader.getController();
-//            controller.setRepoParselController(repoParselController);
-//
-//            Scene scene = new Scene(parselDashboardRoot);
-//            primaryStage.setScene(scene);
-//            primaryStage.show();
+            // Menyuntikkan semua service layer ke AdminController
+            adminController.setRepoKurirController(repoKurirService);
+            adminController.setRepoPengirimanController(repoPengirimanService);
+            adminController.setRepoParselController(repoParselService);
+            // Inject instance ini ke FXMLLoader agar tidak membuat yang baru
+            loader.setControllerFactory(param -> {
+                if (param == AdminController.class) {
+                    return adminController;
+                } else {
+                    try {
+                        return param.getDeclaredConstructor().newInstance();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
 
-            RepoKurirController repoKurirController = new RepoKurirController(kurirRepository);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LoginView.fxml")); // Pastikan path FXML benar
-            Parent LoginRoot = loader.load(); // Memuat FXML
 
-            LoginViewController controller = loader.getController();
-            controller.setRepoKurirController(repoKurirController);
-            Scene scene = new Scene(LoginRoot);
+
+
+
+            // Muat root FXML
+            Parent adminDashboardRoot = loader.load();
+            System.out.println("Admin Dashboard FXML dimuat.");
+
+            // --- 5. Atur Scene dan Tampilkan Stage ---
+            Scene scene = new Scene(adminDashboardRoot); // Biarkan Scene menentukan ukuran dari FXML root
+
+            // Pastikan CSS untuk AdminDashboard terhubung di AdminDashboard.fxml
+            // Jika tidak, Anda bisa menambahkannya di sini:
+
+             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/AdminDashboard.css")).toExternalForm());
+            primaryStage.initStyle(StageStyle.DECORATED);
             primaryStage.setScene(scene);
             primaryStage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Memuat Aplikasi");
-            alert.setHeaderText("Gagal memuat aplikasi.");
-            alert.setContentText("Pastikan file FXML dan JSON ada di lokasi yang benar dan tidak ada kesalahan sintaks.");
-            alert.showAndWait();
-        } catch (Exception e) { // Tangkap Exception umum untuk parseList
+            showAlert(Alert.AlertType.ERROR, "Error Memuat Aplikasi", "Gagal memuat aplikasi.",
+                    "Pastikan file FXML, JSON, dan CSS ada di lokasi yang benar dan tidak ada kesalahan sintaks.");
+        } catch (Exception e) { // Tangkap Exception umum untuk parseList atau kesalahan tak terduga lainnya
             e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Parsing Data");
-            alert.setHeaderText("Gagal mengurai data dari JSON.");
-            alert.setContentText("Pastikan format JSON sesuai dengan kelas Kurir dan Adapter Anda berfungsi.");
-            alert.showAndWait();
+            showAlert(Alert.AlertType.ERROR, "Error Inisialisasi Aplikasi", "Terjadi Kesalahan Tak Terduga.",
+                    "Detail: " + e.getMessage() + "\nPeriksa konsol untuk detail lebih lanjut.");
         }
     }
+
+    // Helper method untuk menampilkan alert
+    private void showAlert(Alert.AlertType type, String title, String header, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
     public static void main(String[] args) {
         launch(args);
     }

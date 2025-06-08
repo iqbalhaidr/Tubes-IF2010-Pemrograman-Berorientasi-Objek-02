@@ -1,0 +1,153 @@
+
+.root-container {
+    -fx-font-family: "Inter", sans-serif;
+    -fx-background-color: #f0f2f5;
+    -fx-padding: 0;
+}
+
+/* Top Bar Styling */
+.top-bar {
+    -fx-background-color: #ffffff;
+    -fx-padding: 15px 20px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 5);
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-min-height: 50px;
+}
+
+.header-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+/* Button Styling */
+.button {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 16px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 2);
+}
+
+.button:hover {
+    -fx-opacity: 0.9;
+}
+
+.button:pressed {
+    -fx-translate-y: 1px;
+}
+
+.primary-button {
+     -fx-background-color: black;
+     -fx-text-fill: white;
+}
+
+.success-button {
+    -fx-background-color: #28a745;
+    -fx-text-fill: white;
+}
+
+.cancel-button {
+    -fx-background-color: #6c757d;
+    -fx-text-fill: white;
+}
+
+.secondary-button {
+    -fx-background-color: #f8f9fa;
+    -fx-text-fill: #333333;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+}
+
+/* Form Container Styling */
+.form-container {
+    -fx-background-color: #ffffff;
+    -fx-padding: 20px;
+    -fx-spacing: 15px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 8, 0, 0, 4);
+    -fx-max-width: 800px;
+    -fx-alignment: CENTER;
+}
+
+.form-container .grid-pane {
+    -fx-hgap: 15px;
+    -fx-vgap: 12px;
+}
+
+.form-container .label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555555;
+    -fx-font-weight: bold;
+}
+
+.text-input, .combo-box, .date-picker {
+    -fx-font-size: 14px;
+    -fx-padding: 8px 10px;
+    -fx-border-color: #d0d0d0;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-background-color: #ffffff;
+    -fx-prompt-text-fill: #aaaaaa;
+}
+
+.text-input:focused, .combo-box:focused, .date-picker:focused {
+    -fx-border-color: #007bff;
+    -fx-border-width: 2;
+}
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
+    -fx-vgrow: ALWAYS;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: white;
+    -fx-text-fill: #424445
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #424445;
+    -fx-font-weight: bold;
+}
+.table-view .table-cell {
+    -fx-padding: 8px;
+    -fx-alignment: CENTER;
+}
+
+.table-view .scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+    -fx-min-height: 0;
+}
+
+table-view .table-row-cell {
+    -fx-background-color: #ffffff;
+    -fx-cell-value-factory-fill-height: true;
+    -fx-min-height: 40px; /* Sesuaikan nilai ini sesuai keinginan Anda */
+    -fx-pref-height: 40px;
+}
+
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #a0c0ff;
+    -fx-text-fill: #333333;
+}
+
+.table-view .column-header,
+.table-view .table-cell {
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+}
+
