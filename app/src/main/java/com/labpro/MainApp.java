@@ -28,9 +28,9 @@ public class MainApp extends Application {
         primaryStage.setTitle("Aplikasi Pengiriman - Tes Kurir Dashboard");
 
         try {
-            String kurirJsonPath = "E:\\if2010-tubes-2-2425-lah - CopyIniRill\\app\\src\\main\\java\\com\\labpro\\dummyData\\Kurir.json";
-            String pengirimanPath = "E:\\if2010-tubes-2-2425-lah - CopyIniRill\\app\\src\\main\\java\\com\\labpro\\dummyData\\Pengiriman.json";
-            String parselPath = "E:\\if2010-tubes-2-2425-lah - CopyIniRill\\app\\src\\main\\java\\com\\labpro\\dummyData\\Parsel.json";
+            String kurirJsonPath = "E:\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\dummyData\\Kurir.json";
+            String pengirimanPath = "E:\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\dummyData\\Pengiriman.json";
+            String parselPath = "E:\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\dummyData\\Parsel.json";
 
             String absoluteKurirPath = Paths.get(kurirJsonPath).toAbsolutePath().toString();
             System.out.println("Mencoba membaca Kurir dari: " + absoluteKurirPath);
@@ -97,7 +97,7 @@ public class MainApp extends Application {
             controller.setLoggedInKurir(loggedInKurir);
             controller.setPengirimanService(pengirimanServicePorvider);
 
-            Scene scene = new Scene(kurirDashboardRoot, 800, 500);
+            Scene scene = new Scene(kurirDashboardRoot, 800, 550);
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/styles.css")).toExternalForm()); // Path CSS
 
             primaryStage.setTitle("Aplikasi Pengiriman - Kurir Dashboard"); // Judul jendela
