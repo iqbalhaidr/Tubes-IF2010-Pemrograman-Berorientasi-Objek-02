@@ -10,7 +10,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <javafx.version>23.0.1</javafx.version>
+        <javafx.version>17.0.1</javafx.version>
     </properties>
 
     <dependencies>

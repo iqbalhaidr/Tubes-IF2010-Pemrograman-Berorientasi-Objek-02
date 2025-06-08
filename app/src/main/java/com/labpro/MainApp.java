@@ -32,8 +32,8 @@ public class MainApp extends Application {
         primaryStage.setTitle("Aplikasi Parsel - Tes Parsel Dashboard");
 
         try {
-            String kurirJsonPath = "E:\\if2010-tubes-2-2425-lah - CopyIniRill\\app\\src\\main\\java\\com\\labpro\\dummyData\\Kurir.json";
-            String pengirimanPath = "E:\\if2010-tubes-2-2425-lah - CopyIniRill\\app\\src\\main\\java\\com\\labpro\\dummyData\\Pengiriman.json";
+            String kurirJsonPath = "E:\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\dummyData\\Kurir.json";
+            String pengirimanPath = "E:\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\dummyData\\Pengiriman.json";
 //            String parselPath = "E:\\if2010-tubes-2-2425-lah - CopyIniRill\\app\\src\\main\\java\\com\\labpro\\dummyData\\Parsel.json";
             URL resourceUrl = getClass().getResource("/data/Parsel.json");
             if (resourceUrl == null) {
