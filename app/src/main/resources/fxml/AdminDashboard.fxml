@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import java.net.URL?>
 
-<BorderPane fx:id="mainContainer" prefHeight="600.0" minWidth="520" prefWidth="800.0" maxWidth="800" styleClass="root-container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.labpro.AdminController">
+<BorderPane fx:id="mainContainer" prefHeight="600.0" minWidth="520" prefWidth="800.0" maxWidth="800" styleClass="root-container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" >
     <stylesheets>
         <URL value="@/css/AdminDashboard.css" />
     </stylesheets>

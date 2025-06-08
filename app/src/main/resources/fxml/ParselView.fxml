@@ -24,6 +24,7 @@
                 <TableColumn fx:id="dimensiColumn" text="Dimensi" prefWidth="150"/>
                 <TableColumn fx:id="beratColumn" text="Berat" prefWidth="100"/>
                 <TableColumn fx:id="jenisColumn" text="Jenis Barang" prefWidth="150"/>
+                <TableColumn fx:id="actionsColumn" text="Action" prefWidth="180"/>
             </columns>
         </TableView>
 

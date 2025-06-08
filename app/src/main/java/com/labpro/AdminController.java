@@ -28,6 +28,7 @@ public class AdminController {
      private RepoParselController repoParselController;
     private final Map<String, Parent> loadedViews = new HashMap<>();
     private final Map<String, Object> loadedControllers = new HashMap<>();
+    private Runnable logoutCallback; // buat balik ke login
 
     public AdminController() {
         System.out.println("AdminController Constructor called.");
@@ -47,6 +48,10 @@ public class AdminController {
          this.repoParselController = repoParselController;
          System.out.println("RepoParselController injected.");
      }
+
+    public void setLogoutCallback(Runnable logoutCallback) {
+        this.logoutCallback = logoutCallback;
+    }
 
     @FXML
     public void initialize() {
@@ -179,6 +184,12 @@ public class AdminController {
         Stage stage = (Stage) contentArea.getScene().getWindow();
         if (stage != null) {
             stage.close();
+        }
+        // kembali ke layar login
+        if (logoutCallback != null) {
+            logoutCallback.run();
+        } else {
+            System.err.println("Callback belum diset");
         }
     }
 }

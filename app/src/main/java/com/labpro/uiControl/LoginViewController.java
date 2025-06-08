@@ -3,15 +3,20 @@ package com.labpro.uiControl;
 import com.labpro.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.scene.Scene; // Import Scene
+import javafx.scene.Parent; // Import Parent
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.io.IOException;
+import java.util.Optional;
 
 public class LoginViewController {
     @FXML private TextField usernameField;
@@ -20,6 +25,10 @@ public class LoginViewController {
     private User activeUser;
     private List<User> users;
     private RepoKurirController repoKurirController;
+    private RepoPengirimanController repoPengirimanController; // Tambahkan ini
+    private RepoParselController repoParselController;
+
+    private Stage loginStage;
 
     public void initialize(URL location, ResourceBundle resources) {
         setupEventHandlers();
@@ -28,6 +37,18 @@ public class LoginViewController {
     public void setRepoKurirController(RepoKurirController controller) {
         this.repoKurirController = controller;
         initializeUsers();
+    }
+
+    public void setRepoPengirimanController(RepoPengirimanController controller) {
+        this.repoPengirimanController = controller;
+    }
+
+    public void setRepoParselController(RepoParselController controller) {
+        this.repoParselController = controller;
+    }
+
+    public void setLoginStage(Stage stage) {
+        this.loginStage = stage;
     }
 
     private void initializeUsers() {
@@ -95,7 +116,7 @@ public class LoginViewController {
                             (foundUser.isAdmin() ? " (Administrator)" : " (Kurir)"));
 
             // TODO: Navigate to main application
-//            navigateToMainApp();
+            navigateToMainApplication();
             closeDialog();
 
         } else {
@@ -108,8 +129,9 @@ public class LoginViewController {
     }
 
     private void closeDialog() {
-        Stage stage = (Stage) loginButton.getScene().getWindow();
-        stage.close();
+        if (loginStage != null) {
+            loginStage.hide(); // Sembunyikan stage login
+        }
     }
 
     private User findUserByUsername(String username) {
@@ -145,5 +167,78 @@ public class LoginViewController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private void navigateToMainApplication() {
+        try {
+            Parent root = null;
+            FXMLLoader loader = null;
+            Stage mainStage = new Stage();
+
+            // Callback untuk kembali ke login
+            Runnable returnToLoginCallback = () -> {
+                if (loginStage != null) {
+                    loginStage.show();
+                    usernameField.clear();
+                    usernameField.requestFocus();
+                }
+            };
+
+            if (activeUser.isAdmin()) {
+                loader = new FXMLLoader(getClass().getResource("/fxml/AdminDashboard.fxml"));
+                AdminController adminController = new AdminController();
+
+                adminController.setRepoKurirController(this.repoKurirController);
+                adminController.setRepoPengirimanController(this.repoPengirimanController); // Aktifkan ini
+                adminController.setRepoParselController(this.repoParselController);
+                adminController.setLogoutCallback(returnToLoginCallback);
+
+                loader.setController(adminController); // Set controller ke FXMLLoader
+                root = loader.load(); // Muat FXML
+                mainStage.setTitle("Admin Dashboard");
+            } else {
+                loader = new FXMLLoader(getClass().getResource("/fxml/kurirDashboard.fxml")); // Pastikan nama FXML benar
+                kurirDashboardController kurirDashController = new kurirDashboardController();
+
+                Optional<Kurir> kurirOpt = repoKurirController.getAllKurir().stream()
+                        .filter(k -> k.getName().equalsIgnoreCase(activeUser.getUsername()))
+                        .findFirst();
+
+                if (kurirOpt.isPresent()) {
+                    Kurir loggedInKurirObj = kurirOpt.get();
+
+                    ProxyPengiriman proxyPengirimanService = new ProxyPengiriman(this.repoPengirimanController);
+
+                    kurirDashController.setLoggedInKurir(loggedInKurirObj);
+                    kurirDashController.setPengirimanService(proxyPengirimanService);
+                    kurirDashController.setLogoutCallback(returnToLoginCallback);
+
+                    loader.setController(kurirDashController); // Set controller ke FXMLLoader
+                    root = loader.load(); // Muat FXML
+                    mainStage.setTitle("Kurir Dashboard");
+
+                } else {
+                    showError("Login Gagal", "Data kurir tidak ditemukan untuk username ini.");
+                    return; // Hentikan navigasi jika kurir tidak ditemukan
+                }
+
+            }
+            if (root != null) {
+                mainStage.setScene(new Scene(root));
+                mainStage.show();
+                closeDialog();
+            } else {
+                // Ini akan terjadi jika ada masalah dengan loading FXML
+                showError("Navigasi Gagal", "Konten dashboard utama tidak dapat dimuat.");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        catch (Exception e) { // Catch Exception umum untuk kesalahan tak terduga
+            System.err.println("Kesalahan saat navigasi: " + e.getMessage());
+            e.printStackTrace();
+            showError("Navigasi Gagal", "Terjadi kesalahan saat navigasi.\nDetail: " + e.getMessage());
+        }
+
     }
 }

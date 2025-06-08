@@ -52,6 +52,7 @@ public class kurirDashboardController {
     private ProxyPengiriman pengirimanService;
     private final int rowsPerPage = 1;
     private List<Pengiriman> masterDataPengiriman;
+    private Runnable logoutCallback;
 
     public kurirDashboardController(){}
 
@@ -60,25 +61,42 @@ public class kurirDashboardController {
         setupTable();
         TimeThread clockThread = new TimeThread(timeLabel);
         clockThread.start();
+
+        if (pengirimanService!= null && loggedInKurir != null) {
+            kurirName.setText("Selamat Datang, " + loggedInKurir.getName() + "!");
+            loadTableData();
+        } else {
+            if (kurirName != null) {
+                kurirName.setText("Selamat Datang, Tamu!");
+            }
+            kurirPengirimanTable.setItems(FXCollections.observableArrayList());
+            if (pagination != null) {
+                pagination.setPageCount(1);
+            }
+        }
     }
 
     public void setPengirimanService(ProxyPengiriman service) {
         this.pengirimanService = service;
-        if (this.loggedInKurir != null) {
-            loadTableData();
-        }
+//        if (this.loggedInKurir != null) {
+//            loadTableData();
+//        }
     }
 
     public void setLoggedInKurir(Kurir loggedInKurir) {
         this.loggedInKurir = loggedInKurir;
-        if (loggedInKurir != null) {
-            kurirName.setText("Selamat Datang, " + loggedInKurir.getName() + "!");
-        } else {
-            kurirName.setText("Selamat Datang, Kurir!");
-        }
-        if (this.pengirimanService != null) {
-            loadTableData();
-        }
+//        if (loggedInKurir != null) {
+//            kurirName.setText("Selamat Datang, " + loggedInKurir.getName() + "!");
+//        } else {
+//            kurirName.setText("Selamat Datang, Kurir!");
+//        }
+//        if (this.pengirimanService != null) {
+//            loadTableData();
+//        }
+    }
+
+    public void setLogoutCallback(Runnable logoutCallback) {
+        this.logoutCallback = logoutCallback;
     }
 
     private void setupTable() {
@@ -143,6 +161,7 @@ public class kurirDashboardController {
                                     System.out.println("Seblum "+p.getStatusPengiriman().getDeskripsi());
                                     int id = p.getIdPengiriman();
                                     pengirimanService.updateStatus(id, newStatusEnum);
+                                    loadTableData();
 //                                    p.setStatusPengiriman(newStatusEnum);
                                     System.out.println("Sesudah "+p.getStatusPengiriman().getDeskripsi());
 
@@ -222,6 +241,22 @@ public class kurirDashboardController {
         kurirPengirimanTable.setItems(FXCollections.observableArrayList(pageData));
 
         return new VBox();
+    }
+
+    @FXML
+    private void handleLogout() {
+        System.out.println("Kurir logged out");
+        Stage stage = (Stage) kurirPengirimanTable.getScene().getWindow();
+
+        if (stage != null) {
+            stage.close();
+        }
+
+        if (logoutCallback != null) {
+            logoutCallback.run();
+        } else {
+            System.err.println("Callback belum diset");
+        }
     }
 
 

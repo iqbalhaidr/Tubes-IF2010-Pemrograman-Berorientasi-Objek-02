@@ -39,3 +39,16 @@
 .table-row-cell {
     -fx-pref-height: 40px;
 }
+
+.logout-button {
+    -fx-background-color: #dc3545;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 15px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+.logout-button:hover {
+    -fx-background-color: #c82333;
+}

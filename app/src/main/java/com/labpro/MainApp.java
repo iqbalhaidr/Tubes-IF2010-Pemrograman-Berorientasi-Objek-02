@@ -1,7 +1,6 @@
 package com.labpro;
 
-import com.labpro.AdminController; // Menggunakan AdminController
-// Import semua kelas model, repository, service, dan utility yang diperlukan
+import com.labpro.uiControl.LoginViewController; // Import LoginViewController
 import com.labpro.RepoKurirController;
 import com.labpro.RepoPengirimanController;
 import com.labpro.RepoParselController;
@@ -94,43 +93,27 @@ public class MainApp extends Application {
 
 
             // --- 4. Muat AdminDashboard.fxml dan Injeksi Dependensi ---
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AdminDashboard.fxml"));
+            // --- 4. Muat LoginView.fxml dan Injeksi Dependensi ke LoginViewController ---
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LoginView.fxml"));
+            Parent loginRoot = loader.load(); // Muat tampilan login
 
-            // Membuat instance AdminController secara manual
-            AdminController adminController = new AdminController();
+            // Dapatkan controller dari FXML yang dimuat
+            LoginViewController loginController = loader.getController();
+            loginController.setLoginStage(primaryStage);
 
-            // Menyuntikkan semua service layer ke AdminController
-            adminController.setRepoKurirController(repoKurirService);
-            adminController.setRepoPengirimanController(repoPengirimanService);
-            adminController.setRepoParselController(repoParselService);
-            // Inject instance ini ke FXMLLoader agar tidak membuat yang baru
-            loader.setControllerFactory(param -> {
-                if (param == AdminController.class) {
-                    return adminController;
-                } else {
-                    try {
-                        return param.getDeclaredConstructor().newInstance();
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
+            // Suntikkan service layer ke LoginViewController
+            loginController.setRepoKurirController(repoKurirService);
+            loginController.setRepoPengirimanController(repoPengirimanService);
+            loginController.setRepoParselController(repoParselService);
+            System.out.println("LoginView FXML dimuat dan dependensi diinjeksikan.");
 
-
-
-
-
-            // Muat root FXML
-            Parent adminDashboardRoot = loader.load();
-            System.out.println("Admin Dashboard FXML dimuat.");
 
             // --- 5. Atur Scene dan Tampilkan Stage ---
-            Scene scene = new Scene(adminDashboardRoot); // Biarkan Scene menentukan ukuran dari FXML root
+            Scene scene = new Scene(loginRoot);
 
-            // Pastikan CSS untuk AdminDashboard terhubung di AdminDashboard.fxml
-            // Jika tidak, Anda bisa menambahkannya di sini:
+            // Opsional: Tambahkan stylesheet jika LoginView.css terpisah
+            // scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/LoginView.css")).toExternalForm());
 
-             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/AdminDashboard.css")).toExternalForm());
             primaryStage.initStyle(StageStyle.DECORATED);
             primaryStage.setScene(scene);
             primaryStage.show();
