@@ -43,7 +43,7 @@ public class PengirimanView {
 
     private RepoPengirimanController controller;
 
-    public void setRepoPengirimanController(RepoPengirimanController controller) {
+    public void setController(RepoPengirimanController controller) {
         this.controller = controller;
     }
 

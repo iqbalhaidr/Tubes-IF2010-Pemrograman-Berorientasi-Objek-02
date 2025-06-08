@@ -12,7 +12,7 @@
 }
 
 .app-logo {
-    -fx-font-size: 24px;
+    -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff
 }
@@ -36,7 +36,7 @@
 }
 
 .user-greeting {
-    -fx-font-size: 16px;
+    -fx-font-size: 13px;
     -fx-text-fill: #ffffff;
     -fx-alignment: CENTER_RIGHT;
 }

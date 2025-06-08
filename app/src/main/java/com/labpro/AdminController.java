@@ -2,13 +2,10 @@ package com.labpro;
 
 // Import kelas UI Dashboard yang spesifik
 import com.labpro.uiControl.ManajemenKurirDashboardController;
-// import com.labpro.uiControl.ManajemenPengirimanDashboardController; // Dikomentari: Belum jadi
-// import com.labpro.uiControl.ManajemenParselDashboardController;    // Dikomentari: Belum jadi
+import com.labpro.uiControl.PengirimanView;
+ import com.labpro.uiControl.ManajemenParselDashboardController;
 
-// Import kelas Service Controller (Repo) - Sekarang di package yang sama
-import com.labpro.RepoKurirController;
-// import com.labpro.RepoPengirimanController; // Dikomentari: Belum jadi
-// import com.labpro.RepoParselController;     // Dikomentari: Belum jadi
+
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,8 +24,8 @@ public class AdminController {
     private StackPane contentArea;
 
     private RepoKurirController repoKurirController;
-    // private RepoPengirimanController repoPengirimanController;
-    // private RepoParselController repoParselController;
+     private RepoPengirimanController repoPengirimanController;
+     private RepoParselController repoParselController;
     private final Map<String, Parent> loadedViews = new HashMap<>();
     private final Map<String, Object> loadedControllers = new HashMap<>();
 
@@ -41,15 +38,15 @@ public class AdminController {
         System.out.println("RepoKurirController injected.");
     }
 
-    // public void setRepoPengirimanController(RepoPengirimanController repoPengirimanController) {
-    //     this.repoPengirimanController = repoPengirimanController;
-    //     System.out.println("RepoPengirimanController injected.");
-    // }
+     public void setRepoPengirimanController(RepoPengirimanController repoPengirimanController) {
+         this.repoPengirimanController = repoPengirimanController;
+         System.out.println("RepoPengirimanController injected.");
+     }
 
-    // public void setRepoParselController(RepoParselController repoParselController) {
-    //     this.repoParselController = repoParselController;
-    //     System.out.println("RepoParselController injected.");
-    // }
+     public void setRepoParselController(RepoParselController repoParselController) {
+         this.repoParselController = repoParselController;
+         System.out.println("RepoParselController injected.");
+     }
 
     @FXML
     public void initialize() {
@@ -87,22 +84,22 @@ public class AdminController {
                             kurirController.setController(this.repoKurirController);
                             return kurirController; // Selalu return instance di sini
                         }
-                        // else if (controllerClass == ManajemenPengirimanDashboardController.class) { // Dikomentari: Belum jadi
-                        //     ManajemenPengirimanDashboardController pengirimanController = new ManajemenPengirimanDashboardController();
-                        //     if (this.repoPengirimanController == null) {
-                        //         throw new IllegalStateException("RepoPengirimanController belum diinjeksi saat membuat ManajemenPengirimanDashboardController.");
-                        //     }
-                        //     pengirimanController.setController(this.repoPengirimanController);
-                        //     return pengirimanController;
-                        // }
-                        // else if (controllerClass == ManajemenParselDashboardController.class) { // Dikomentari: Belum jadi
-                        //     ManajemenParselDashboardController parselController = new ManajemenParselDashboardController();
-                        //     if (this.repoParselController == null) {
-                        //         throw new IllegalStateException("RepoParselController belum diinjeksi saat membuat ManajemenParselDashboardController.");
-                        //     }
-                        //     parselController.setController(this.repoParselController);
-                        //     return parselController;
-                        // }
+                         else if (controllerClass == PengirimanView.class) { // Dikomentari: Belum jadi
+                            PengirimanView pengirimanController = new PengirimanView();
+                             if (this.repoPengirimanController == null) {
+                                 throw new IllegalStateException("RepoPengirimanController belum diinjeksi saat membuat ManajemenPengirimanDashboardController.");
+                             }
+                             pengirimanController.setController(this.repoPengirimanController);
+                             return pengirimanController;
+                         }
+                         else if (controllerClass == ManajemenParselDashboardController.class) { // Dikomentari: Belum jadi
+                             ManajemenParselDashboardController parselController = new ManajemenParselDashboardController();
+                             if (this.repoParselController == null) {
+                                 throw new IllegalStateException("RepoParselController belum diinjeksi saat membuat ManajemenParselDashboardController.");
+                             }
+                             parselController.setController(this.repoParselController);
+                             return parselController;
+                         }
                         else {
                             // Fallback jika tipe controller tidak dikenal atau tidak ada injeksi khusus.
                             // Ini akan membuat instance controller tanpa dependensi yang diinjeksi secara spesifik.
@@ -111,7 +108,6 @@ public class AdminController {
                         }
                     } catch (Exception e) {
                         System.err.println("Gagal membuat instance controller untuk " + controllerClass.getName() + ": " + e.getMessage());
-                        // Lemparkan pengecualian agar FXMLoader tahu ada masalah, jangan return null
                         throw new RuntimeException("Gagal menginisialisasi controller.", e);
                     }
                 });
@@ -142,14 +138,14 @@ public class AdminController {
         }
     }
 
-    // @FXML
-    // private void showManajemenPengiriman() {
-    //     if (this.repoPengirimanController == null) {
-    //         showAlert(Alert.AlertType.ERROR, "Error Dependensi", "Service Pengiriman Hilang", "RepoPengirimanController belum diinisialisasi.");
-    //         return;
-    //     }
-    //     switchContent("/fxml/ManajemenPengirimanDashboard.fxml", "pengiriman", ManajemenPengirimanDashboardController.class);
-    // }
+     @FXML
+     private void showManajemenPengirimanDashboard() {
+         if (this.repoPengirimanController == null) {
+             showAlert(Alert.AlertType.ERROR, "Error Dependensi", "Service Pengiriman Hilang", "RepoPengirimanController belum diinisialisasi.");
+             return;
+         }
+         switchContent("/fxml/PengirimanView.fxml", "pengiriman", PengirimanView.class);
+     }
 
     @FXML
     private void showManajemenKurirDashboard() {
@@ -162,20 +158,12 @@ public class AdminController {
 
      @FXML
      private void showManajemenParselDashboard() {
-//         if (this.repoParselController == null) {
-//             showAlert(Alert.AlertType.ERROR, "Error Dependensi", "Service Parsel Hilang", "RepoParselController belum diinisialisasi.");
-//             return;
-//         }
-//         switchContent("/fxml/ManajemenParselDashboard.fxml", "parsel", ManajemenParselDashboardController.class);
+         if (this.repoParselController == null) {
+             showAlert(Alert.AlertType.ERROR, "Error Dependensi", "Service Parsel Hilang", "RepoParselController belum diinisialisasi.");
+             return;
+         }
+         switchContent("/fxml/ParselView.fxml", "parsel", ManajemenParselDashboardController.class);
      }
-    @FXML
-    private void showManajemenPengirimanDashboard() {
-//         if (this.repoParselController == null) {
-//             showAlert(Alert.AlertType.ERROR, "Error Dependensi", "Service Parsel Hilang", "RepoParselController belum diinisialisasi.");
-//             return;
-//         }
-//         switchContent("/fxml/ManajemenParselDashboard.fxml", "parsel", ManajemenParselDashboardController.class);
-    }
 
     private void showAlert(Alert.AlertType type, String title, String header, String content) {
         Alert alert = new Alert(type);

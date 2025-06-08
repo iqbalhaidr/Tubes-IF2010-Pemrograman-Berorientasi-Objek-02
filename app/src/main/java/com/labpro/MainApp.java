@@ -99,6 +99,8 @@ public class MainApp extends Application {
 
             // Menyuntikkan semua service layer ke AdminController
             adminController.setRepoKurirController(repoKurirService);
+            adminController.setRepoPengirimanController(repoPengirimanService);
+            adminController.setRepoParselController(repoParselService);
             // Inject instance ini ke FXMLLoader agar tidak membuat yang baru
             loader.setControllerFactory(param -> {
                 if (param == AdminController.class) {
@@ -112,8 +114,6 @@ public class MainApp extends Application {
                 }
             });
 
-//            adminController.setRepoPengirimanController(repoPengirimanService);
-//            adminController.setRepoParselController(repoParselService);
 
 
 

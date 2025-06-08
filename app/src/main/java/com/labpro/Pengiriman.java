@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 
-public abstract class Pengiriman implements ID {
+public abstract class Pengiriman implements Data {
     protected Integer idPengiriman;
     protected String noResi;
     protected String tujuan;
