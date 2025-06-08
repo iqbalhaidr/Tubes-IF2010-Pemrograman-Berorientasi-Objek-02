@@ -91,6 +91,19 @@ public class RepoPengirimanController implements Listener {
         ParselAktif = parselAktif;
     }
 
+    public ArrayList<Pengiriman> getPengiriman() {
+        ArrayList<Pengiriman> pengiriman = new ArrayList<>();
+
+        for (Kurir kurir : KurirAktif) {
+            if (getPengirimanByKurir(kurir) !=null){
+                for(Pengiriman pengiriman1 : getPengirimanByKurir(kurir)){
+                    pengiriman.add(pengiriman1);
+                }
+            }
+        }
+
+        return pengiriman;
+    }
     @Override
     public void update(Object data, ObservableEventType eventType) {
         switch (eventType) {
