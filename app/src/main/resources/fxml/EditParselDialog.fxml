@@ -76,7 +76,7 @@
                 </VBox>
 
                 <!-- Info text -->
-                <Label text="💡 Kosongkan field yang tidak ingin diubah" style="-fx-text-fill: #666666; -fx-font-style: italic;" wrapText="true" />
+                <Label text="💡 Pastikan tidak ada field yang kosong" style="-fx-text-fill: #666666; -fx-font-style: italic;" wrapText="true" />
 
                 <Region prefHeight="10.0" />
 
