@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-class Repository<T extends  Data> {
+class Repository<T extends Data> {
     protected final List<T> listOfEntity;
 
     public Repository(List<T> entity) {
@@ -18,17 +18,16 @@ class Repository<T extends  Data> {
     }
 
     public T findById(int id) {
+
         for (T entity : listOfEntity) {
             if (entity.getID() == id) {
                 return entity;
             }
         }
         return null;
+
     }
 
-    public void delete(int id) {
-        listOfEntity.removeIf(entity -> entity.getID() == id);
-    }
 
 //    public void saveData(String filePath) {
 //        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {

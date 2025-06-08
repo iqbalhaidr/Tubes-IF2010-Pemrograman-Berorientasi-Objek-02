@@ -16,7 +16,8 @@ public class RepoKurirController extends Observable {
     }
 
 
-    public void createKurir(String nama, String strJenisKelamin, String pathFoto, LocalDate tanggalLahir) { //belum ada validasi
+    public void createKurir(String nama, String strJenisKelamin, String pathFoto, LocalDate tanggalLahir) {
+        System.out.println("Masuk5");//belum ada validasi
         if (nama == null || nama.trim().isEmpty()) {
             throw new IllegalArgumentException("Nama kurir tidak boleh kosong");
         }
@@ -45,6 +46,7 @@ public class RepoKurirController extends Observable {
         if (pathFoto == null || pathFoto.trim().isEmpty()) {
             throw new IllegalArgumentException("Foto tidak boleh kosong");
         }
+        System.out.println("Masuk8");//belum ada validasi
 
         Kurir newKurir = null;
         try {
@@ -52,6 +54,7 @@ public class RepoKurirController extends Observable {
         } catch (IllegalArgumentException e) {
             System.err.println("Error: " + e.getMessage());
         }
+        System.out.println("Masuk12");//belum ada validasi
         ObservableEventType createKurirEvent;
         createKurirEvent = ObservableEventType.valueOf("CreateKurir");
         notifyListeners(newKurir,createKurirEvent);
@@ -61,6 +64,7 @@ public class RepoKurirController extends Observable {
         if (ID < 0) {
             throw new IllegalArgumentException("ID Kurir tidak boleh negatif");
         }
+        System.out.println("Masuk6");
         Kurir kurirToUpdate = kurirRepository.findById(ID);
         if (kurirToUpdate == null) {
             throw new IllegalArgumentException("Kurir dengan ID " + ID + " tidak ditemukan.");
@@ -83,7 +87,8 @@ public class RepoKurirController extends Observable {
         } catch (IllegalArgumentException e) {
             System.err.println("Error: " + e.getMessage());
         }
-
+        System.out.println("Masuk7");
+        System.out.println(kurirToUpdate.getName());
         ObservableEventType updateKurirEvent;
         updateKurirEvent = ObservableEventType.valueOf("UpdateKurir");
         notifyListeners(kurirToUpdate,updateKurirEvent);
@@ -93,6 +98,7 @@ public class RepoKurirController extends Observable {
         if (ID < 0) {
             throw new IllegalArgumentException("ID Kurir tidak boleh negatif");
         }
+        System.out.println("Masuk7");
         Kurir kurirToDelete = kurirRepository.findById(ID);
         if (kurirToDelete == null) {
             throw new IllegalArgumentException("Kurir dengan ID " + ID + " tidak ditemukan.");
@@ -105,6 +111,8 @@ public class RepoKurirController extends Observable {
 
 
     public List<Kurir> getAllKurir() {
-        return kurirRepository.findAll();
+        return kurirRepository.findAll().stream()
+                .filter(entity -> !entity.getDeleteStatus())
+                .collect(Collectors.toList());
     }
 }
