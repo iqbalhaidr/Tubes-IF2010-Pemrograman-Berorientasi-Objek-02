@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 abstract class Animal  {
@@ -53,6 +54,7 @@ public class Adapter<T extends Data> {
     public Adapter(String pathToFile, Class<T> targetClass) throws IOException {
         this.gson =  new GsonBuilder()
                 .registerTypeAdapter(LocalDate.class, new LocalDateConverter())
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeConverter())
                 .create();
         this.targetClass = targetClass;
         this.jsonContent = generateJsonString(pathToFile);
@@ -72,6 +74,7 @@ public class Adapter<T extends Data> {
         this.gson = new GsonBuilder()
                 .registerTypeAdapterFactory(adapterFactory)
                 .registerTypeAdapter(LocalDate.class, new LocalDateConverter())
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeConverter())
                 .create();
 
         this.targetClass = targetClass;
