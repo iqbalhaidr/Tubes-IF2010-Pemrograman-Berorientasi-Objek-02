@@ -28,6 +28,9 @@ public class LoginViewController {
     private RepoPengirimanController repoPengirimanController; // Tambahkan ini
     private RepoParselController repoParselController;
 
+    private Settings settings;
+    private SettingsManager settingsManager;
+
     private Stage loginStage;
 
     public void initialize(URL location, ResourceBundle resources) {
@@ -45,6 +48,11 @@ public class LoginViewController {
 
     public void setRepoParselController(RepoParselController controller) {
         this.repoParselController = controller;
+    }
+
+    public void setSettings(Settings settings, SettingsManager manager) {
+        this.settings = settings;
+        this.settingsManager = manager;
     }
 
     public void setLoginStage(Stage stage) {
