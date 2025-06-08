@@ -13,7 +13,7 @@
 <?import javafx.geometry.Pos?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.labpro.uiControl.kurirDashboardController">
+            prefHeight="650.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.labpro.uiControl.kurirDashboardController">
    <children>
       <HBox prefHeight="68.0" prefWidth="700.0" style="-fx-background-color: white;"
             AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -53,8 +53,8 @@
       </HBox>
 
       <TableView fx:id="kurirPengirimanTable" style="-fx-border-radius: 0; -fx-background-radius: 0;"
-                 AnchorPane.topAnchor="90.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="38.0"
-                 AnchorPane.bottomAnchor="70.0"> <columns>
+                 AnchorPane.topAnchor="120.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="38.0"
+                 AnchorPane.bottomAnchor="100.0"> <columns>
          <TableColumn fx:id="noResColumn" prefWidth="70.0" text="No. Resi" />
          <TableColumn fx:id="penerimaColumn" prefWidth="100.0" text="Penerima" />
          <TableColumn fx:id="alamatColumn" prefWidth="140.0" text="Alamat" />
