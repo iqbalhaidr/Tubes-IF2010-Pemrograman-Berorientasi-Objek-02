@@ -3,7 +3,7 @@ package com.labpro;
 // Import kelas UI Dashboard yang spesifik
 import com.labpro.uiControl.ManajemenKurirDashboardController;
 import com.labpro.uiControl.PengirimanView;
- import com.labpro.uiControl.ManajemenParselDashboardController;
+import com.labpro.uiControl.ManajemenParselDashboardController;
 
 
 import com.labpro.uiControl.SettingsView;
@@ -27,8 +27,8 @@ public class AdminController {
     private StackPane contentArea;
 
     private RepoKurirController repoKurirController;
-     private RepoPengirimanController repoPengirimanController;
-     private RepoParselController repoParselController;
+    private RepoPengirimanController repoPengirimanController;
+    private RepoParselController repoParselController;
     private final Map<String, Parent> loadedViews = new HashMap<>();
     private final Map<String, Object> loadedControllers = new HashMap<>();
     private Runnable logoutCallback; // buat balik ke login
@@ -45,15 +45,15 @@ public class AdminController {
         System.out.println("RepoKurirController injected.");
     }
 
-     public void setRepoPengirimanController(RepoPengirimanController repoPengirimanController) {
-         this.repoPengirimanController = repoPengirimanController;
-         System.out.println("RepoPengirimanController injected.");
-     }
+    public void setRepoPengirimanController(RepoPengirimanController repoPengirimanController) {
+        this.repoPengirimanController = repoPengirimanController;
+        System.out.println("RepoPengirimanController injected.");
+    }
 
-     public void setRepoParselController(RepoParselController repoParselController) {
-         this.repoParselController = repoParselController;
-         System.out.println("RepoParselController injected.");
-     }
+    public void setRepoParselController(RepoParselController repoParselController) {
+        this.repoParselController = repoParselController;
+        System.out.println("RepoParselController injected.");
+    }
 
     public void setSettings(Settings settings, SettingsManager settingsManager) {
         this.currentSettings = settings;
@@ -101,22 +101,22 @@ public class AdminController {
                             kurirController.setController(this.repoKurirController);
                             return kurirController; // Selalu return instance di sini
                         }
-                         else if (controllerClass == PengirimanView.class) { // Dikomentari: Belum jadi
-                            PengirimanView pengirimanController = new PengirimanView();
-                             if (this.repoPengirimanController == null) {
-                                 throw new IllegalStateException("RepoPengirimanController belum diinjeksi saat membuat ManajemenPengirimanDashboardController.");
-                             }
-                             pengirimanController.setController(this.repoPengirimanController);
-                             return pengirimanController;
-                         }
-                         else if (controllerClass == ManajemenParselDashboardController.class) { // Dikomentari: Belum jadi
-                             ManajemenParselDashboardController parselController = new ManajemenParselDashboardController();
-                             if (this.repoParselController == null) {
-                                 throw new IllegalStateException("RepoParselController belum diinjeksi saat membuat ManajemenParselDashboardController.");
-                             }
-                             parselController.setController(this.repoParselController);
-                             return parselController;
-                         }
+                        else if (controllerClass == PengirimanView.class) {
+                            PengirimanView pengirimanController = new PengirimanView(); // Buat instance langsung
+                            if (this.repoPengirimanController == null) {
+                                throw new IllegalStateException("RepoPengirimanController belum diinjeksi saat membuat PengirimanView.");
+                            }
+                            pengirimanController.setRepoPengirimanController(this.repoPengirimanController);
+                            return pengirimanController;
+                        }
+                        else if (controllerClass == ManajemenParselDashboardController.class) { // Dikomentari: Belum jadi
+                            ManajemenParselDashboardController parselController = new ManajemenParselDashboardController();
+                            if (this.repoParselController == null) {
+                                throw new IllegalStateException("RepoParselController belum diinjeksi saat membuat ManajemenParselDashboardController.");
+                            }
+                            parselController.setController(this.repoParselController);
+                            return parselController;
+                        }
                         else {
                             // Fallback jika tipe controller tidak dikenal atau tidak ada injeksi khusus.
                             // Ini akan membuat instance controller tanpa dependensi yang diinjeksi secara spesifik.
@@ -131,6 +131,9 @@ public class AdminController {
 
                 view = loader.load(); // loader.load() akan menggunakan factory untuk mendapatkan controller
                 moduleControllerInstance = loader.getController(); // Dapatkan instance controller yang dibuat oleh factory
+                if (moduleControllerInstance instanceof PengirimanView) {
+                    ((PengirimanView) moduleControllerInstance).initializeData();
+                }
 
                 // Simpan ke cache
                 loadedViews.put(viewKey, view);
@@ -155,14 +158,14 @@ public class AdminController {
         }
     }
 
-     @FXML
-     private void showManajemenPengirimanDashboard() {
-         if (this.repoPengirimanController == null) {
-             showAlert(Alert.AlertType.ERROR, "Error Dependensi", "Service Pengiriman Hilang", "RepoPengirimanController belum diinisialisasi.");
-             return;
-         }
-         switchContent("/fxml/PengirimanView.fxml", "pengiriman", PengirimanView.class);
-     }
+    @FXML
+    private void showManajemenPengirimanDashboard() {
+        if (this.repoPengirimanController == null) {
+            showAlert(Alert.AlertType.ERROR, "Error Dependensi", "Service Pengiriman Hilang", "RepoPengirimanController belum diinisialisasi.");
+            return;
+        }
+        switchContent("/fxml/PengirimanView.fxml", "pengiriman", PengirimanView.class);
+    }
 
     @FXML
     private void showManajemenKurirDashboard() {
@@ -173,14 +176,14 @@ public class AdminController {
         switchContent("/fxml/ManajemenKurirDashboard.fxml", "kurir", ManajemenKurirDashboardController.class);
     }
 
-     @FXML
-     private void showManajemenParselDashboard() {
-         if (this.repoParselController == null) {
-             showAlert(Alert.AlertType.ERROR, "Error Dependensi", "Service Parsel Hilang", "RepoParselController belum diinisialisasi.");
-             return;
-         }
-         switchContent("/fxml/ParselView.fxml", "parsel", ManajemenParselDashboardController.class);
-     }
+    @FXML
+    private void showManajemenParselDashboard() {
+        if (this.repoParselController == null) {
+            showAlert(Alert.AlertType.ERROR, "Error Dependensi", "Service Parsel Hilang", "RepoParselController belum diinisialisasi.");
+            return;
+        }
+        switchContent("/fxml/ParselView.fxml", "parsel", ManajemenParselDashboardController.class);
+    }
 
     private void showAlert(Alert.AlertType type, String title, String header, String content) {
         Alert alert = new Alert(type);

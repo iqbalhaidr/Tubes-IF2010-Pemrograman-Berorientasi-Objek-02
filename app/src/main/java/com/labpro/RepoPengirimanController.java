@@ -23,6 +23,10 @@ public class RepoPengirimanController implements Listener {
         generatePengirimanMap();
     }
 
+    public PengirimanRepository getRepo() {
+        return repo;
+    }
+
     private void generatePengirimanMap() {
         List<Pengiriman> allRawPengiriman = repo.findAll();
         pengirimanMap.clear();
@@ -66,7 +70,7 @@ public class RepoPengirimanController implements Listener {
     }
 
     public List<Pengiriman> getPengirimanByKurir(Kurir kurir){
-//        System.out.println("INI DIA DATANYA " + pengirimanMap.get(kurir));
+        System.out.println("INI DIA DATANYA " + pengirimanMap.get(kurir));
         return pengirimanMap.get(kurir);
     }
 
@@ -103,6 +107,31 @@ public class RepoPengirimanController implements Listener {
         }
 
         return pengiriman;
+    }
+
+    public void addPengiriman(Pengiriman pengiriman){
+        for (Parsel parsel : pengiriman.getListOfParsel()) {
+            this.ParselAktif.add(parsel);
+        }
+
+        if (KurirAktif.contains(pengiriman.getKurir())){
+            for (int i = 0; i < KurirAktif.size(); i++){
+                if (KurirAktif.get(i) == pengiriman.getKurir()){
+                    KurirAktif.set(i, pengiriman.kurir);
+                    break;
+                }
+            }
+        }
+        else{
+            KurirAktif.add(pengiriman.getKurir());
+        }
+        ArrayList<Pengiriman> pengiriman1 = pengirimanMap.get(pengiriman.getKurir());
+        pengiriman1.add(pengiriman);
+        pengirimanMap.put(pengiriman.getKurir(), pengiriman1);
+
+
+        this.repo.add(pengiriman);
+
     }
     @Override
     public void update(Object data, ObservableEventType eventType) {

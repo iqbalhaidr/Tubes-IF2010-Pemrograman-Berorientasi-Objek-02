@@ -38,10 +38,12 @@ public class ManajemenParselDashboardController{
     @FXML private TableColumn<Parsel, Void> actionsColumn;
     @FXML private Button createParsel;
     @FXML private Pagination pagination;
+    @FXML private Label timeLabel;
+
 
     private RepoParselController repoParselController;
     private List<Parsel> parselData;
-    private final int rowsPerPage = 10;
+    private final int rowsPerPage = 6;
 
     public void setController(RepoParselController controller) {
         this.repoParselController = controller;
@@ -49,6 +51,8 @@ public class ManajemenParselDashboardController{
 
     @FXML
     public void initialize() {
+        TimeThread timeThread = new TimeThread(timeLabel);
+        timeThread.start();
         parselData = new ArrayList<>();
         loadParselData();
         //setUp Table Columns
@@ -80,16 +84,16 @@ public class ManajemenParselDashboardController{
 
         //setup Action Columns
         actionsColumn.setCellFactory(param -> new TableCell<Parsel, Void>() {
-            private final Button editButton = new Button("Edit");
+            private final Button editButton = new Button("Update");
             private final Button deleteButton = new Button("Delete");
             private final HBox actionBox = new HBox(5);
 
             {
-                editButton.setStyle("-fx-background-color: #FFC107; -fx-border-color: transparent;");
-                editButton.setPrefSize(56, 20);
+                editButton.setStyle("-fx-background-color: #22c55e; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 10; -fx-border-radius: 5; -fx-background-radius: 5;");
+//                editButton.setPrefSize(50, 20);
 
-                deleteButton.setStyle("-fx-background-color: #F44336; -fx-border-color: transparent;");
-                deleteButton.setPrefSize(56, 20);
+                deleteButton.setStyle("-fx-background-color: #ef4444; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 10; -fx-border-radius: 5; -fx-background-radius: 5;");
+//                deleteButton.setPrefSize(50, 20);
 
                 actionBox.getChildren().addAll(editButton, deleteButton);
                 actionBox.setAlignment(Pos.CENTER);

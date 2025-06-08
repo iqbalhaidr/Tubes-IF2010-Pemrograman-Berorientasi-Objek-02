@@ -48,6 +48,10 @@ public abstract class Pengiriman implements Data {
         this.logStatus.add(new LogStatus(LocalDateTime.now(), StatusPengiriman.MENUNGGU_KURIR));
     }
 
+    public void setKurir(Kurir kurir){
+
+    }
+
     public Integer getID() {
         return getIdPengiriman();
     }

@@ -36,7 +36,10 @@ public class PengirimanRepository extends Repository<Pengiriman>{
             if (listOfEntity.isEmpty()) {
                 idPengiriman = 0;
             } else {
-                idPengiriman = findById(listOfEntity.size() - 1).getIdPengiriman() + 1; // id terakhir + 1
+                idPengiriman = listOfEntity.stream()
+                        .mapToInt(Pengiriman::getID)
+                        .max()
+                        .orElse(0) + 1;
             }
         }
 
@@ -75,7 +78,10 @@ public class PengirimanRepository extends Repository<Pengiriman>{
             if (listOfEntity.isEmpty()) {
                 idPengiriman = 0;
             } else {
-                idPengiriman = findById(listOfEntity.size() - 1).getIdPengiriman() + 1; // id terakhir + 1
+                idPengiriman = listOfEntity.stream()
+                        .mapToInt(Pengiriman::getID)
+                        .max()
+                        .orElse(0) + 1;
             }
         }
 
