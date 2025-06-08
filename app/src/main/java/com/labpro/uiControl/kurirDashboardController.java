@@ -40,7 +40,7 @@ public class kurirDashboardController {
     private TableColumn<Pengiriman, String> statusColumn;
 
     private Kurir loggedInKurir;
-    private RepoPengirimanController pengirimanService;
+    private ProxyPengiriman pengirimanService;
     private final int rowsPerPage = 7;
     private List<Pengiriman> masterDataPengiriman;
 
@@ -128,17 +128,20 @@ public class kurirDashboardController {
                             StatusPengiriman newStatusEnum = StatusPengiriman.fromDeskripsi(selectedOption);
 
                             for (Pengiriman p : masterDataPengiriman) {
-                                if (p.getNoResi().equals(pengirimanInTable.getNoResi())) {
-                                    p.setStatusPengiriman(newStatusEnum);
-                                    // PENTING: Jika Anda menyimpan perubahan ke database, lakukan di sini
-                                    // pengirimanService.updatePengirimanStatus(p.getNoResi(), newStatusEnum);
+                                if (p.getIdPengiriman().equals(pengirimanInTable.getIdPengiriman())) {
+                                    System.out.println("Seblum "+p.getStatusPengiriman().getDeskripsi());
+                                    int id = p.getIdPengiriman();
+                                    pengirimanService.updateStatus(id, newStatusEnum);
+//                                    p.setStatusPengiriman(newStatusEnum);
+                                    System.out.println("Sesudah "+p.getStatusPengiriman().getDeskripsi());
+
                                     break;
                                 }
                             }
 
                             int currentPage = pagination.getCurrentPageIndex();
                             createPage(currentPage);
-                            kurirPengirimanTable.refresh(); // Memaksa tabel untuk me-refresh tampilannya
+                            kurirPengirimanTable.refresh();
                         }
                     }
                 });
@@ -160,6 +163,7 @@ public class kurirDashboardController {
                     switch (currentStatus) {
                         case MENUNGGU_KURIR:
                             availableOptions.add(StatusPengiriman.DIKIRIM.getDeskripsi());
+                            availableOptions.add(StatusPengiriman.GAGAL.getDeskripsi());
                             break;
                         case DIKIRIM:
 

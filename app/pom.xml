@@ -70,7 +70,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.labpro.Adapter</mainClass>
+                            <mainClass>com.labpro.MainApp</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
