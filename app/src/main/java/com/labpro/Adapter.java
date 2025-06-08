@@ -45,7 +45,7 @@ class Person {
 }
 
 
-public class Adapter<T extends Data> {
+public class Adapter<T extends ID> {
 
     private Gson gson;
     private String jsonContent;
