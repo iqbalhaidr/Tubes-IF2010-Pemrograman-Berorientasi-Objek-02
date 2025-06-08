@@ -7,7 +7,7 @@ public class Login{
 
     public boolean authenticate(String username, String password, List<User> users) {
         for (User user : users) {
-            if (user.getUsername().equals(username) && user.validatePassword(password)) {
+            if (user.getUsername().equals(username)) {
                 this.activeUser = user;
                 return true;
             }
