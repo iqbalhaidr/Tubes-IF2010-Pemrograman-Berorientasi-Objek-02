@@ -1,6 +1,6 @@
 package com.labpro;
 
-import com.labpro.uiControl.kurirDashboardController;
+import com.labpro.uiControl.ManajemenKurirDashboardController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,9 +28,9 @@ public class MainApp extends Application {
         primaryStage.setTitle("Aplikasi Pengiriman - Tes Kurir Dashboard");
 
         try {
-            String kurirJsonPath = "E:\\tubes-2-oop-copy\\app\\src\\main\\java\\com\\labpro\\dummyData\\Kurir.json";
-            String pengirimanPath = "E:\\tubes-2-oop-copy\\app\\src\\main\\java\\com\\labpro\\dummyData\\Pengiriman.json";
-            String parselPath = "E:\\tubes-2-oop-copy\\app\\src\\main\\java\\com\\labpro\\dummyData\\Parsel.json";
+            String kurirJsonPath = "D:\\Codes\\SEMESTER4IF\\Codes\\OOP\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\dummyData\\Kurir.json";
+            String pengirimanPath = "D:\\Codes\\SEMESTER4IF\\Codes\\OOP\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\dummyData\\Pengiriman.json";
+            String parselPath = "D:\\Codes\\SEMESTER4IF\\Codes\\OOP\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\dummyData\\Parsel.json";
 
             String absoluteKurirPath = Paths.get(kurirJsonPath).toAbsolutePath().toString();
             System.out.println("Mencoba membaca Kurir dari: " + absoluteKurirPath);
@@ -80,17 +80,19 @@ public class MainApp extends Application {
                 return;
             }
 
+            RepoKurirController repoKurirController = new RepoKurirController(kurirRepository);
             // Load FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/fxml/kurirDashboard.fxml"));
+            //D:\Codes\SEMESTER4IF\Codes\OOP\if2010-tubes-2-2425-lah\app\src\main\resources\fxml\ManajemenKurirDashboard.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ManajemenKurirDashboard.fxml"));
             Parent kurirDashboardRoot = loader.load();
 
             //setup controller
-            kurirDashboardController controller = loader.getController();
-            controller.setPengirimanService(pengirimanService);
-            controller.setLoggedInKurir(loggedInKurir);
+            ManajemenKurirDashboardController controller = loader.getController();
+            controller.setController(repoKurirController);
 
             Scene scene = new Scene(kurirDashboardRoot, 900, 650);
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/style.css")).toExternalForm());
+            //D:\Codes\SEMESTER4IF\Codes\OOP\if2010-tubes-2-2425-lah\app\src\main\resources\css\ManajemenKurirDashboard.css
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/ManajemenKurirDashboard.css")).toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.show();
 

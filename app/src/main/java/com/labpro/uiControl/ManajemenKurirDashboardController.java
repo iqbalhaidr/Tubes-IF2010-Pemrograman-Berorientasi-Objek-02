@@ -63,7 +63,7 @@ public class ManajemenKurirDashboardController {
     private RepoKurirController kurirService;
     private List<Kurir> kurirData;
 
-    private final int rowsPerPage = 7;
+    private final int rowsPerPage = 6;
     private int currentEditingId = -1;
 
     public ManajemenKurirDashboardController() {

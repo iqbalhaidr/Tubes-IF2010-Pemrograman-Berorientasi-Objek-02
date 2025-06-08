@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" prefHeight="450.0" prefWidth="700.0" styleClass="root-container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.labpro.uiControl.ManajemenKurirDashboardController">
+<VBox alignment="TOP_CENTER" prefHeight="390.0" maxHeight="400" prefWidth="700.0" styleClass="root-container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.labpro.uiControl.ManajemenKurirDashboardController">
     <children>
         <!-- Top Bar -->
         <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="10.0" styleClass="top-bar">
@@ -29,7 +29,7 @@
         </HBox>
 
         <!-- Kontainer  Form dan Tabel -->
-        <VBox prefHeight="450.0" prefWidth="700.0" spacing="20.0" VBox.vgrow="ALWAYS">
+        <VBox prefHeight="350.0" prefWidth="700.0" spacing="20.0" VBox.vgrow="ALWAYS">
             <padding>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </padding>
@@ -78,7 +78,7 @@
             <Label fx:id="messageLabel" alignment="CENTER_LEFT" prefWidth="972.0" styleClass="message-label" />
 
             <!-- Tabel Kurir -->
-            <TableView fx:id="kurirTable" prefHeight="380.0" styleClass="table-view" VBox.vgrow="NEVER">
+            <TableView fx:id="kurirTable" prefHeight="340.0" styleClass="table-view" VBox.vgrow="NEVER">
                 <columns>
                     <TableColumn fx:id="photoColumn" prefWidth="180" maxWidth="180" text="Photo" />
                     <TableColumn fx:id="idColumn" prefWidth="50"  maxWidth="50"  text="ID" />

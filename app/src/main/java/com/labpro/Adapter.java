@@ -71,6 +71,7 @@ public class Adapter<T extends ID> {
 
         this.gson = new GsonBuilder()
                 .registerTypeAdapterFactory(adapterFactory)
+                .registerTypeAdapter(LocalDate.class, new LocalDateConverter())
                 .create();
 
         this.targetClass = targetClass;

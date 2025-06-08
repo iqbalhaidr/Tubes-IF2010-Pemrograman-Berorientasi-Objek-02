@@ -119,7 +119,10 @@
     -fx-text-fill: #424445;
     -fx-font-weight: bold;
 }
-
+.table-view .table-cell {
+    -fx-padding: 8px;
+    -fx-alignment: CENTER;
+}
 
 .table-view .scroll-bar:horizontal {
     -fx-opacity: 0;
