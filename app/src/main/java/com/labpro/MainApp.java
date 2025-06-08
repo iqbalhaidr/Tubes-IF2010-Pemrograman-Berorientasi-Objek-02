@@ -1,5 +1,6 @@
 package com.labpro;
 
+import com.labpro.uiControl.LoginViewController;
 import com.labpro.uiControl.ManajemenParselDashboardController;
 import com.labpro.uiControl.kurirDashboardController;
 import javafx.application.Application;
@@ -32,16 +33,16 @@ public class MainApp extends Application {
         primaryStage.setTitle("Aplikasi Parsel - Tes Parsel Dashboard");
 
         try {
-            String kurirJsonPath = "E:\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\dummyData\\Kurir.json";
-            String pengirimanPath = "E:\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\dummyData\\Pengiriman.json";
+//            String kurirJsonPath = "E:\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\dummyData\\Kurir.json";
+//            String pengirimanPath = "E:\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\dummyData\\Pengiriman.json";
 //            String parselPath = "E:\\if2010-tubes-2-2425-lah - CopyIniRill\\app\\src\\main\\java\\com\\labpro\\dummyData\\Parsel.json";
-            URL resourceUrl = getClass().getResource("/data/Parsel.json");
-            if (resourceUrl == null) {
-                throw new IllegalArgumentException("File Parsel.json not found in resources");
-            }
-            String parselPath = new File(resourceUrl.toURI()).getAbsolutePath();
-            String absoluteKurirPath = Paths.get(kurirJsonPath).toAbsolutePath().toString();
-            System.out.println("Mencoba membaca Kurir dari: " + absoluteKurirPath);
+//            URL resourceUrl = getClass().getResource("/data/Parsel.json");
+//            if (resourceUrl == null) {
+//                throw new IllegalArgumentException("File Parsel.json not found in resources");
+//            }
+//            String parselPath = new File(resourceUrl.toURI()).getAbsolutePath();
+            String absoluteKurirPath = "C:\\Joel\\ITB\\Semester4\\OOP\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\dummyData\\Kurir.json";
+//            System.out.println("Mencoba membaca Kurir dari: " + absoluteKurirPath);
 
             //load kurir
             Adapter<Kurir> kurirAdapter = new Adapter<>(absoluteKurirPath, Kurir.class);
@@ -50,52 +51,52 @@ public class MainApp extends Application {
             List<Kurir> activeKurirs = allKurirs.stream()
                     .filter(kurir -> !kurir.getDeleteStatus())
                     .collect(Collectors.toList());
-            System.out.println("INI HASIL FILTERED KURIR"+activeKurirs);
+//            System.out.println("INI HASIL FILTERED KURIR"+activeKurirs);
 
             //load parsel
-            Adapter<Parsel> parselAdapter = new Adapter<>(parselPath, Parsel.class);
-            List<Parsel> allParsel = parselAdapter.parseList();
-            ParselRepository parselRepository = new ParselRepository(allParsel);
-
-            List<Parsel> filteredParsels = allParsel.stream()
-                    .filter(parsel -> parsel.getStatus() == ParselStatus.REGISTERED && !parsel.getDeleteStatus())
-                    .collect(Collectors.toList());
-            System.out.println("INI HASIL FILTERED PARSEL"+filteredParsels);
+//            Adapter<Parsel> parselAdapter = new Adapter<>(parselPath, Parsel.class);
+//            List<Parsel> allParsel = parselAdapter.parseList();
+//            ParselRepository parselRepository = new ParselRepository(allParsel);
+//
+//            List<Parsel> filteredParsels = allParsel.stream()
+//                    .filter(parsel -> parsel.getStatus() == ParselStatus.REGISTERED && !parsel.getDeleteStatus())
+//                    .collect(Collectors.toList());
+//            System.out.println("INI HASIL FILTERED PARSEL"+filteredParsels);
 
             //load pengiriman
-            Map<String, Class<? extends Pengiriman>> map = new HashMap<>();
-            map.put("INTERNASIONAL", PengirimanInternasional.class);
-            map.put("DOMESTIK", PengirimanDomestik.class);
+//            Map<String, Class<? extends Pengiriman>> map = new HashMap<>();
+//            map.put("INTERNASIONAL", PengirimanInternasional.class);
+//            map.put("DOMESTIK", PengirimanDomestik.class);
+//
+//            Adapter<Pengiriman> adapterPengiriman = new Adapter<Pengiriman>(pengirimanPath, Pengiriman.class, "tipe", map);
+//            List<Pengiriman> allPengiriman = adapterPengiriman.parseList();
+//            System.out.println("INI HASIL FILTERED PENGIRIMAN"+allPengiriman);
+//            for(Pengiriman pengiriman : allPengiriman){
+//                pengiriman.generateParselList(parselRepository);
+//                pengiriman.generateKurir(kurirRepository);
+//            }
 
-            Adapter<Pengiriman> adapterPengiriman = new Adapter<Pengiriman>(pengirimanPath, Pengiriman.class, "tipe", map);
-            List<Pengiriman> allPengiriman = adapterPengiriman.parseList();
-            System.out.println("INI HASIL FILTERED PENGIRIMAN"+allPengiriman);
-            for(Pengiriman pengiriman : allPengiriman){
-                pengiriman.generateParselList(parselRepository);
-                pengiriman.generateKurir(kurirRepository);
-            }
 
-
-            PengirimanRepository pengirimanRepository = new PengirimanRepository(allPengiriman);
-            RepoPengirimanController pengirimanService = new RepoPengirimanController(
-                    (ArrayList<Kurir>) activeKurirs, (ArrayList<Parsel>) filteredParsels, pengirimanRepository);
-            ProxyPengiriman pengirimanServicePorvider = new ProxyPengiriman(pengirimanService);
+//            PengirimanRepository pengirimanRepository = new PengirimanRepository(allPengiriman);
+//            RepoPengirimanController pengirimanService = new RepoPengirimanController(
+//                    (ArrayList<Kurir>) activeKurirs, (ArrayList<Parsel>) filteredParsels, pengirimanRepository);
+//            ProxyPengiriman pengirimanServicePorvider = new ProxyPengiriman(pengirimanService);
 
 
             // Login
-            Kurir loggedInKurir = null;
-            if (!allKurirs.isEmpty()) {
-                loggedInKurir = allKurirs.get(0);
-                try {
-                    System.out.println("KURIR INI LOGIN "+loggedInKurir);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-
-            } else {
-                System.out.println("Tidak ada data Kurir yang ditemukan di " + absoluteKurirPath);
-                return;
-            }
+//            Kurir loggedInKurir = null;
+//            if (!allKurirs.isEmpty()) {
+//                loggedInKurir = allKurirs.get(0);
+//                try {
+//                    System.out.println("KURIR INI LOGIN "+loggedInKurir);
+//                } catch (Exception e) {
+//                    throw new RuntimeException(e);
+//                }
+//
+//            } else {
+//                System.out.println("Tidak ada data Kurir yang ditemukan di " + absoluteKurirPath);
+//                return;
+//            }
 
 //            setup kurir dashboard
 //            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/kurirDashboard.fxml")); // Pastikan path FXML benar
@@ -110,14 +111,24 @@ public class MainApp extends Application {
 //            primaryStage.setScene(scene);
 
             //setup manajemen parsel
-            RepoParselController repoParselController = new RepoParselController(parselRepository);
+//            RepoParselController repoParselController = new RepoParselController(parselRepository);
+//
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ParselView.fxml"));
+//            Parent parselDashboardRoot = loader.load();
+//            ManajemenParselDashboardController controller = loader.getController();
+//            controller.setRepoParselController(repoParselController);
+//
+//            Scene scene = new Scene(parselDashboardRoot);
+//            primaryStage.setScene(scene);
+//            primaryStage.show();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ParselView.fxml"));
-            Parent parselDashboardRoot = loader.load();
-            ManajemenParselDashboardController controller = loader.getController();
-            controller.setRepoParselController(repoParselController);
+            RepoKurirController repoKurirController = new RepoKurirController(kurirRepository);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LoginView.fxml")); // Pastikan path FXML benar
+            Parent LoginRoot = loader.load(); // Memuat FXML
 
-            Scene scene = new Scene(parselDashboardRoot);
+            LoginViewController controller = loader.getController();
+            controller.setRepoKurirController(repoKurirController);
+            Scene scene = new Scene(LoginRoot);
             primaryStage.setScene(scene);
             primaryStage.show();
 
