@@ -4,17 +4,22 @@ import com.labpro.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 public class kurirDashboardController {
 
@@ -39,6 +44,10 @@ public class kurirDashboardController {
     @FXML
     private TableColumn<Pengiriman, String> statusColumn;
 
+    @FXML
+    private Label timeLabel;
+
+
     private Kurir loggedInKurir;
     private ProxyPengiriman pengirimanService;
     private final int rowsPerPage = 1;
@@ -49,6 +58,8 @@ public class kurirDashboardController {
     @FXML
     public void initialize() {
         setupTable();
+        TimeThread clockThread = new TimeThread(timeLabel);
+        clockThread.start();
     }
 
     public void setPengirimanService(ProxyPengiriman service) {
@@ -210,5 +221,26 @@ public class kurirDashboardController {
         kurirPengirimanTable.setItems(FXCollections.observableArrayList(pageData));
 
         return new VBox();
+    }
+
+    public void handleOpenPengirimanView(){
+        try {
+            PengirimanView pengirimanViewController = new PengirimanView();
+            pengirimanViewController.setRepoPengirimanController(pengirimanService.getRepoPengirimanController());
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PengirimanView.fxml"));
+            loader.setController(pengirimanViewController);
+            Parent root = loader.load();
+
+            pengirimanViewController.initializeData();
+
+            Stage stage = new Stage();
+            stage.setTitle("Daftar Pengiriman");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
