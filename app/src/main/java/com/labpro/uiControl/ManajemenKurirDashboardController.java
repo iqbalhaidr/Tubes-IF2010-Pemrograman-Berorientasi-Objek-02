@@ -71,11 +71,11 @@ public class ManajemenKurirDashboardController {
 
     public void setController(RepoKurirController repoKurirController) {
         this.kurirService = repoKurirController;
-        loadKurirData();
     }
 
     @FXML
     public void initialize() {
+        loadKurirData();
         //setup table
         idColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getID()));
         namaColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
@@ -322,7 +322,6 @@ public class ManajemenKurirDashboardController {
         int pageCount = (int) Math.ceil((double) kurirData.size() / rowsPerPage);
         pagination.setPageCount(pageCount == 0 ? 1 : pageCount);
         pagination.setPageFactory(this::createPage);
-        // Baris ini sudah memastikan createPage dipanggil dengan data terbaru
 
         clearFormFields();
         kurirTable.setVisible(true);
@@ -340,7 +339,7 @@ public class ManajemenKurirDashboardController {
         kurirTable.setItems(FXCollections.observableArrayList(pageData));
         kurirTable.refresh();
 
-        return new Pane(); // Atau Node kosong, karena kita tidak ingin mengganti tampilan TableView
+        return new Pane();
     }
 
     @FXML

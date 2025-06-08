@@ -1,0 +1,60 @@
+.root-container {
+    -fx-font-family: "Inter", sans-serif;
+    -fx-background-color: #f0f2f5;
+}
+
+.navbar {
+    -fx-background-color: #333333;
+    -fx-padding: 15px 20px;
+    -fx-min-height: 70px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5);
+}
+
+.app-logo {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 10px;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-insets: 0;
+    -fx-background-insets: 0;
+}
+
+.nav-button:hover {
+    -fx-text-fill: #a0c0ff;
+    -fx-border-color: #a0c0ff;
+}
+
+.user-greeting {
+    -fx-font-size: 16px;
+    -fx-text-fill: #ffffff;
+    -fx-alignment: CENTER_RIGHT;
+}
+
+.logout-button {
+    -fx-background-color: #dc3545;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 15px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+.logout-button:hover {
+    -fx-background-color: #c82333;
+}
+.content-area {
+    -fx-background-color: #e9ecef;
+    -fx-padding: 20px;
+}
+

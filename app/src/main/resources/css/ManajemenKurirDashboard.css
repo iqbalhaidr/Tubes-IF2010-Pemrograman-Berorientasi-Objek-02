@@ -13,11 +13,11 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 5);
     -fx-border-radius: 8px;
     -fx-background-radius: 8px;
-    -fx-min-height: 70px;
+    -fx-min-height: 50px;
 }
 
 .header-title {
-    -fx-font-size: 24px;
+    -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-text-fill: #333333;
 }
