@@ -6,12 +6,15 @@ import com.labpro.uiControl.PengirimanView;
 import com.labpro.uiControl.ManajemenParselDashboardController;
 
 
-
+import com.labpro.uiControl.SettingsView;
+import com.sun.javafx.scene.SceneEventDispatcher;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.Alert;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -30,6 +33,9 @@ public class AdminController {
     private final Map<String, Object> loadedControllers = new HashMap<>();
     private Runnable logoutCallback; // buat balik ke login
 
+    private Settings currentSettings;
+    private SettingsManager settingsManager;
+
     public AdminController() {
         System.out.println("AdminController Constructor called.");
     }
@@ -47,6 +53,12 @@ public class AdminController {
     public void setRepoParselController(RepoParselController repoParselController) {
         this.repoParselController = repoParselController;
         System.out.println("RepoParselController injected.");
+    }
+
+    public void setSettings(Settings settings, SettingsManager settingsManager) {
+        this.currentSettings = settings;
+        this.settingsManager = settingsManager;
+        System.out.println("Settings diterima di AdminDashboard: " + currentSettings);
     }
 
     public void setLogoutCallback(Runnable logoutCallback) {
@@ -195,4 +207,33 @@ public class AdminController {
             System.err.println("Callback belum diset");
         }
     }
+
+    @FXML
+    private void showSettingsView() {
+        try {
+            Stage settingsStage = new Stage();
+            settingsStage.setTitle("Pengaturan Aplikasi");
+            settingsStage.initModality(Modality.APPLICATION_MODAL);
+            settingsStage.initOwner(contentArea.getScene().getWindow());
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SettingsView.fxml"));
+            Parent settingsRoot = loader.load();
+
+            SettingsView settingsController = loader.getController();
+            settingsController.setDialogStage(settingsStage);
+//            settingsController.setSettings(currentSettings, settingsManager);
+
+            Scene scene = new Scene(settingsRoot);
+            settingsStage.setScene(scene);
+            settingsStage.showAndWait();
+        } catch (IOException e) {
+           e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Gagal Memuat Pengaturan");
+            alert.setContentText("Tidak dapat membuka jendela pengaturan: " + e.getMessage());
+            alert.showAndWait();
+        }
+    }
 }
+

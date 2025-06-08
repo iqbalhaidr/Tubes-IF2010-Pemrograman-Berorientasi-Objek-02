@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.ComboBox?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.labpro.uiControl.SettingsView"  >
+    <children>
+        <Label text="Pengaturan Aplikasi">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+            <VBox.margin>
+                <Insets top="20.0" />
+            </VBox.margin>
+        </Label>
+        <VBox alignment="TOP_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+            <children>
+                <Label text="Pengaturan Penyimpanan Data">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Label>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label prefWidth="120.0" text="Lokasi Data:" />
+                        <TextField fx:id="dataStorageLocationField" HBox.hgrow="ALWAYS" promptText="Pilih folder penyimpanan data..." />
+                        <Button fx:id="browseDataFolderButton" text="Pilih Folder" onAction="#handleBrowseDataFolder"/>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label prefWidth="120.0" text="Format Data:" />
+                        <ComboBox fx:id="dataStoreFormatComboBox" prefWidth="200.0" HBox.hgrow="ALWAYS" /> </children>
+                </HBox>
+                <VBox spacing="10.0">
+                    <children>
+                        <Label text="Manajemen Plugin">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Label>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label prefWidth="120.0" text="Path Plugin JAR:" />
+                                <TextField fx:id="newPluginPathField" HBox.hgrow="ALWAYS" promptText="Masukkan path ke file .jar atau pilih" />
+                                <Button fx:id="browsePluginJarButton" text="Pilih JAR" onAction="#handleBrowsePluginJar"/>
+                                <Button fx:id="addPluginPathButton" text="Tambah" onAction="#handleAddPluginPath" />
+                            </children>
+                        </HBox>
+                        <Label text="Plugin Terdaftar (yang akan dimuat):" />
+                        <ListView fx:id="configuredPluginsListView" prefHeight="100.0" prefWidth="200.0" />
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label prefWidth="120.0" /> <Button fx:id="removePluginPathButton" text="Hapus Terpilih" onAction="#handleRemovePluginPath"  />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label prefWidth="120.0" /> <Button fx:id="loadPluginsButton" text="Muat Ulang Semua Plugin" onAction="#handleLoadPlugins" />
+                                <Button fx:id="unloadAllPluginsButton" text="Copot Semua Plugin" onAction="#handleUnloadAllPlugins"/>
+                            </children>
+                        </HBox>
+                        <Label text="Plugin Aktif (yang berhasil dimuat):" />
+                        <ListView fx:id="activePluginsListView" prefHeight="100.0" prefWidth="200.0" />
+                    </children>
+                </VBox>
+            </children>
+            <padding>
+                <Insets left="20.0" right="20.0" />
+            </padding>
+        </VBox>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+            <children>
+                <Button fx:id="saveSettingsButton" mnemonicParsing="false" text="Simpan" onAction="#handleSaveSettings" />
+                <Button fx:id="cancelSettingsButton" mnemonicParsing="false" text="Batal" onAction="#handleCancelSettings" />
+            </children>
+        </HBox>
+    </children>
+</VBox>

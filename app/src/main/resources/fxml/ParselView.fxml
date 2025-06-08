@@ -20,11 +20,11 @@
         <TableView fx:id="parselTable" prefHeight="400.0">
             <columns>
                 <TableColumn fx:id="IDColumn" text="ID" prefWidth="50"/>
-                <TableColumn fx:id="statusColumn" text="Status" prefWidth="100"/>
-                <TableColumn fx:id="dimensiColumn" text="Dimensi" prefWidth="150"/>
-                <TableColumn fx:id="beratColumn" text="Berat" prefWidth="100"/>
-                <TableColumn fx:id="jenisColumn" text="Jenis Barang" prefWidth="150"/>
-                <TableColumn fx:id="actionsColumn" text="Action" prefWidth="180"/>
+                <TableColumn fx:id="statusColumn" text="Status" prefWidth="110"/>
+                <TableColumn fx:id="dimensiColumn" text="Dimensi" prefWidth="160"/>
+                <TableColumn fx:id="beratColumn" text="Berat" prefWidth="105"/>
+                <TableColumn fx:id="jenisColumn" text="Jenis Barang" prefWidth="160"/>
+                <TableColumn fx:id="actionsColumn" text="Action" prefWidth="195"/>
             </columns>
         </TableView>
 

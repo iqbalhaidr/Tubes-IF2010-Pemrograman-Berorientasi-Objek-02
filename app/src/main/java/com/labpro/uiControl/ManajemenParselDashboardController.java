@@ -86,10 +86,10 @@ public class ManajemenParselDashboardController{
 
             {
                 editButton.setStyle("-fx-background-color: #FFC107; -fx-border-color: transparent;");
-                editButton.setPrefSize(50, 20);
+                editButton.setPrefSize(56, 20);
 
                 deleteButton.setStyle("-fx-background-color: #F44336; -fx-border-color: transparent;");
-                deleteButton.setPrefSize(50, 20);
+                deleteButton.setPrefSize(56, 20);
 
                 actionBox.getChildren().addAll(editButton, deleteButton);
                 actionBox.setAlignment(Pos.CENTER);

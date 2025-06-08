@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import java.net.URL?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="mainContainer" prefHeight="600.0" minWidth="520" prefWidth="800.0" maxWidth="800" styleClass="root-container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" >
     <stylesheets>
@@ -16,6 +17,10 @@
     </stylesheets>
     <top>
         <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0" spacing="20.0" styleClass="navbar">
+            <Button onAction="#showSettingsView" styleClass="nav-button">
+                <graphic>
+                    <Label text="⚙" style="-fx-font-size: 24px; -fx-text-fill: white;" /> </graphic>
+            </Button>
             <Region HBox.hgrow="ALWAYS" /> <HBox alignment="CENTER_LEFT" spacing="15.0">
             <Button onAction="#showManajemenPengirimanDashboard" styleClass="nav-button" text="Manajemen Pengiriman" />
             <Button onAction="#showManajemenKurirDashboard" styleClass="nav-button" text="Manajemen Kurir" />
