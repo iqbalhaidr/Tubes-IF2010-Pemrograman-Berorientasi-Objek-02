@@ -25,17 +25,29 @@ import java.util.stream.Collectors;
 public class MainApp extends Application {
 
     private Stage primaryStage;
+    private SettingsManager settingsManager; // Deklarasikan SettingsManager
+    private Settings currentSettings;
 
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("Aplikasi Pengiriman - Admin Dashboard");
 
+        settingsManager = new SettingsManager();
+        currentSettings = settingsManager.loadSettings();
+        System.out.println("Pengaturan dimuat di MainApp: " + currentSettings);
+
         try {
             // --- 1. Definisi Path File JSON ---
-            String kurirJsonPath = "src/main/resources/Data/Kurir.json";
-            String parselPath = "src/main/resources/Data/Parsel.json";
-            String pengirimanPath = "src/main/resources/Data/Pengiriman.json";
+            String dataStoragePath = currentSettings.getDataStoreLocation();
+            DataFormat dataStoreFormat = currentSettings.getDataStoreFormat();
+
+            String kurirJsonPath = Paths.get(dataStoragePath, "Kurir." + dataStoreFormat.toString().toLowerCase()).toString();
+            String parselPath = Paths.get(dataStoragePath, "Parsel." + dataStoreFormat.toString().toLowerCase()).toString();
+            String pengirimanPath = Paths.get(dataStoragePath, "Pengiriman." + dataStoreFormat.toString().toLowerCase()).toString();
+//            String kurirJsonPath = "src/main/resources/Data/Kurir.json";
+//            String parselPath = "src/main/resources/Data/Parsel.json";
+//            String pengirimanPath = "src/main/resources/Data/Pengiriman.json";
 
             System.out.println("Memulai inisialisasi data...");
             System.out.println(kurirJsonPath);
@@ -105,6 +117,7 @@ public class MainApp extends Application {
             loginController.setRepoKurirController(repoKurirService);
             loginController.setRepoPengirimanController(repoPengirimanService);
             loginController.setRepoParselController(repoParselService);
+            loginController.setSettings(currentSettings, settingsManager);
             System.out.println("LoginView FXML dimuat dan dependensi diinjeksikan.");
 
 

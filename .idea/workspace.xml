@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f8c5091a-5446-4435-8390-b8891eb30457" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/ManajemenParselDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/ManajemenParselDashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/resources/fxml/ParselView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/fxml/ParselView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -276,7 +274,47 @@
       <option name="project" value="LOCAL" />
       <updated>1749316453897</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="fix: rows per page">
+      <option name="closed" value="true" />
+      <created>1749411412298</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1749411412298</updated>
+    </task>
+    <task id="LOCAL-00023" summary="fix: header">
+      <option name="closed" value="true" />
+      <created>1749411435704</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1749411435704</updated>
+    </task>
+    <task id="LOCAL-00024" summary="fix: workspace.xml">
+      <option name="closed" value="true" />
+      <created>1749411465256</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1749411465256</updated>
+    </task>
+    <task id="LOCAL-00025" summary="fix: xml">
+      <option name="closed" value="true" />
+      <created>1749411477325</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1749411477325</updated>
+    </task>
+    <task id="LOCAL-00026">
+      <option name="closed" value="true" />
+      <created>1749411524306</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1749411524306</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -300,7 +338,11 @@
     <MESSAGE value="feat: current manajemen kurir ui" />
     <MESSAGE value="chore: encodings" />
     <MESSAGE value="feat: current manajemen kurir dashboard" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: current manajemen kurir dashboard" />
+    <MESSAGE value="fix: rows per page" />
+    <MESSAGE value="fix: header" />
+    <MESSAGE value="fix: workspace.xml" />
+    <MESSAGE value="fix: xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: xml" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
