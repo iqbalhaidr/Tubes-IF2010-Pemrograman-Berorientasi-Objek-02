@@ -104,10 +104,12 @@ public class MainApp extends Application {
 //            kurirDashboardController controller = loader.getController();
 //            controller.setLoggedInKurir(loggedInKurir);
 //            controller.setPengirimanService(pengirimanServicePorvider);
-
+//
 //            Scene scene = new Scene(kurirDashboardRoot, 800, 550);
 //            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/styles.css")).toExternalForm());
+//            primaryStage.setScene(scene);
 
+            //setup manajemen parsel
             RepoParselController repoParselController = new RepoParselController(parselRepository);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ParselView.fxml"));
