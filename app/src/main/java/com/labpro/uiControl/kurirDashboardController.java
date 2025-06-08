@@ -51,7 +51,7 @@ public class kurirDashboardController {
         setupTable();
     }
 
-    public void setPengirimanService(RepoPengirimanController service) {
+    public void setPengirimanService(ProxyPengiriman service) {
         this.pengirimanService = service;
         if (this.loggedInKurir != null) {
             loadTableData();
