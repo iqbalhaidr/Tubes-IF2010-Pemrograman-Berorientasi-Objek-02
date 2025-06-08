@@ -13,7 +13,7 @@
     "listIdParsel": [101, 102],
     "kurirId": 201,
     "kurirName": "Budi",
-    "logStatusList": [
+    "logStatus": [
       {
         "datetime": "2025-06-01T10:00:00",
         "status": "MENUNGGU_KONFIRMASI",
@@ -42,7 +42,7 @@
     "kurirName": "Siti",
     "pdfFilePath": "/docs/customs/shp1002_customs.pdf",
     "kodePajak": "HS02102030",
-    "logStatusList": [
+    "logStatus": [
       {
         "datetime": "2025-05-28T09:00:00",
         "status": "DIPROSES",
@@ -64,7 +64,7 @@
     "listIdParsel": [104, 105],
     "kurirId": 201,
     "kurirName": "Budi Kurir",
-    "logStatusList": [
+    "logStatus": [
       {
         "datetime": "2025-06-05T08:30:00",
         "status": "MENUNGGU_KURIR",
@@ -88,7 +88,7 @@
     "kurirName": "Joko",
     "pdfFilePath": "/docs/customs/shp1004_vat.pdf",
     "kodePajak": "GBR-VAT-001",
-    "logStatusList": [
+    "logStatus": [
       {
         "datetime": "2025-06-06T09:00:00",
         "status": "MENUNGGU_KONFIRMASI",
@@ -110,7 +110,7 @@
     "listIdParsel": [107],
     "kurirId": 202,
     "kurirName": "Siti",
-    "logStatusList": [
+    "logStatus": [
       {
         "datetime": "2025-05-30T08:00:00",
         "status": "DIKIRIM",
@@ -137,7 +137,7 @@
     "listIdParsel": [108],
     "kurirId": 204,
     "kurirName": "Dewi",
-    "logStatusList": [
+    "logStatus": [
       {
         "datetime": "2025-06-03T09:30:00",
         "status": "DIKIRIM",

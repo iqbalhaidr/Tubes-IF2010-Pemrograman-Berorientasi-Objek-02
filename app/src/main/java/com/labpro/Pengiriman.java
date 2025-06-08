@@ -226,7 +226,7 @@ public abstract class Pengiriman implements Data {
                 ", tujuan='" + tujuan + '\'' +"\n"+
                 ", kurirId=" + kurirId +"\n"+
                 "StatusPengiriman='" + statusPengiriman + '\'' +"\n"+
-                '}' +"\n\n";
+                "logStatus" + this.logStatus +"\n" + "\n"+;
     }
 
     public abstract String getType();

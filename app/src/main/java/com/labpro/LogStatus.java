@@ -39,4 +39,12 @@ public class LogStatus {
         this.pesan = pesan;
     }
 
+    @Override
+    public String toString() {
+        return "\nLogStatus{" +
+                "datetime=" + datetime +
+                ", status=" + status +
+                ", pesan='" + pesan + '\'' +
+                '}';
+    }
 }
