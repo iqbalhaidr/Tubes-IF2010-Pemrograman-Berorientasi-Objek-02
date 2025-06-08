@@ -59,11 +59,13 @@ public class MainApp extends Application {
                     .collect(Collectors.toList());
             System.out.println("ParselRepository diinisialisasi. Parsel Terfilter: " + filteredParsels.size());
 
+
             // Pengiriman Repository
             Map<String, Class<? extends Pengiriman>> pengirimanSubtypeMap = new HashMap<>();
             pengirimanSubtypeMap.put("INTERNASIONAL", PengirimanInternasional.class);
             pengirimanSubtypeMap.put("DOMESTIK", PengirimanDomestik.class);
             Adapter<Pengiriman> adapterPengiriman = new Adapter<>(pengirimanPath, Pengiriman.class, "type", pengirimanSubtypeMap);
+
             List<Pengiriman> allPengiriman = adapterPengiriman.parseList();
 
             // Generate ParselList dan Kurir untuk setiap Pengiriman setelah deserialisasi
