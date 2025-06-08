@@ -22,7 +22,6 @@ public abstract class Pengiriman implements Data {
     protected List<Integer> listIdParsel;
     protected List<Parsel> listOfParsel;
     protected Integer kurirId;
-    protected String kurirName;
     protected String pdfFilePath;
     protected String kodePajak;
     protected Kurir kurir;
@@ -178,12 +177,9 @@ public abstract class Pengiriman implements Data {
     }
 
     public String getKurirName() {
-        return this.kurirName;
+        return this.kurir.getName();
     }
 
-    public void setKurirName(String kurirName) {
-        this.kurirName = kurirName;
-    }
 
     public void addParsel(Parsel parsel) {
         if (this.listOfParsel == null) {
