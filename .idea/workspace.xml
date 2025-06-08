@@ -4,20 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8c5091a-5446-4435-8390-b8891eb30457" name="Changes" comment="feat: current manajemen kurir dashboard">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/if2010-tubes-2-2425-lah.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/MainApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/MainApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/PengirimanView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/PengirimanView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/RepoPengirimanController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/RepoPengirimanController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/TestMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/TestMain.java" afterDir="false" />
+    <list default="true" id="f8c5091a-5446-4435-8390-b8891eb30457" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/ManajemenParselDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/labpro/uiControl/ManajemenParselDashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/resources/fxml/ParselView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/fxml/ParselView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,10 +72,11 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "git-widget-placeholder": "parseldankurir-aufa",
+    "git-widget-placeholder": "UILogin-joel",
     "go.import.settings.migrated": "true",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "D:/Codes/SEMESTER4IF/Codes/OOP/if2010-tubes-2-2425-lah",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
