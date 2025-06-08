@@ -34,12 +34,12 @@ public class MainApp extends Application {
 
         try {
             // --- 1. Definisi Path File JSON ---
-            String kurirJsonPath = "D:\\Codes\\SEMESTER4IF\\Codes\\OOP\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\dummyData\\Kurir.json";
-            String parselPath = "D:\\Codes\\SEMESTER4IF\\Codes\\OOP\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\dummyData\\Parsel.json";
-            String pengirimanPath = "D:\\Codes\\SEMESTER4IF\\Codes\\OOP\\if2010-tubes-2-2425-lah\\app\\src\\main\\java\\com\\labpro\\dummyData\\Pengiriman.json";
+            String kurirJsonPath = "src/main/resources/Data/Kurir.json";
+            String parselPath = "src/main/resources/Data/Parsel.json";
+            String pengirimanPath = "src/main/resources/Data/Pengiriman.json";
 
             System.out.println("Memulai inisialisasi data...");
-
+            System.out.println(kurirJsonPath);
             // --- 2. Inisialisasi Repository Layer ---
             // Kurir Repository
             Adapter<Kurir> kurirAdapter = new Adapter<>(kurirJsonPath, Kurir.class);
