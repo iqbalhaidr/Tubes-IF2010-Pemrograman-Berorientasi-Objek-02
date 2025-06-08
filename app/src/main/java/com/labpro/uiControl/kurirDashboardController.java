@@ -200,7 +200,6 @@ public class kurirDashboardController {
     }
 
     private void loadTableData() {
-
         if (pengirimanService != null && loggedInKurir != null) {
             this.masterDataPengiriman = pengirimanService.getPengirimanByKurir(loggedInKurir);
             int pageCount = (int) Math.ceil((double) masterDataPengiriman.size() / rowsPerPage);

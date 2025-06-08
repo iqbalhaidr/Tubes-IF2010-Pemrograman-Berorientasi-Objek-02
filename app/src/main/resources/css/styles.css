@@ -2,8 +2,7 @@
 .status-menunggu_kurir,
 .status-dikirim,
 .status-tiba_di_tujuan,
-.status-gagal,
-.status-diproses{
+.status-gagal {
     -fx-background-color: #ffeb3b; /* Kuning */
     -fx-text-fill: #333333;
     -fx-padding: 4px 8px; /* Padding DI DALAM BADGE */
@@ -22,10 +21,6 @@
 .status-gagal {
     -fx-background-color: #ffcdd2;
 }
-.status-diproses {
-    -fx-background-color: #f18e93;
-}
-
 .table-view .table-cell {
     -fx-padding: 0;
     -fx-alignment: CENTER_LEFT;

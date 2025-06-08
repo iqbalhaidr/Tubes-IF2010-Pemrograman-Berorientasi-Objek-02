@@ -66,7 +66,7 @@ public class RepoPengirimanController implements Listener {
     }
 
     public List<Pengiriman> getPengirimanByKurir(Kurir kurir){
-//        System.out.println("INI DIA DATANYA " + pengirimanMap.get(kurir));
+        System.out.println("INI DIA DATANYA " + pengirimanMap.get(kurir));
         return pengirimanMap.get(kurir);
     }
 

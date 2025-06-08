@@ -10,11 +10,11 @@ import javafx.scene.control.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List; // Menggunakan List
 import java.util.stream.Collectors;
 
 public class PengirimanView {
     @FXML private TableView<Pengiriman> kurirTable;
+//    @FXML private TableColumn<Pengiriman, String> namaKurir;
     @FXML private TableColumn<Pengiriman, String> namaKurir;
     @FXML private TableColumn<Pengiriman, String> namaParsel;
     @FXML private TableColumn<Pengiriman, String> alamat;
@@ -32,16 +32,18 @@ public class PengirimanView {
 
     @FXML private TextField searchField;
 
-    private final int rowsPerPage = 4;
+    private final int rowsPerPage = 2;
     private ArrayList<Pengiriman> allData;
     private ArrayList<Pengiriman> currentData;
     private PengirimanSearcher<Pengiriman> searcher;
     private String selectedTipe = "Semua";
     private StatusPengiriman selectedStatus = null;
 
+//    @FXML private TableColumn<Pengiriman, String> status;
+
     private RepoPengirimanController controller;
 
-    public void setController(RepoPengirimanController controller) {
+    public void setRepoPengirimanController(RepoPengirimanController controller) {
         this.controller = controller;
     }
 
@@ -49,17 +51,9 @@ public class PengirimanView {
     public void initialize() {
 
         statusFilter.setItems(FXCollections.observableArrayList(StatusPengiriman.values()));
-        // Listener untuk statusFilter (jika belum ada, tambahkan)
-        statusFilter.valueProperty().addListener((
-                obs,
-                oldVal,
-                newVal) -> {
-            selectedStatus = newVal;
-            applyCombinedFilter();
-        });
-
 
         System.out.println("PengirimanView initialize");
+//        System.out.println(controller.getPengiriman().get(0).getKurir().getName());
         idPengiriman.setCellValueFactory(cellData ->
                 new javafx.beans.property.SimpleStringProperty(cellData.getValue().getIdPengiriman().toString()))
         ;
@@ -91,12 +85,7 @@ public class PengirimanView {
                     Label statusLabel = new Label(status);
                     statusLabel.setAlignment(Pos.CENTER);
 
-                    statusLabel.getStyleClass().removeAll(
-                            "status-menunggu_kurir",
-                            "status-dikirim",
-                            "status-tiba_di_tujuan",
-                            "status-gagal",
-                            "status-diproses");
+                    statusLabel.getStyleClass().removeAll("status-menunggu_kurir", "status-dikirim", "status-tiba_di_tujuan", "status-gagal", "status-diproses");
                     String cssClass = "status-" + status.toLowerCase().replace(" ", "_");
                     statusLabel.getStyleClass().addAll("status-label", cssClass);
 
@@ -104,42 +93,6 @@ public class PengirimanView {
                     setText(null);
                 }
             }
-        });
-
-        // Listener untuk searchField
-        searchField.textProperty().addListener((
-                obs,
-                oldText,
-                newText) -> {
-            applyCombinedFilter();
-        });
-
-        // Listener untuk filterGroup
-        if (filterGroup != null) {
-            filterGroup.selectedToggleProperty().addListener((
-                    obs,
-                    oldToggle,
-                    newToggle) -> {
-                if (newToggle == btnDomestik) selectedTipe = "DOMESTIK";
-                else if (newToggle == btnInternasional) selectedTipe = "INTERNASIONAL";
-                else selectedTipe = "Semua";
-                applyCombinedFilter();
-            });
-        }
-
-
-        if (controller == null) {
-            System.err.println("WARNING: RepoPengirimanController bernilai null di initialize(). Pastikan sudah diinjeksi.");
-        } else {
-            initializeData();
-        }
-
-        // Listener untuk pagination
-        pagination.currentPageIndexProperty().addListener((
-                obs,
-                oldIndex,
-                newIndex) -> {
-            updateTable(newIndex.intValue());
         });
     }
 
@@ -149,21 +102,21 @@ public class PengirimanView {
             allData = (ArrayList<Pengiriman>) controller.getPengiriman();
             currentData = new ArrayList<>(allData);
             searcher = new PengirimanSearcher<>(allData);
+            if (allData != null && !allData.isEmpty()) {
+                int pageCount = (int) Math.ceil((double) allData.size() / rowsPerPage);
+                pagination.setPageCount(pageCount);
+                pagination.setCurrentPageIndex(0);
 
-            // PENTING: Inisialisasi state filter awal
-            searchField.clear();
-            selectedTipe = "Semua";
-            selectedStatus = null;
-            if (statusFilter != null) {
-                statusFilter.getSelectionModel().clearSelection();
+                updateTable(0);
+
+                pagination.currentPageIndexProperty().addListener((obs, oldIndex, newIndex) -> {
+                    updateTable(newIndex.intValue());
+                });
+
+
+            } else {
+                System.out.println("No pengiriman data found.");
             }
-            if (filterGroup != null && btnSemua != null) {
-                filterGroup.selectToggle(btnSemua);
-            }
-
-            // Panggil applyCombinedFilter untuk melakukan pemuatan data awal berdasarkan default filter
-            applyCombinedFilter();
-
         } else {
             System.err.println("RepoPengirimanController is not set!");
         }
@@ -172,57 +125,58 @@ public class PengirimanView {
     private void updateTable(int pageIndex) {
         int fromIndex = pageIndex * rowsPerPage;
         int toIndex = Math.min(fromIndex + rowsPerPage, currentData.size());
-
-        // Pastikan currentData tidak kosong atau indeks tidak di luar batas
-        if (currentData.isEmpty() || fromIndex >= currentData.size()) {
-            kurirTable.setItems(FXCollections.observableArrayList());
-            return;
-        }
-
         kurirTable.setItems(FXCollections.observableArrayList(currentData.subList(fromIndex, toIndex)));
     }
 
     private void updatePagination(ArrayList<Pengiriman> data) {
-        int pageCount = (data != null && !data.isEmpty()) ? (int) Math.ceil((double) data.size() / rowsPerPage) : 1;
+        int pageCount = (int) Math.ceil((double) data.size() / rowsPerPage);
         pagination.setPageCount(pageCount);
-
-        // Atur ulang currentPageIndex ke 0 setiap kali filter berubah
         pagination.setCurrentPageIndex(0);
+        updateTable(0);
 
-        updateTable(0); // Update tabel untuk halaman pertamag baru
+        pagination.currentPageIndexProperty().addListener((obs, oldIndex, newIndex) -> {
+            updateTable(newIndex.intValue());
+        });
     }
 
     @FXML
     private void handleSearchButton() {
-        applyCombinedFilter();
+        String query = searchField.getText();
+        SearchCriteria criteria = new SearchCriteria(query);
+        Collection<? extends Pengiriman> results = searcher.search(criteria);
+        currentData = results.stream()
+                .filter(p -> "Semua".equals(selectedTipe) || selectedTipe.equals(p.getType()))
+                .filter(p -> selectedStatus == null || selectedStatus.equals(p.getStatusPengiriman()))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        updatePagination(currentData);
     }
 
     @FXML
     private void handleClearSearch() {
-        searchField.clear();
+        searchField.clear(); // Clear search
         selectedTipe = "Semua";
         selectedStatus = null;
-        statusFilter.getSelectionModel().clearSelection();
+        statusFilter.getSelectionModel().clearSelection(); // reset ComboBox
+        currentData = new ArrayList<>(allData);
         filterGroup.selectToggle(btnSemua);
-        applyCombinedFilter();
+        updatePagination(currentData);
     }
-
     @FXML
     private void handleDomestik() {
-        selectedTipe = "DOMESTIK";
+        selectedTipe = "Domestik";
         applyCombinedFilter();
     }
 
     @FXML
     private void handleInternasional() {
-        selectedTipe = "INTERNASIONAL";
+        selectedTipe = "Internasional";
         applyCombinedFilter();
     }
 
     @FXML
     private void handleSemua() {
         selectedTipe = "Semua";
-        filterGroup.selectToggle(btnSemua);
         applyCombinedFilter();
     }
 
@@ -233,38 +187,6 @@ public class PengirimanView {
     }
 
     private void applyCombinedFilter() {
-        if (allData == null) {
-            System.err.println("allData is null in applyCombinedFilter. Cannot filter.");
-            currentData = new ArrayList<>();
-            updatePagination(currentData);
-            return;
-        }
-
-        List<Pengiriman> filteredList = new ArrayList<>(allData);
-
-        // 1. Terapkan filter pencarian teks
-        String query = searchField.getText();
-        if (query != null && !query.trim().isEmpty()) {
-            SearchCriteria criteria = new SearchCriteria(query.trim());
-            Collection<? extends Pengiriman> searchResults = searcher.search(criteria);
-            filteredList = new ArrayList<>(searchResults);
-        }
-
-        // 2. Terapkan filter tipe (Domestik/Internasional/Semua)
-        if (!"Semua".equals(selectedTipe)) {
-            filteredList = filteredList.stream()
-                    .filter(p -> selectedTipe.equalsIgnoreCase(p.getType()))
-                    .collect(Collectors.toCollection(ArrayList::new));
-        }
-
-        // 3. Terapkan filter status
-        if (selectedStatus != null) {
-            filteredList = filteredList.stream()
-                    .filter(p -> selectedStatus.equals(p.getStatusPengiriman()))
-                    .collect(Collectors.toCollection(ArrayList::new));
-        }
-
-        currentData = new ArrayList<>(filteredList);
-        updatePagination(currentData);
+        handleSearchButton();
     }
 }
